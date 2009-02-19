@@ -8,9 +8,9 @@ import java.util.GregorianCalendar;
  */
 public class Task {
 
-	static String costumer=null;
-	static int duration;
-	static GregorianCalendar startDate=new GregorianCalendar();
+	String costumer;
+	int duration;
+	GregorianCalendar startDate = new GregorianCalendar();
 	
 	/**
 	 * Construktor.
@@ -33,14 +33,14 @@ public class Task {
 	public static void main(String[] args) {
 		Task test = new Task("nånne", 1, 2009, 0, 28);
 		test.skrivUt();
-		test.skrivUt();
+		
 	}
 	
 	/**
 	 * Bara för att testa.
 	 * @return skriver ut en task.
 	 */
-	public static void skrivUt() {
+	public void skrivUt() {
 		System.out.println("kund: " + getCostumer());
 		System.out.println("duration: " + getDuration());
     	System.out.println("start " + getStartDate().getTime());
@@ -48,33 +48,33 @@ public class Task {
 
 	}
 
-	public static String getCostumer() {
-		return costumer;
+	public String getCostumer() {
+		return this.costumer;
 	}
 
-	public static void setCostumer(String costumer) {
-		Task.costumer = costumer;
+	public void setCostumer(String costumer) {
+		this.costumer = costumer;
 	}
 
-	public static int getDuration() {
-		return duration;
+	public int getDuration() {
+		return this.duration;
 	}
 
-	public static void setDuration(int duration) {
-		Task.duration = duration;
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
-	public static void setStartDate(GregorianCalendar startDate) {
-		Task.startDate = startDate;
+	public void setStartDate(GregorianCalendar startDate) {
+		this.startDate = startDate;
 	}
-	public static GregorianCalendar getStartDate() {
+	public GregorianCalendar getStartDate() {
 		return startDate;
 	}
 	/**
 	 * Calclate End-date.
 	 * @return the endDate.
 	 */
-	public static GregorianCalendar getEndDate() {
+	public GregorianCalendar getEndDate() {
 		GregorianCalendar endDate = (GregorianCalendar) startDate.clone();
 		endDate.add(Calendar.DAY_OF_MONTH, duration);
 		return endDate;
