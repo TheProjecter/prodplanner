@@ -11,16 +11,19 @@ public class Task {
 	String costumer;
 	int duration;
 	GregorianCalendar startDate = new GregorianCalendar();
+	int id=0;
 	
 	/**
 	 * Construktor.
+	 * @param task id-number
 	 * @param costumer the name of the costumer
 	 * @param duration the job-duration in days
 	 * @param start year
 	 * @param start month
 	 * @param start date
 	 */
-    public Task(String costumer, int duration, int year, int month, int date) {
+    public Task(int id, String costumer, int duration, int year, int month, int date) {
+    	this.id=id;
     	this.costumer= costumer;
     	this.duration= duration;
         startDate = new GregorianCalendar(year, month, date);
@@ -31,7 +34,7 @@ public class Task {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Task test = new Task("nånne", 1, 2009, 0, 28);
+		Task test = new Task(1, "nånne", 1, 2009, 0, 28);
 		test.skrivUt();
 		
 	}
@@ -45,7 +48,6 @@ public class Task {
 		System.out.println("duration: " + getDuration());
     	System.out.println("start " + getStartDate().getTime());
     	System.out.println("end " + getEndDate().getTime());
-
 	}
 
 	public String getCostumer() {
@@ -71,6 +73,13 @@ public class Task {
 		return startDate;
 	}
 	/**
+	 * return task-id
+	 * @return int id, the task id .
+	 */
+	public int getId() {
+		return this.id;
+	}
+	/**
 	 * Calclate End-date.
 	 * @return the endDate.
 	 */
@@ -78,5 +87,22 @@ public class Task {
 		GregorianCalendar endDate = (GregorianCalendar) startDate.clone();
 		endDate.add(Calendar.DAY_OF_MONTH, duration);
 		return endDate;
+	}
+	/**
+	 * Calclate End-date.
+	 * @return Long the endDate in milli seconds.
+	 */
+	public long getEndDateInMillis() {
+		GregorianCalendar endDate = (GregorianCalendar) startDate.clone();
+		endDate.add(Calendar.DAY_OF_MONTH, duration);
+		return endDate.getTimeInMillis();
+	}
+	
+	/**
+	 * Calclate start date.
+	 * @return Long the endDate in milli seconds.
+	 */
+	public long getStartDateInMillis() {
+		return startDate.getTimeInMillis();
 	}
 }
