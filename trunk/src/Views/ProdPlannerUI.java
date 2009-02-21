@@ -1,13 +1,10 @@
 package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 import javax.swing.JTable;
-
-import Models.Task;
 
 public class ProdPlannerUI {
 
