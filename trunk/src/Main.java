@@ -1,69 +1,24 @@
-import java.util.ArrayList;
-
-import Models.Task;
+import Views.ProdPlannerUI;
 
 /**
+ * Main class
  * 
- */
-
-/**
- * Prodplanner
+ * Executing the ProdPlannerUI class for viewing the
+ * application. 
  * 
- * @author pompa
- *
+ * @author pompa, simonko
+ * @version 0.1.0
  */
 public class Main {
-	ArrayList<Task> tasks = new ArrayList<Task>();
 	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	/** Global settings for the application **/
+	private static final String VERSION = "0.1.0";
+	private static final String TITLE = "ProdPlanner";
+	
 
-	}
-	
-	/**
-	 * moveMent - Om en en task crashar med en annan efter att
-	 * man har flyttat den.
-	 * 
-	 * @return true om flytten är ok!
-	 * @param args
-	 */
-	public boolean moveStartDate(Task a) {
-		for (int i=0; i<tasks.size();i++){
-			if (a.getId()!=tasks.get(i).getId()){
-				//om task a's start datum ligger i någon annan tasks-intervall... då returnerar vi false.
-				if (a.getStartDate().getTimeInMillis()<tasks.get(i).getEndDate().getTimeInMillis() && a.getStartDate().getTimeInMillis()>tasks.get(i).getStartDate().getTimeInMillis()){
-					return false;
-					//Du har försökt ändra Task a's start-datum?
-				}
-				else {
-					
-				}
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * moveMent - Om en en task crashar med en annan efter att
-	 * man har ändrat/flyttat dess duration.
-	 * 
-	 * @return true om flytten är ok!
-	 * @param args
-	 */
-	public boolean moveEndDate(Task a) {
-		for (int i=0; i<tasks.size();i++){
-			if (a.getId()!=tasks.get(i).getId()){
-				//om task a's start datum ligger i någon annan tasks-intervall... då returnerar vi false.
-				if (a.getStartDateInMillis()<tasks.get(i).getEndDateInMillis() && a.getStartDate().getTimeInMillis()>tasks.get(i).getStartDateInMillis()){
-					return false;
-					//Du har försökt ändra Task a's start-datum?
-				}
-			}
-		}
-		return true;
+	public static void main(String[] args) {
+		// create view for main GUI
+		new ProdPlannerUI(TITLE + " " + VERSION);
 	}
 
 }
