@@ -1,11 +1,21 @@
 package Controllers;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 import Models.Task;
 
 
 public class TaskController {
 	ArrayList<Task> tasks = new ArrayList<Task>();	
 	
+	
+	/**
+	 * Construktor.
+	 */
+    public TaskController() {
+    }
+    
+    
 	/**
 	 * moveMent - Om en en task crashar med en annan efter att
 	 * man har flyttat den.
@@ -46,5 +56,15 @@ public class TaskController {
 			}
 		}
 		return true;
+	}
+	/**
+	 * addTask - Lägger till en task i ArrayListen och skapar ett nytt Task element.
+	 * 
+	 * @param args
+	 */
+	public void addTask() {
+		Task temp = new Task();
+		tasks.add(temp);
+		System.out.println("Ny task skapad");	
 	}
 }
