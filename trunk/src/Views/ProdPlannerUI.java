@@ -4,8 +4,11 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
+import java.util.Vector;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import Controllers.TaskController;
 
@@ -31,6 +34,8 @@ public class ProdPlannerUI {
 	 */
 	private JFrame getJFrame(String title) {
 		if (jFrame == null) {
+			
+			
 			jFrame = new JFrame(title);
 			jFrame.setSize(new Dimension(708, 331));
 			jFrame.setContentPane(getJContentPane());
@@ -70,10 +75,8 @@ public class ProdPlannerUI {
 					taskController.addTask();
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					System.out.println(jTable.getRowCount());
-				    model.insertRow(0, new Object[]{""});
-					
-					
-					
+					System.out.println(jTable.getColumnCount());
+				    model.insertRow(0, new Object[]{"fd","fd","fd","sd","as","asd"});
 				}
 			});
 		}
@@ -87,16 +90,35 @@ public class ProdPlannerUI {
 	 */
 	private JTable getJTable() {
 		if (jTable == null) {
+			Vector vec = new Vector();
+			vec.addElement("Costumer");
+			vec.addElement("Duration");
+			vec.addElement("Start");
+			vec.addElement("End");
+			vec.addElement("Earliest");
+			vec.addElement("Latest");
+
+			model.setColumnIdentifiers(vec);
 			jTable = new JTable(model);
+		
 			jTable.setBounds(new Rectangle(300, 197, 375, 80));
-			model.addColumn("Costumer");
-			model.addColumn("Duration");
-			model.addColumn("Start");
-			model.addColumn("End");
-			model.addColumn("Earliest");
-			model.addColumn("Latest");
-			
-			
+
+			model.addTableModelListener(new javax.swing.event.TableModelListener() {
+				public void tableChanged(javax.swing.event.TableModelEvent e) {
+			        TableModel model = (TableModel)e.getSource();
+			        int a = e.getColumn();
+			        int b =e.getFirstRow();
+			        try {
+						model.getValueAt(a, b);
+						System.out.println("tableChanged()" + a + ", " + b + ", " + model.getValueAt(a, b)); // TODO Auto-generated Event stub tableChanged()
+
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	
+				}
+			});
 		}
 		return jTable;
 	}
