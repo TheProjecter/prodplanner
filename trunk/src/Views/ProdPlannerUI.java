@@ -18,6 +18,7 @@ public class ProdPlannerUI {
 	private JPanel jContentPane = null;
 	private JButton jButton = null;
 	private JTable jTable = null;
+	private int rowCount=0;
 	TaskController taskController = new TaskController();  //  @jve:decl-index=0:
     DefaultTableModel model = new DefaultTableModel();
 
@@ -76,7 +77,7 @@ public class ProdPlannerUI {
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					System.out.println(jTable.getRowCount());
 					System.out.println(jTable.getColumnCount());
-				    model.insertRow(0, new Object[]{"fd","fd","fd","sd","as","asd"});
+					model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
 				}
 			});
 		}
@@ -90,27 +91,31 @@ public class ProdPlannerUI {
 	 */
 	private JTable getJTable() {
 		if (jTable == null) {
-			Vector vec = new Vector();
+//			String[] titles = new String[]{"Costumer", "Duration", "Start", "End", "Earliest", "Latest"}; 
+//			Object[][] data = {{"", "", "", "", "", ""}};
+			Vector<String> vec = new Vector<String>();
+
+
+			model.setColumnIdentifiers(vec);
 			vec.addElement("Costumer");
 			vec.addElement("Duration");
 			vec.addElement("Start");
 			vec.addElement("End");
 			vec.addElement("Earliest");
 			vec.addElement("Latest");
-
-			model.setColumnIdentifiers(vec);
 			jTable = new JTable(model);
-		
+			
 			jTable.setBounds(new Rectangle(300, 197, 375, 80));
-
+			
 			model.addTableModelListener(new javax.swing.event.TableModelListener() {
 				public void tableChanged(javax.swing.event.TableModelEvent e) {
 			        TableModel model = (TableModel)e.getSource();
 			        int a = e.getColumn();
 			        int b =e.getFirstRow();
 			        try {
-						model.getValueAt(a, b);
 						System.out.println("tableChanged()" + a + ", " + b + ", " + model.getValueAt(a, b)); // TODO Auto-generated Event stub tableChanged()
+					   // taskController.addDuration(model.getValueAt(a, b));
+
 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
