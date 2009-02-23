@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import Controllers.TaskController;
 
 public class ProdPlannerUI {
 
@@ -12,7 +15,9 @@ public class ProdPlannerUI {
 	private JPanel jContentPane = null;
 	private JButton jButton = null;
 	private JTable jTable = null;
-	
+	TaskController taskController = new TaskController();  //  @jve:decl-index=0:
+    DefaultTableModel model = new DefaultTableModel();
+
 
 	public ProdPlannerUI(String title)
 	{
@@ -60,6 +65,17 @@ public class ProdPlannerUI {
 			jButton = new JButton();
 			jButton.setBounds(new Rectangle(30, 232, 106, 31));
 			jButton.setText("New Task");
+			jButton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					taskController.addTask();
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					System.out.println(jTable.getRowCount());
+				    model.insertRow(0, new Object[]{""});
+					
+					
+					
+				}
+			});
 		}
 		return jButton;
 	}
@@ -71,8 +87,15 @@ public class ProdPlannerUI {
 	 */
 	private JTable getJTable() {
 		if (jTable == null) {
-			jTable = new JTable();
+			jTable = new JTable(model);
 			jTable.setBounds(new Rectangle(300, 197, 375, 80));
+			model.addColumn("Costumer");
+			model.addColumn("Duration");
+			model.addColumn("Start");
+			model.addColumn("End");
+			model.addColumn("Earliest");
+			model.addColumn("Latest");
+			
 			
 		}
 		return jTable;
