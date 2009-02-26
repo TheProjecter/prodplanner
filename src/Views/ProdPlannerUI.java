@@ -1,10 +1,11 @@
 package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
-import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,18 +15,18 @@ import Controllers.TaskController;
 
 public class ProdPlannerUI {
 
-	private JFrame jFrame = null;
+	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="8,7"
 	private JPanel jContentPane = null;
 	private JButton jButton = null;
 	private JTable jTable = null;
-	private int rowCount=0;
 	TaskController taskController = new TaskController();  //  @jve:decl-index=0:
     DefaultTableModel model = new DefaultTableModel();
-
-
-	public ProdPlannerUI(String title)
+	private JScrollPane tableScroll = null;
+	private JButton deleteButton = null;
+	
+	public ProdPlannerUI()
 	{
-		getJFrame(title);
+		getJFrame();
 	}
 	
 	/**
@@ -33,12 +34,12 @@ public class ProdPlannerUI {
 	 * 	
 	 * @return javax.swing.JFrame	
 	 */
-	private JFrame getJFrame(String title) {
+	private JFrame getJFrame() {
 		if (jFrame == null) {
 			
 			
-			jFrame = new JFrame(title);
-			jFrame.setSize(new Dimension(708, 331));
+			jFrame = new JFrame();
+			jFrame.setSize(new Dimension(708, 442));
 			jFrame.setContentPane(getJContentPane());
 			jFrame.setVisible(true);
 			
@@ -57,6 +58,8 @@ public class ProdPlannerUI {
  			jContentPane.setLayout(null);
  			jContentPane.add(getJButton(), null);
  			jContentPane.add(getJTable(), null);
+ 			jContentPane.add(getTableScroll(), null);
+ 			jContentPane.add(getDeleteButton(), null);
 		}
 		return jContentPane;
 	}
@@ -69,17 +72,17 @@ public class ProdPlannerUI {
 	private JButton getJButton() {
 		if (jButton == null) {
 			jButton = new JButton();
-			jButton.setBounds(new Rectangle(30, 232, 106, 31));
-			jButton.setText("New Task");
+			jButton.setBounds(new Rectangle(15, 255, 106, 31));
+			jButton.setText("New");
 			jButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					taskController.addTask();
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					System.out.println(jTable.getRowCount());
 					System.out.println(jTable.getColumnCount());
-					String[] data = new String[]{"Costumer", "Duration", "Start", "End", "Earliest", "Latest"}; 
-
-					model.addRow(data);
+					
+					//model.addRow(data);
+					model.insertRow(jTable.getRowCount(), new Object[] {jTable.getRowCount()} );
 					//model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
 				}
 			});
@@ -94,26 +97,20 @@ public class ProdPlannerUI {
 	 */
 	private JTable getJTable() {
 		if (jTable == null) {
-//			String[] titles = new String[]{"Costumer", "Duration", "Start", "End", "Earliest", "Latest"}; 
-//			Object[][] data = {{"", "", "", "", "", ""}};
-//			Vector<String> vec = new Vector<String>();
-			String[] titles = new String[6]; 
+			String[] titles = new String[]{
+					"ID",
+					"Customer", 
+					"Duration", 
+					"Start", 
+					"End", 
+					"Earliest", 
+					"Latest"}; 
 			model.setColumnIdentifiers(titles);
-
-			String[] data = new String[]{"Costumer", "Duration", "Start", "End", "Earliest", "Latest"}; 
-			model.addRow(data);
-
-//			model.setColumnIdentifiers(vec);
-//			vec.addElement("Costumer");
-//			vec.addElement("Duration");
-//			vec.addElement("Start");
-//			vec.addElement("End");
-//			vec.addElement("Earliest");
-//			vec.addElement("Latest");
 		
 			jTable = new JTable(model);
+			//jTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
 			
-			jTable.setBounds(new Rectangle(300, 197, 375, 80));
+			
 			
 			model.addTableModelListener(new javax.swing.event.TableModelListener() {
 				public void tableChanged(javax.swing.event.TableModelEvent e) {
@@ -136,4 +133,30 @@ public class ProdPlannerUI {
 		return jTable;
 	}
 
+	/**
+	 * This method initializes tableScroll	
+	 * 	
+	 * @return javax.swing.JScrollPane	
+	 */
+	private JScrollPane getTableScroll() {
+		if (tableScroll == null) {
+			tableScroll = new JScrollPane(jTable);
+			tableScroll.setBounds(new Rectangle(135, 255, 541, 136));
+		}
+		return tableScroll;
+	}
+
+	/**
+	 * This method initializes deleteButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getDeleteButton() {
+		if (deleteButton == null) {
+			deleteButton = new JButton();
+			deleteButton.setBounds(new Rectangle(15, 300, 106, 31));
+			deleteButton.setText("Delete");
+		}
+		return deleteButton;
+	}
 }
