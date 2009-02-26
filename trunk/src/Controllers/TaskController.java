@@ -1,6 +1,5 @@
 package Controllers;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import Models.Task;
 
@@ -8,13 +7,9 @@ import Models.Task;
 public class TaskController {
 	ArrayList<Task> tasks = new ArrayList<Task>();	
 	
-	
-	/**
-	 * Construktor.
-	 */
-    public TaskController() {
+    public TaskController() 
+    {
     }
-    
     
 	/**
 	 * moveMent - Om en en task crashar med en annan efter att
@@ -48,7 +43,8 @@ public class TaskController {
 	public boolean moveEndDate(Task a) {
 		for (int i=0; i<tasks.size();i++){
 			if (a.getId()!=tasks.get(i).getId()){
-				//om task a's start datum ligger i någon annan tasks-intervall... då returnerar vi false.
+				//om task a's start datum ligger i någon annan 
+				//tasks-intervall... då returnerar vi false.
 				if (a.getStartDateInMillis()<tasks.get(i).getEndDateInMillis() && a.getStartDate().getTimeInMillis()>tasks.get(i).getStartDateInMillis()){
 					return false;
 					//Du har försökt ändra Task a's start-datum?
@@ -58,12 +54,13 @@ public class TaskController {
 		return true;
 	}
 	/**
-	 * addTask - Lägger till en task i ArrayListen och skapar ett nytt Task element.
+	 * addTask - Lägger till en task i ArrayListen och 
+	 * skapar ett nytt Task element.
 	 * 
 	 * @param args
 	 */
 	public void addTask() {
-		Task temp = new Task();
+		Task temp = new Task(0, null, 0, 0, 0, 0); // TODO: Fixa rätt input.
 		tasks.add(temp);
 		System.out.println("Ny task skapad");	
 	}
