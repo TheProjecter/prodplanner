@@ -21,6 +21,6 @@ public class Main {
 	public static void main(String[] args) {
 		// create view for main GUI
 		String title = TITLE + " " + VERSION;
-		new ProdPlannerUI(title);
+		new ProdPlannerUI(title); // najs
 	}
 }
