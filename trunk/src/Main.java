@@ -18,7 +18,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// create view for main GUI
-		new ProdPlannerUI(TITLE + " " + VERSION);
+		new ProdPlannerUI();
 	}
 
 }
