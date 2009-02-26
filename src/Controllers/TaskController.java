@@ -1,5 +1,6 @@
 package Controllers;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import Models.Task;
 
@@ -59,9 +60,43 @@ public class TaskController {
 	 * 
 	 * @param args
 	 */
-	public void addTask() {
-		Task temp = new Task(0, null, 0, 0, 0, 0); // TODO: Fixa rätt input.
+	public void addTask(int ID) {
+		Task temp = new Task(ID,"", 10); // TODO: Fixa rätt input.
 		tasks.add(temp);
-		System.out.println("Ny task skapad");	
+		System.out.println("Ny task skapad");
+	}
+
+
+
+
+	public void printAll() {
+		for (int i=0; i<tasks.size();i++){
+			System.out.println("id " + i);
+			tasks.get(i).skrivUt();
+		}
+	}
+
+	public int getDuration(int i) {
+		return tasks.get(i).getDuration();
+	}
+
+	public String getEndDate(int i) {
+		return tasks.get(i).getStringEndDate();
+	}
+
+	public String getStartDate(int i) {
+		return tasks.get(i).getStringStartDate();
+	}
+
+	public void addCostumer(int i, String costumer) {
+		tasks.get(i).setCostumer(costumer);
+		
+	}
+	public void addDuration(int i, String duration) {
+		tasks.get(i).setDuration(duration);
+		
+	}
+	public void addStartDate(int i, String date) {
+		tasks.get(i).setStringDate(date);
 	}
 }
