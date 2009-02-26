@@ -6,11 +6,16 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import Controllers.ProdPlannerController;
 import Controllers.TaskController;
 
 public class ProdPlannerUI {
@@ -43,6 +48,7 @@ public class ProdPlannerUI {
 			jFrame = new JFrame(this.title);
 			jFrame.setSize(new Dimension(708, 442));
 			jFrame.setContentPane(getJContentPane());
+			jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			jFrame.setVisible(true);
 			
 		}
@@ -76,8 +82,8 @@ public class ProdPlannerUI {
 			jButton = new JButton();
 			jButton.setBounds(new Rectangle(15, 255, 106, 31));
 			jButton.setText("New");
-			jButton.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
+			jButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
 					taskController.addTask();
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					System.out.println(jTable.getRowCount());
