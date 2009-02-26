@@ -77,7 +77,10 @@ public class ProdPlannerUI {
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					System.out.println(jTable.getRowCount());
 					System.out.println(jTable.getColumnCount());
-					model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
+					String[] data = new String[]{"Costumer", "Duration", "Start", "End", "Earliest", "Latest"}; 
+
+					model.addRow(data);
+					//model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
 				}
 			});
 		}
@@ -93,16 +96,21 @@ public class ProdPlannerUI {
 		if (jTable == null) {
 //			String[] titles = new String[]{"Costumer", "Duration", "Start", "End", "Earliest", "Latest"}; 
 //			Object[][] data = {{"", "", "", "", "", ""}};
-			Vector<String> vec = new Vector<String>();
+//			Vector<String> vec = new Vector<String>();
+			String[] titles = new String[6]; 
+			model.setColumnIdentifiers(titles);
 
+			String[] data = new String[]{"Costumer", "Duration", "Start", "End", "Earliest", "Latest"}; 
+			model.addRow(data);
 
-			model.setColumnIdentifiers(vec);
-			vec.addElement("Costumer");
-			vec.addElement("Duration");
-			vec.addElement("Start");
-			vec.addElement("End");
-			vec.addElement("Earliest");
-			vec.addElement("Latest");
+//			model.setColumnIdentifiers(vec);
+//			vec.addElement("Costumer");
+//			vec.addElement("Duration");
+//			vec.addElement("Start");
+//			vec.addElement("End");
+//			vec.addElement("Earliest");
+//			vec.addElement("Latest");
+		
 			jTable = new JTable(model);
 			
 			jTable.setBounds(new Rectangle(300, 197, 375, 80));
@@ -111,15 +119,15 @@ public class ProdPlannerUI {
 				public void tableChanged(javax.swing.event.TableModelEvent e) {
 			        TableModel model = (TableModel)e.getSource();
 			        int a = e.getColumn();
-			        int b =e.getFirstRow();
+			        int b = e.getFirstRow();
 			        try {
-						System.out.println("tableChanged()" + a + ", " + b + ", " + model.getValueAt(a, b)); // TODO Auto-generated Event stub tableChanged()
+						System.out.println("tableChanged()" + a + ", " + b + ", " + model.getValueAt(b, a)); // TODO Auto-generated Event stub tableChanged()
 					   // taskController.addDuration(model.getValueAt(a, b));
 
 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						//e1.printStackTrace();
 					}
 	
 				}
