@@ -14,6 +14,8 @@ public class Main {
 	/** Global settings for the application **/
 	private static final String VERSION = "0.1.0";
 	private static final String TITLE = "ProdPlanner";
+	private static final String TITLsdfE = "ProdPlanner";
+	private static final String TITdsLE = "ProdPlanner";
 	
 
 	public static void main(String[] args) {
@@ -21,5 +23,4 @@ public class Main {
 		String title = TITLE + " " + VERSION;
 		new ProdPlannerUI(title);
 	}
-
 }
