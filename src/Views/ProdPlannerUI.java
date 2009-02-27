@@ -2,22 +2,15 @@ package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
-import Controllers.ProdPlannerController;
 import Controllers.TaskController;
-
 public class ProdPlannerUI {
 
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="8,7"
@@ -84,13 +77,17 @@ public class ProdPlannerUI {
 			jButton.setText("New");
 			jButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					taskController.addTask();
+					taskController.addTask(jTable.getRowCount());
+					int duration = taskController.getDuration(jTable.getRowCount());
+					String startDate = taskController.getStartDate(jTable.getRowCount());
+					String endDate = taskController.getEndDate(jTable.getRowCount());
+
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					System.out.println(jTable.getRowCount());
 					System.out.println(jTable.getColumnCount());
 					
 					//model.addRow(data);
-					model.insertRow(jTable.getRowCount(), new Object[] {jTable.getRowCount()} );
+					model.insertRow(jTable.getRowCount(), new Object[] {jTable.getRowCount(), "",duration,startDate,endDate} );
 					//model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
 				}
 			});
@@ -126,9 +123,26 @@ public class ProdPlannerUI {
 			        int a = e.getColumn();
 			        int b = e.getFirstRow();
 			        try {
-						System.out.println("tableChanged()" + a + ", " + b + ", " + model.getValueAt(b, a)); // TODO Auto-generated Event stub tableChanged()
-					   // taskController.addDuration(model.getValueAt(a, b));
 
+						System.out.println(a + ", " + b + ", " + model.getValueAt(b, a));  
+						if(a==1){ 
+							taskController.addCostumer(b,(String) model.getValueAt(b, a));
+						}
+						else if(a==2){ //duration
+							taskController.addDuration(b,(String) model.getValueAt(b, a));
+							model.setValueAt(taskController.getEndDate(b),b,4);
+
+						}
+						else if(a==3){ //start date
+							taskController.addStartDate(b,(String) model.getValueAt(b, a));
+							model.setValueAt(taskController.getEndDate(b),b,4);
+
+						}
+						else{
+							System.out.println("Other change " + a);
+						}
+						taskController.printAll();
+						System.out.println(taskController.getEndDate(b));
 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
