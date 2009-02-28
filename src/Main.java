@@ -19,7 +19,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		String title = TITLE + " " + VERSION;
-		new ProdPlannerController(new ProdPlannerUI(title));
+		new ProdPlannerController(new ProdPlannerUI());
 	
 	}
 }
