@@ -96,7 +96,7 @@ public class TaskController {
 		tasks.get(i).setDuration(duration);
 		
 	}
-	public void addStartDate(int i, String date) {
-		tasks.get(i).setStringDate(date);
+	public Boolean addStartDate(int i, String date) {
+		return tasks.get(i).setStringDate(date);
 	}
 }
