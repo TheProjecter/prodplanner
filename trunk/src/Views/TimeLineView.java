@@ -1,20 +1,21 @@
 package Views;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+import javax.swing.*;
+import java.awt.*;
 
-public class TimeLineView {
-	
-	public TimeLineView()
-	{
-		
+
+
+public class TimeLineView extends JPanel
+{
+	public void paintComponent(Graphics2D g) {
+		g.setColor(Color.blue);
+	    g.drawRect(10, 10, 80, 30);
+	    
+
 	}
-	
-	public void paint (Graphics g) {
-	    Graphics2D g2 = (Graphics2D) g;
-	    g2.draw(new Rectangle2D.Double(10, 10,
-                400,
-                200));
+   
+	public void update(Graphics2D g) {
+     	 paintComponent(g);
 	}
+
 }
