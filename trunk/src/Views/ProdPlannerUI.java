@@ -153,9 +153,10 @@ public class ProdPlannerUI {
 
 						}
 						else if(a==2){ //start date
-							taskController.addStartDate(b,(String) model.getValueAt(b, a));
-							model.setValueAt(taskController.getEndDate(b),b,3);
-
+							if (!taskController.addStartDate(b,(String) model.getValueAt(b, a))){
+								model.setValueAt(taskController.getStartDate(b) ,b,2);
+							}
+							model.setValueAt(taskController.getEndDate(b) ,b,3);
 						}
 						else{
 							System.out.println("Other change " + a);
