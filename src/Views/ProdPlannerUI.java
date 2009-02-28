@@ -219,7 +219,7 @@ public class ProdPlannerUI {
 			timeLinePane = new JPanel();
 			
 			timeLinePane.setLayout(new GridBagLayout());
-			timeLinePane.setBounds(new Rectangle(15, 16, 661, 225));
+			timeLinePane.setBounds(new Rectangle(135, 16, 541, 225));
 			timeLinePane.setBackground(Color.white);
 			timeLinePane.add(new TimeLineView());
 			
