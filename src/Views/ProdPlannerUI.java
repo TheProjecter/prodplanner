@@ -2,6 +2,8 @@ package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
@@ -11,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import Controllers.TaskController;
+import java.awt.GridBagLayout;
 
 public class ProdPlannerUI {
 
@@ -22,6 +25,8 @@ public class ProdPlannerUI {
     DefaultTableModel model = new DefaultTableModel();
 	private JScrollPane tableScroll = null;
 	private JButton deleteButton = null;
+	private TimeLineView timeLine = null;  //  @jve:decl-index=0:
+	private JPanel timeLinePane = null;
 
 	public ProdPlannerUI()
 	{
@@ -55,11 +60,15 @@ public class ProdPlannerUI {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
+			timeLine = new TimeLineView();
+			
  			jContentPane.setLayout(null);
+ 			
  			jContentPane.add(getJButton(), null);
  			jContentPane.add(getJTable(), null);
  			jContentPane.add(getTableScroll(), null);
  			jContentPane.add(getDeleteButton(), null);
+ 			jContentPane.add(getTimeLinePane(), null);
 		}
 		return jContentPane;
 	}
@@ -110,9 +119,17 @@ public class ProdPlannerUI {
 					"Latest"}; 
 			model.setColumnIdentifiers(titles);
 		
-			jTable = new JTable(model);
-			//jTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
-			
+			jTable = new JTable(model){
+				
+				public boolean isCellEditable(int rowIndex, int vColIndex) {
+			        if (vColIndex< 3) {
+			            return true;
+			        } else {
+			            return false;
+			        }
+
+				}
+			};
 			
 			
 			model.addTableModelListener(new javax.swing.event.TableModelListener() {
@@ -123,17 +140,17 @@ public class ProdPlannerUI {
 			        try {
 
 						System.out.println(a + ", " + b + ", " + model.getValueAt(b, a));  
-						if(a==1){ 
+						if(a==0){ 
 							taskController.addCostumer(b,(String) model.getValueAt(b, a));
 						}
-						else if(a==2){ //duration
+						else if(a==1){ //duration
 							taskController.addDuration(b,(String) model.getValueAt(b, a));
-							model.setValueAt(taskController.getEndDate(b),b,4);
+							model.setValueAt(taskController.getEndDate(b),b,3);
 
 						}
-						else if(a==3){ //start date
+						else if(a==2){ //start date
 							taskController.addStartDate(b,(String) model.getValueAt(b, a));
-							model.setValueAt(taskController.getEndDate(b),b,4);
+							model.setValueAt(taskController.getEndDate(b),b,3);
 
 						}
 						else{
@@ -185,5 +202,23 @@ public class ProdPlannerUI {
 			
 		}
 		return deleteButton;
+	}
+
+	/**
+	 * This method initializes timeLinePane	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getTimeLinePane() {
+		if (timeLinePane == null) {
+			timeLinePane = new JPanel();
+			
+			timeLinePane.setLayout(new GridBagLayout());
+			timeLinePane.setBounds(new Rectangle(15, 16, 661, 225));
+			
+			timeLinePane.add(new TimeLineView());
+			
+		}
+		return timeLinePane;
 	}
 }
