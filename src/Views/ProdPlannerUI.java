@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JButton;
@@ -215,7 +216,7 @@ public class ProdPlannerUI {
 			
 			timeLinePane.setLayout(new GridBagLayout());
 			timeLinePane.setBounds(new Rectangle(15, 16, 661, 225));
-			
+			timeLinePane.setBackground(Color.white);
 			timeLinePane.add(new TimeLineView());
 			
 		}
