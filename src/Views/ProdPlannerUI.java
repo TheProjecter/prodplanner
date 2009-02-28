@@ -98,6 +98,7 @@ public class ProdPlannerUI {
 					//model.addRow(data);
 					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,startDate,endDate} );
 					//model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
+					
 				}
 			});
 		}
@@ -121,6 +122,7 @@ public class ProdPlannerUI {
 			model.setColumnIdentifiers(titles);
 		
 			jTable = new JTable(model){
+			
 				
 				public boolean isCellEditable(int rowIndex, int vColIndex) {
 			        if (vColIndex< 3) {
@@ -131,6 +133,7 @@ public class ProdPlannerUI {
 
 				}
 			};
+			jTable.setDragEnabled(true);
 			
 			
 			model.addTableModelListener(new javax.swing.event.TableModelListener() {
@@ -218,6 +221,7 @@ public class ProdPlannerUI {
 			timeLinePane.setBounds(new Rectangle(15, 16, 661, 225));
 			timeLinePane.setBackground(Color.white);
 			timeLinePane.add(new TimeLineView());
+			
 			
 		}
 		return timeLinePane;
