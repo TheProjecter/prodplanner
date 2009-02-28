@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import Controllers.TaskController;
+
 public class ProdPlannerUI {
 
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="8,7"
@@ -25,6 +26,7 @@ public class ProdPlannerUI {
 	public ProdPlannerUI()
 	{
 		getJFrame();
+		
 	}
 	
 	/**
@@ -84,7 +86,7 @@ public class ProdPlannerUI {
 					System.out.println(jTable.getColumnCount());
 					
 					//model.addRow(data);
-					model.insertRow(jTable.getRowCount(), new Object[] {jTable.getRowCount(), "",duration,startDate,endDate} );
+					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,startDate,endDate} );
 					//model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
 				}
 			});
@@ -100,7 +102,6 @@ public class ProdPlannerUI {
 	private JTable getJTable() {
 		if (jTable == null) {
 			String[] titles = new String[]{
-					"ID",
 					"Customer", 
 					"Duration", 
 					"Start", 
@@ -175,6 +176,13 @@ public class ProdPlannerUI {
 			deleteButton = new JButton();
 			deleteButton.setBounds(new Rectangle(15, 300, 106, 31));
 			deleteButton.setText("Delete");
+			
+			deleteButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					model.removeRow(jTable.getSelectedRow());
+					
+				}});
+			
 		}
 		return deleteButton;
 	}
