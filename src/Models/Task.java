@@ -132,12 +132,24 @@ public class Task {
 		svar += startDate.get(Calendar.DAY_OF_MONTH);
 		return svar;
 	}
-	public void setStringDate(String date) {
+	public boolean setStringDate(String date) {
 		StringTokenizer took = new StringTokenizer(date);
-		int year=new Integer(took.nextToken());
-		int month=new Integer(took.nextToken());
-		int day=new Integer(took.nextToken());
+		if (took.countTokens()<3){
+			System.out.println("något blev fel!");
+			return false;
+		}
+		String y = took.nextToken();
+		String m = took.nextToken();
+		String d = took.nextToken();
+
+		System.out.println("något blev Rätt!");
+
+		int year=new Integer(y);
+		int month=new Integer(m);
+		int day=new Integer(d);
+		
 		startDate.set(year, month-1, day);
+		return true;
 	}
 	public void setCostumer(int duration) {
 		this.duration=duration;
