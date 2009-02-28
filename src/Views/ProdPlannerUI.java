@@ -23,7 +23,7 @@ public class ProdPlannerUI {
 	private JButton deleteButton = null;
 	//private String title;
 	
-	public ProdPlannerUI(String title)
+	public ProdPlannerUI()
 	{
 		//this.title = title;
 		getJFrame();
