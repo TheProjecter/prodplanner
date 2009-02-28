@@ -21,11 +21,9 @@ public class ProdPlannerUI {
     DefaultTableModel model = new DefaultTableModel();
 	private JScrollPane tableScroll = null;
 	private JButton deleteButton = null;
-	//private String title;
-	
+
 	public ProdPlannerUI()
 	{
-		//this.title = title;
 		getJFrame();
 	}
 	
@@ -36,9 +34,8 @@ public class ProdPlannerUI {
 	 */
 	private JFrame getJFrame() {
 		if (jFrame == null) {
-			
-			
 			jFrame = new JFrame();
+			jFrame.setTitle("ProdPlanner");
 			jFrame.setSize(new Dimension(708, 442));
 			jFrame.setContentPane(getJContentPane());
 			jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
