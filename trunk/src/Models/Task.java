@@ -55,10 +55,10 @@ public class Task {
 	 * @return skriver ut en task.
 	 */
 	public void skrivUt() {
-		System.out.println("kund: " + getCostumer());
-		System.out.println("duration: " + getDuration());
-		System.out.println("start: " + getStringStartDate());
-		System.out.println("end: " + getStringEndDate());
+//		System.out.println("kund: " + getCostumer());
+//		System.out.println("duration: " + getDuration());
+//		System.out.println("start: " + getStringStartDate());
+//		System.out.println("end: " + getStringEndDate());
     	//System.out.println("start " + getStartDate().getTime());
     	//System.out.println("end " + getEndDate().getTime());
 	}
@@ -135,19 +135,25 @@ public class Task {
 	public boolean setStringDate(String date) {
 		StringTokenizer took = new StringTokenizer(date);
 		if (took.countTokens()<3){
-			System.out.println("något blev fel!");
 			return false;
 		}
+		GregorianCalendar copyDate = (GregorianCalendar) startDate.clone();
 		String y = took.nextToken();
 		String m = took.nextToken();
 		String d = took.nextToken();
 
-		System.out.println("något blev Rätt!");
-
 		int year=new Integer(y);
 		int month=new Integer(m);
 		int day=new Integer(d);
-		
+		if (month<1 || month>12 ){
+			System.out.println("något blev fel!");
+			return false;
+		}
+		copyDate.set(year, month-1, 1);
+
+		if (day<1 || day>copyDate.getActualMaximum(Calendar.DAY_OF_MONTH)){
+			return false;
+		}
 		startDate.set(year, month-1, day);
 		return true;
 	}
