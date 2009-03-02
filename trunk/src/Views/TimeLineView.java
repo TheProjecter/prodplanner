@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-
-
 public class TimeLineView extends JPanel
 {
 	private String text;
@@ -31,7 +29,6 @@ public class TimeLineView extends JPanel
 		 	g.setColor(Color.red);
 		 	//g.(Tasks.get(i));
 		}*/
-	    
 	    
 	    repaint();
 	}
