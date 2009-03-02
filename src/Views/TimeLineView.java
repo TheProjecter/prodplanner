@@ -17,14 +17,21 @@ public class TimeLineView extends JPanel
 	
 	@Override public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D)g;
+		
+		
 		
 		int width = getWidth();
 	    int height = getHeight();
 	    
-		for (int i = 0; i < Tasks.size(); i++) {
+	    Rectangle rect1 = new Rectangle(50,20);
+	    g2d.draw(rect1);
+	    
+		/*for (int i = 0; i < Tasks.size(); i++) {
 		 	g.setColor(Color.red);
 		 	//g.(Tasks.get(i));
-		}
+		}*/
+	    
 	    
 	    repaint();
 	}
@@ -34,7 +41,7 @@ public class TimeLineView extends JPanel
 		Rectangle tmp = new Rectangle();
 		tmp.setSize(new Dimension(50, 20));
 		
-		Tasks.add(tmp);
+		//Tasks.add(tmp);
 	}
 
 }
