@@ -109,11 +109,11 @@ public class TimeLineView extends JPanel
 	       	  if (rect1.intersects(r)) {
 	       		rectangle = rect1.getBounds2D();
 	       		rect2 = rect1;
-    		   	System.out.println("Du släppte första");
+    		   	System.out.println("Du släppte på första");
     		  }else if(mrect1.intersects(r)){
     			  rectangle = mrect1.getBounds2D();
     	          rect2 = mrect1;
-    		   	System.out.println("Du släppte andra");
+    		   	System.out.println("Du släppte på andra");
     		  }
     		  else{
     			  System.out.println("Du kunde inte släppa någon");
@@ -121,8 +121,22 @@ public class TimeLineView extends JPanel
 	          display(rect2);
 	       }
 	      public void mouseClicked(MouseEvent event) {
-	          rect2 = rect1;
-	          rectangle = rect1.getBounds2D();
+	    	  int x = event.getX();
+	          int y = event.getY();
+	       	  Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
+
+	       	  if (rect1.intersects(r)) {
+    		   	  rect2=rect1;
+    		   	  rectangle = rect1.getBounds2D();
+    		   	System.out.println("Du träffade första");
+    		  }else if(mrect1.intersects(r)){
+    			  rect2=mrect1;
+    		   	  rectangle = mrect1.getBounds2D();
+    		   	System.out.println("Du träffade andra");
+    		  }
+    		  else{
+    			  System.out.println("Du missade båda");
+    		  }
 	          display(rect2);
 	        }
 	   }
@@ -131,22 +145,16 @@ public class TimeLineView extends JPanel
 	        if (rect1.contains(event.getX(), event.getY())) {
 	          rectangle = null;
 	          rect2 = rect1;
-	         // System.out.println(event.getX());
 	          if(event.getX()>p && event.getX()<=p+10){
 		          p2 = event.getX();
 		          p = p + p2 - p1;
 		          width=width + (p1-p2);
-		          //q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
-		         // q1 = q2;	// bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
 		          p1 = p2;
 	          }
 	          else if(event.getX()>p+(width-10) && event.getX()<=p+width){
 		          p2 = event.getX();
 		          System.out.println(p2-p1);
 		          width+=p2-p1;
-		          //p = p + p2 - p1;
-		          //q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
-			         // q1 = q2;	// bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
 		          p1 = p2;
 	        	  
 	          }
@@ -154,9 +162,6 @@ public class TimeLineView extends JPanel
 		          p2 = event.getX();
 		          q2 = event.getY();
 		          p = p + p2 - p1;
-		          //q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
-		          // q1 = q2;	// bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
-	
 		          p1 = p2;
 	          }
 	        }
