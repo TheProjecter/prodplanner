@@ -14,6 +14,9 @@ public class Task {
 	String costumer;
 	int duration;
 	GregorianCalendar earliestDate = new GregorianCalendar();
+	GregorianCalendar startDate = new GregorianCalendar();
+	GregorianCalendar endDate = new GregorianCalendar();
+
 	int id=0;
 	//Rectangle rectangle=new Rectangle();
 	int line=0; // vilken rad en task ligger på.
@@ -35,6 +38,9 @@ public class Task {
     	this.line=0;
         earliestDate = new GregorianCalendar();
         earliestDate=new GregorianCalendar(earliestDate.get(Calendar.YEAR), (earliestDate.get(Calendar.MONTH)), earliestDate.get(Calendar.DAY_OF_MONTH));
+    	startDate = null;
+    	endDate = null;
+
 //    	System.out.println("start1 " + startDate.get(Calendar.DAY_OF_MONTH) + " " + (startDate.get(Calendar.MONTH)+1)  + " " + startDate.get(Calendar.YEAR));
     }
 	/**
@@ -42,7 +48,6 @@ public class Task {
 	 * No parameters
 	 */
 	public Task() {
-		// TODO Auto-generated constructor stub
 		// behövs parametrar?
 	}
 
@@ -82,7 +87,7 @@ public class Task {
 
 
 
-	public void setStartDate(GregorianCalendar startDate) {
+	public void setEarliestDate(GregorianCalendar startDate) {
 		this.earliestDate = startDate;
 	}
 	public GregorianCalendar getStartDate() {
@@ -99,7 +104,7 @@ public class Task {
 	 * Calclate End-date.
 	 * @return the endDate.
 	 */
-	public GregorianCalendar getEndDate() {
+	public GregorianCalendar getLatestDate() {
 		GregorianCalendar endDate = (GregorianCalendar) earliestDate.clone();
 		endDate.add(Calendar.DAY_OF_MONTH, duration);
 		return endDate;
@@ -108,7 +113,7 @@ public class Task {
 	 * Calclate End-date.
 	 * @return Long the endDate in milli seconds.
 	 */
-	public long getEndDateInMillis() {
+	public long getLatestDateInMillis() {
 		GregorianCalendar endDate = (GregorianCalendar) earliestDate.clone();
 		endDate.add(Calendar.DAY_OF_MONTH, duration);
 		return endDate.getTimeInMillis();
@@ -118,10 +123,10 @@ public class Task {
 	 * Calclate start date.
 	 * @return Long the endDate in milli seconds.
 	 */
-	public long getStartDateInMillis() {
+	public long getEarliestDateInMillis() {
 		return earliestDate.getTimeInMillis();
 	}
-	public String getStringEndDate() {
+	public String getStringLatestDate() {
 		GregorianCalendar endDate = (GregorianCalendar) earliestDate.clone();
 		endDate.add(Calendar.DAY_OF_MONTH, duration);
 		String svar = "";
@@ -130,7 +135,7 @@ public class Task {
 		svar += endDate.get(Calendar.DAY_OF_MONTH);
 		return svar;
 	}
-	public String getStringStartDate() {
+	public String getStringEarliestDate() {
 		String svar = "";
 		svar += earliestDate.get(Calendar.YEAR) + " ";
 		svar += (earliestDate.get(Calendar.MONTH)+1) + " ";
