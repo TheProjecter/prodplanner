@@ -70,7 +70,7 @@ public class TimeLineView extends JPanel
 	    repaint();
 	}
     public void drawSquares(Graphics2D g2, Rectangle2D rect) {
-	    double p = rect.getX();
+    	double p = rect.getX();
 	    double q = rect.getY();
 	    double width = rect.getWidth();
 	    double height = rect.getHeight();
@@ -107,13 +107,14 @@ public class TimeLineView extends JPanel
 	          int y = event.getY();
 	       	  Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
 	       	  if (rect1.intersects(r)) {
-	       		rectangle = rect1.getBounds2D();
-	       		rect2 = rect1;
-    		   	System.out.println("Du släppte på första");
+	       		  
+	       		  rectangle = rect1.getBounds2D();
+	       		  rect2 = rect1;
+	       		  System.out.println("Du släppte på första");
     		  }else if(mrect1.intersects(r)){
     			  rectangle = mrect1.getBounds2D();
     	          rect2 = mrect1;
-    		   	System.out.println("Du släppte på andra");
+    	          System.out.println("Du släppte på andra");
     		  }
     		  else{
     			  System.out.println("Du kunde inte släppa någon");
@@ -128,63 +129,79 @@ public class TimeLineView extends JPanel
 	       	  if (rect1.intersects(r)) {
     		   	  rect2=rect1;
     		   	  rectangle = rect1.getBounds2D();
-    		   	System.out.println("Du träffade första");
+    		   	  System.out.println("Du träffade första");
     		  }else if(mrect1.intersects(r)){
     			  rect2=mrect1;
     		   	  rectangle = mrect1.getBounds2D();
-    		   	System.out.println("Du träffade andra");
+    		   	  System.out.println("Du träffade andra");
     		  }
     		  else{
     			  System.out.println("Du missade båda");
     		  }
 	          display(rect2);
-	        }
-	   }
-	    class EventMouseMotionListener extends MouseMotionAdapter {
-	      public void mouseDragged(MouseEvent event) {
-	        if (rect1.contains(event.getX(), event.getY())) {
-	          rectangle = null;
-	          rect2 = rect1;
-	          if(event.getX()>p && event.getX()<=p+10){
-		          p2 = event.getX();
-		          p = p + p2 - p1;
-		          width=width + (p1-p2);
-		          p1 = p2;
-	          }
-	          else if(event.getX()>p+(width-10) && event.getX()<=p+width){
-		          p2 = event.getX();
-		          System.out.println(p2-p1);
-		          width+=p2-p1;
-		          p1 = p2;
-	        	  
-	          }
-	          else{
-		          p2 = event.getX();
-		          q2 = event.getY();
-		          p = p + p2 - p1;
-		          p1 = p2;
-	          }
-	        }
-	        if (rect2 != null)
-	          display(rect2);
-	        repaint();
 	      }
-	      
-	      
+	}
+    class EventMouseMotionListener extends MouseMotionAdapter {
+    	public void mouseDragged(MouseEvent event) {
+    		if (rect1.contains(event.getX(), event.getY())) {
+    			rectangle = null;
+    			rect2 = rect1;
+    			if(event.getX()>p && event.getX()<=p+10){
+    				p2 = event.getX();
+					p = p + p2 - p1;
+					width=width + (p1-p2);
+					p1 = p2;
+    			}
+    			else if(event.getX()>p+(width-10) && event.getX()<=p+width){
+    				p2 = event.getX();
+    				System.out.println(p2-p1);
+    				width+=p2-p1;
+    				p1 = p2;  
+    			}
+    			else{
+    				p2 = event.getX();
+    				p = p + p2 - p1;
+    				p1 = p2;
+    			}
+			}
+    		else{
+    			rectangle = null;
+    			rect2 = mrect1;
+    			if(event.getX()>mp && event.getX()<=p+10){
+    				p2 = event.getX();
+					mp = mp + p2 - p1;
+					mwidth=mwidth + (p1-p2);
+					p1 = p2;
+    			}
+    			else if(event.getX()>mp+(mwidth-10) && event.getX()<=mp+mwidth){
+    				p2 = event.getX();
+    				System.out.println(p2-p1);
+    				mwidth+=p2-p1;
+    				p1 = p2;  
+    			}
+    			else{
+    				p2 = event.getX();
+    				mp = mp + p2 - p1;
+    				p1 = p2;
+    			}
+    		}
+	        if (rect2 != null)
+	        	display(rect2);
+	        repaint();
+        } 
 	    public void mouseMoved(MouseEvent event) {
-	         cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
-	           }
-	        }
-	      public void display(Shape shape) {
-	      double p = rect2.getX();
-	      double q = rect2.getY();
-	      double width= rect2.getWidth();
-	      double height = rect2.getHeight();
+	    	cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+	    }
     }
-
-		public void addTask(int rowCount) {
+    public void display(Shape shape) {
+    	double p = rect2.getX();
+    	double q = rect2.getY();
+    	double width= rect2.getWidth();
+    	double height = rect2.getHeight();
+    }
+	public void addTask(int rowCount) {
 			// TODO Auto-generated method stub
 			
-		}
-  }
+	}
+}
 
