@@ -133,15 +133,15 @@ public class ProdPlannerUI {
 					taskController.addTask(jTable.getRowCount());
 					ParkDraw.addTask(jTable.getRowCount());
 					int duration = taskController.getDuration(jTable.getRowCount());
-					String startDate = taskController.getStartDate(jTable.getRowCount());
-					String endDate = taskController.getEndDate(jTable.getRowCount());
+					String earliestDate = taskController.getEarliestDate(jTable.getRowCount());
+					String latestDate = taskController.getLatestDate(jTable.getRowCount());
 
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					System.out.println(jTable.getRowCount());
 					System.out.println(jTable.getColumnCount());
 					
 					//model.addRow(data);
-					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,startDate,endDate} );
+					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,earliestDate,latestDate} );
 					//model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
 					
 				}
@@ -160,10 +160,10 @@ public class ProdPlannerUI {
 			String[] titles = new String[]{
 					"Customer", 
 					"Duration", 
-					"Start", 
-					"End", 
 					"Earliest", 
-					"Latest"}; 
+					"Latest", 
+					"Start", 
+					"End"}; 
 			model.setColumnIdentifiers(titles);
 		
 			jTable = new JTable(model){
@@ -194,20 +194,20 @@ public class ProdPlannerUI {
 						}
 						else if(a==1){ //duration
 							taskController.addDuration(b,(String) model.getValueAt(b, a));
-							model.setValueAt(taskController.getEndDate(b),b,3);
+							model.setValueAt(taskController.getLatestDate(b),b,3);
 
 						}
 						else if(a==2){ //start date
-							if (!taskController.addStartDate(b,(String) model.getValueAt(b, a))){
-								model.setValueAt(taskController.getStartDate(b) ,b,2);
+							if (!taskController.addEarliestDate(b,(String) model.getValueAt(b, a))){
+								model.setValueAt(taskController.getEarliestDate(b) ,b,2);
 							}
-							model.setValueAt(taskController.getEndDate(b) ,b,3);
+							model.setValueAt(taskController.getLatestDate(b) ,b,3);
 						}
 						else{
 							System.out.println("Other change " + a);
 						}
 						taskController.printAll();
-						System.out.println(taskController.getEndDate(b));
+						System.out.println(taskController.getLatestDate(b));
 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block

@@ -23,7 +23,7 @@ public class TaskController {
 		for (int i=0; i<tasks.size();i++){
 			if (a.getId()!=tasks.get(i).getId()){
 				//om task a's start datum ligger i någon annan tasks-intervall... då returnerar vi false.
-				if (a.getStartDate().getTimeInMillis()<tasks.get(i).getEndDate().getTimeInMillis() && a.getStartDate().getTimeInMillis()>tasks.get(i).getStartDate().getTimeInMillis()){
+				if (a.getStartDate().getTimeInMillis()<tasks.get(i).getLatestDate().getTimeInMillis() && a.getStartDate().getTimeInMillis()>tasks.get(i).getStartDate().getTimeInMillis()){
 					return false;
 					//Du har försökt ändra Task a's start-datum?
 				}
@@ -46,7 +46,7 @@ public class TaskController {
 			if (a.getId()!=tasks.get(i).getId()){
 				//om task a's start datum ligger i någon annan 
 				//tasks-intervall... då returnerar vi false.
-				if (a.getStartDateInMillis()<tasks.get(i).getEndDateInMillis() && a.getStartDate().getTimeInMillis()>tasks.get(i).getStartDateInMillis()){
+				if (a.getEarliestDateInMillis()<tasks.get(i).getLatestDateInMillis() && a.getStartDate().getTimeInMillis()>tasks.get(i).getEarliestDateInMillis()){
 					return false;
 					//Du har försökt ändra Task a's start-datum?
 				}
@@ -80,12 +80,12 @@ public class TaskController {
 		return tasks.get(i).getDuration();
 	}
 
-	public String getEndDate(int i) {
-		return tasks.get(i).getStringEndDate();
+	public String getLatestDate(int i) {
+		return tasks.get(i).getStringLatestDate();
 	}
 
-	public String getStartDate(int i) {
-		return tasks.get(i).getStringStartDate();
+	public String getEarliestDate(int i) {
+		return tasks.get(i).getStringEarliestDate();
 	}
 
 	public void addCostumer(int i, String costumer) {
@@ -96,7 +96,7 @@ public class TaskController {
 		tasks.get(i).setDuration(duration);
 		
 	}
-	public Boolean addStartDate(int i, String date) {
+	public Boolean addEarliestDate(int i, String date) {
 		return tasks.get(i).setStringDate(date);
 	}
 }
