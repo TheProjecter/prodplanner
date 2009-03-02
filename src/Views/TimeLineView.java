@@ -13,8 +13,10 @@ public class TimeLineView extends JPanel
 {
 	private String text;
     double p, q, width, height;
+    double mp,mq, mwidth, mheight;
     int p1, q1, p2, q2;
-    Rectangle2D rect1,rect2;
+    Rectangle2D rect1,rect2, mrect1;
+    
     Rectangle2D rectangle;
     Cursor cursor;
 
@@ -30,6 +32,12 @@ public class TimeLineView extends JPanel
 		q = 5;
 		width = 75;
 		height = 20;
+		
+		mp=90;
+		mq = 5;
+		mwidth = 75;
+		mheight = 20;
+		
 		addMouseListener(new EventMouseListener());
 		addMouseMotionListener(new EventMouseMotionListener());
 	}
@@ -40,15 +48,17 @@ public class TimeLineView extends JPanel
 
 
 	    rect1 = new Rectangle2D.Double(p, q, width, height);
-	    g2d.draw(rect1);
+	    mrect1 = new Rectangle2D.Double(mp, mq, mwidth, mheight);
+
+	    g2d.draw(rect1);	    
 	    g2d.fill(rect1);
-	    
 	    g2d.setColor(new Color(255,255,255));
-	    g2d.drawString(
-	    		"Customer", 
-	    		(int)rect1.getX()+10, 
-	    		(int)rect1.getY()+15
-	    	);
+	    g2d.drawString("Customer",(int)rect1.getX()+10,(int)rect1.getY()+15);
+	    g2d.setColor(new Color(0,0,0));
+	    g2d.draw(mrect1);	    
+	    g2d.fill(mrect1);
+	    g2d.setColor(new Color(255,255,255));
+	    g2d.drawString("Customer",(int)mrect1.getX()+10,(int)mrect1.getY()+15);
 	    if (rectangle != null) {
 	    	drawSquares(g2d, rectangle);
         }
