@@ -56,10 +56,6 @@ public class TimeLineView extends JPanel
         	setCursor(cursor);
 		}
 	    
-		/*for (int i = 0; i < Tasks.size(); i++) {
-		 	g.setColor(Color.red);
-		 	//g.(Tasks.get(i));
-		}*/
 	    
 	    repaint();
 	}
