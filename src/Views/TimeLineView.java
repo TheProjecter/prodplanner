@@ -83,17 +83,41 @@ public class TimeLineView extends JPanel
 	        if (rect1.contains(event.getX(), event.getY())) {
 	          rectangle = null;
 	          rect2 = rect1;
-	          p2 = event.getX();
-	          q2 = event.getY();
-	          p = p + p2 - p1;
-	          //q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
-	          p1 = p2;
-	          q1 = q2;	// bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+	         // System.out.println(event.getX());
+	          if(event.getX()>p && event.getX()<=p+10){
+		          p2 = event.getX();
+		          p = p + p2 - p1;
+		          width=width + (p1-p2);
+		          //q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+		         // q1 = q2;	// bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+		          p1 = p2;
+	          }
+	          else if(event.getX()>p+(width-10) && event.getX()<=p+width){
+		          p2 = event.getX();
+		          System.out.println(p2-p1);
+		          width+=p2-p1;
+		          //p = p + p2 - p1;
+		          //q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+			         // q1 = q2;	// bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+		          p1 = p2;
+	        	  
+	          }
+	          else{
+		          p2 = event.getX();
+		          q2 = event.getY();
+		          p = p + p2 - p1;
+		          //q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+		          // q1 = q2;	// bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+	
+		          p1 = p2;
+	          }
 	        }
 	        if (rect2 != null)
 	          display(rect2);
 	        repaint();
 	      }
+	      
+	      
 	    public void mouseMoved(MouseEvent event) {
 	         cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 	           }
