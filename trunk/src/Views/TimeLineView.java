@@ -79,15 +79,45 @@ public class TimeLineView extends JPanel
     
     class EventMouseListener extends MouseAdapter {
 	      public void mousePressed(MouseEvent event) {
-	          rect2 = rect1;
-	          rectangle = rect1.getBounds2D();
+	    	  int x = event.getX();
+	          int y = event.getY();
+	       	  Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
+
+	       	  if (rect1.intersects(r)) {
+    		   	  rect2=rect1;
+    		   	  rectangle = rect1.getBounds2D();
+    		   	System.out.println("Du träffade första");
+    		  }else if(mrect1.intersects(r)){
+    			  rect2=mrect1;
+    		   	  rectangle = mrect1.getBounds2D();
+    		   	System.out.println("Du träffade andra");
+    		  }
+    		  else{
+    			  System.out.println("Du missade båda");
+    		  }
+//    		  rect2 = rect1;
+//	          rectangle = rect1.getBounds2D();
 	          display(rect2);
 	          p1 = event.getX();
 	          q1 = event.getY();
 	      }
 	      public void mouseReleased(MouseEvent event) {
-	          rectangle = rect1.getBounds2D();
-	          rect2 = rect1;
+	    	  
+	    	  int x = event.getX();
+	          int y = event.getY();
+	       	  Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
+	       	  if (rect1.intersects(r)) {
+	       		rectangle = rect1.getBounds2D();
+	       		rect2 = rect1;
+    		   	System.out.println("Du släppte första");
+    		  }else if(mrect1.intersects(r)){
+    			  rectangle = mrect1.getBounds2D();
+    	          rect2 = mrect1;
+    		   	System.out.println("Du släppte andra");
+    		  }
+    		  else{
+    			  System.out.println("Du kunde inte släppa någon");
+    		  }    	  
 	          display(rect2);
 	       }
 	      public void mouseClicked(MouseEvent event) {
