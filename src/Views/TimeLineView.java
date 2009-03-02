@@ -20,12 +20,15 @@ public class TimeLineView extends JPanel
 
 
 	
-	public TimeLineView(String text)
+	public TimeLineView(String text, Color bg)
 	{
 		this.text = text;
+		setBackground(bg);
+		
+		
 		p = 5;
 		q = 5;
-		width = 30;
+		width = 75;
 		height = 20;
 		addMouseListener(new EventMouseListener());
 		addMouseMotionListener(new EventMouseMotionListener());
@@ -38,6 +41,14 @@ public class TimeLineView extends JPanel
 
 	    rect1 = new Rectangle2D.Double(p, q, width, height);
 	    g2d.draw(rect1);
+	    g2d.fill(rect1);
+	    
+	    g2d.setColor(new Color(255,255,255));
+	    g2d.drawString(
+	    		"Customer", 
+	    		(int)rect1.getX()+10, 
+	    		(int)rect1.getY()+15
+	    	);
 	    if (rectangle != null) {
 	    	drawSquares(g2d, rectangle);
         }
@@ -59,7 +70,8 @@ public class TimeLineView extends JPanel
 	    double height = rect.getHeight();
 	    g2.setColor(Color.black);
     }
-   class EventMouseListener extends MouseAdapter {
+    
+    class EventMouseListener extends MouseAdapter {
 	      public void mousePressed(MouseEvent event) {
 	          rect2 = rect1;
 	          rectangle = rect1.getBounds2D();

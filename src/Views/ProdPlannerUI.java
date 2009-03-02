@@ -1,11 +1,9 @@
 package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
@@ -15,9 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import Controllers.TaskController;
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
 import java.awt.Point;
 
 public class ProdPlannerUI {
@@ -30,7 +26,6 @@ public class ProdPlannerUI {
     DefaultTableModel model = new DefaultTableModel();
 	private JScrollPane tableScroll = null;
 	private JButton deleteButton = null;
-	private TimeLineView timeLine = null;  //  @jve:decl-index=0:
 	private JPanel timeLinePane = null;
 	private JLabel timeLineLabels = null;
 	private JLabel L1 = null;
@@ -39,11 +34,7 @@ public class ProdPlannerUI {
 	private JLabel L4 = null;
 	private JLabel Park = null;
 	private JLabel L5 = null;
-	private TimeLineView L1Draw = null;
-	private TimeLineView L2Draw = null;
-	private TimeLineView L3Draw = null;
-	private TimeLineView L4Draw = null;
-	private TimeLineView L5Draw = null;
+	private TimeLineView[] TLDraw = new TimeLineView[5];
 	private TimeLineView ParkDraw = null;
 	private TimeLineRulerView TimeLineDraw = null;
 
@@ -79,22 +70,22 @@ public class ProdPlannerUI {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			L5 = new JLabel();
-			L5.setBounds(new Rectangle(75, 165, 46, 31));
+			L5.setBounds(new Rectangle(90, 165, 46, 31));
 			L5.setText("L5");
 			Park = new JLabel();
-			Park.setBounds(new Rectangle(75, 210, 46, 31));
+			Park.setBounds(new Rectangle(90, 195, 46, 31));
 			Park.setText("Park");
 			L4 = new JLabel();
-			L4.setBounds(new Rectangle(75, 135, 46, 31));
+			L4.setBounds(new Rectangle(90, 135, 46, 31));
 			L4.setText("L4");
 			L3 = new JLabel();
-			L3.setBounds(new Rectangle(75, 105, 46, 31));
+			L3.setBounds(new Rectangle(90, 105, 46, 31));
 			L3.setText("L3");
 			L2 = new JLabel();
-			L2.setBounds(new Rectangle(75, 75, 46, 31));
+			L2.setBounds(new Rectangle(90, 75, 46, 31));
 			L2.setText("L2");
 			L1 = new JLabel();
-			L1.setBounds(new Rectangle(75, 45, 46, 31));
+			L1.setBounds(new Rectangle(90, 45, 46, 31));
 			L1.setText("L1");
 			timeLineLabels = new JLabel();
 			timeLineLabels.setBounds(new Rectangle(15, 14, 106, 201));
@@ -260,20 +251,33 @@ public class ProdPlannerUI {
 	 * @return javax.swing.JPanel	
 	 */
 	private JPanel getTimeLinePane() {
+		Color bg;
+		
 		if (timeLinePane == null) {
 			
 			timeLinePane = new JPanel();
 			
 			timeLinePane.setLayout(null);
 			timeLinePane.setBounds(new Rectangle(135, 16, 541, 225));
-			timeLinePane.setBackground(Color.white);
-			
 			timeLinePane.add(getTimeLineDraw(), getTimeLineDraw().getName());
-			timeLinePane.add(getL1Draw(), getL1Draw().getName());
-			timeLinePane.add(getL2Draw(), getL2Draw().getName());
-			timeLinePane.add(getL3Draw(), getL3Draw().getName());
-			timeLinePane.add(getL4Draw(), getL4Draw().getName());
-			timeLinePane.add(getL5Draw(), getL5Draw().getName());
+			
+			Color bg2 = new Color(224, 224, 224);
+			Color bg1 = new Color(255, 255, 255);
+			for (int i=1; i<=5; i++) {
+				if (i%2 == 0 ) {
+					bg = bg1;
+				} else {
+					bg = bg2;
+				}
+					timeLinePane.add(
+							getTLDraw("L"+i, 
+									bg, 
+									new Dimension(541, 31), 
+									new Point(0,30*i), i-1)
+								);
+				
+			}
+			
 			timeLinePane.add(getParkDraw(), getParkDraw().getName());
 			
 			
@@ -286,56 +290,22 @@ public class ProdPlannerUI {
 	 * 	
 	 * @return Views.TimeLineView	
 	 */
-	private TimeLineView getL1Draw() {
-		if (L1Draw == null) {
-			L1Draw = new TimeLineView("L1");
-			L1Draw.setSize(new Dimension(541, 31));
-			L1Draw.setLocation(new Point(0, 30));
+	private TimeLineView getTLDraw(String txt, Color bg, Dimension d, Point p, int index) {
+		
+		if (TLDraw[index] == null) {
+			TLDraw[index] = new TimeLineView(txt, bg);
+			TLDraw[index].setSize(d);
+			TLDraw[index].setLocation(p);
 		}
-		return L1Draw;
+		return TLDraw[index];
 	}
 	
-	private TimeLineView getL2Draw() {
-		if (L2Draw == null) {
-			L2Draw = new TimeLineView("L2");
-			L2Draw.setSize(new Dimension(541, 31));
-			L2Draw.setLocation(new Point(0, 60));
-		}
-		return L2Draw;
-	}
-	
-	private TimeLineView getL3Draw() {
-		if (L3Draw == null) {
-			L3Draw = new TimeLineView("L3");
-			L3Draw.setSize(new Dimension(541, 31));
-			L3Draw.setLocation(new Point(0, 90));
-		}
-		return L3Draw;
-	}
-	
-	private TimeLineView getL4Draw() {
-		if (L4Draw == null) {
-			L4Draw = new TimeLineView("L4");
-			L4Draw.setSize(new Dimension(541, 31));
-			L4Draw.setLocation(new Point(0, 120));
-		}
-		return L4Draw;
-	}
-	
-	private TimeLineView getL5Draw() {
-		if (L5Draw == null) {
-			L5Draw = new TimeLineView("L5");
-			L5Draw.setSize(new Dimension(541, 31));
-			L5Draw.setLocation(new Point(0, 150));
-		}
-		return L5Draw;
-	}
 	
 	private TimeLineView getParkDraw() {
 		if (ParkDraw == null) {
-			ParkDraw = new TimeLineView("Park");
+			ParkDraw = new TimeLineView("Park", new Color(204,204,255));
 			ParkDraw.setSize(new Dimension(541, 31));
-			ParkDraw.setLocation(new Point(0, 195));
+			ParkDraw.setLocation(new Point(0, 180));
 		}
 		return ParkDraw;
 	}
