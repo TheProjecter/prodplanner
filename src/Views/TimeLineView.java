@@ -30,12 +30,12 @@ public class TimeLineView extends JPanel
 		
 		p = 5;
 		q = 5;
-		width = 75;
+		width = 60;
 		height = 20;
 		
 		mp=90;
 		mq = 5;
-		mwidth = 75;
+		mwidth = 60;
 		mheight = 20;
 		
 		addMouseListener(new EventMouseListener());
@@ -110,10 +110,33 @@ public class TimeLineView extends JPanel
 	       		  
 	       		  rectangle = rect1.getBounds2D();
 	       		  rect2 = rect1;
+	       		  if(p%30>15){
+	       			 p=p+(30-p%30);
+	       		  }else{
+	       			 p=p-(p%30);
+	       		  }
+	       		  if(width%30>15){
+	       			  width=width+(30-width%30);
+	       		  }else{
+	       			  width=width-(width%30);
+	       		  }
+	        	  
+
 	       		  System.out.println("Du släppte på första");
     		  }else if(mrect1.intersects(r)){
     			  rectangle = mrect1.getBounds2D();
     	          rect2 = mrect1;
+    	          if(mp%30>15){
+ 	       			 mp=mp+(30-mp%30);
+ 	       		  }else{
+ 	       			 mp=mp-(mp%30);
+ 	       		  }
+    	          if(mwidth%30>15){
+	       			  mwidth=mwidth+(30-mwidth%30);
+	       		  }else{
+	       			  mwidth=mwidth-(mwidth%30);
+	       		  }
+
     	          System.out.println("Du släppte på andra");
     		  }
     		  else{
@@ -146,13 +169,15 @@ public class TimeLineView extends JPanel
     		if (rect1.contains(event.getX(), event.getY())) {
     			rectangle = null;
     			rect2 = rect1;
-    			if(event.getX()>p && event.getX()<=p+10){
+    			if(event.getX()>p && event.getX()<=p+12){
     				p2 = event.getX();
 					p = p + p2 - p1;
 					width=width + (p1-p2);
+
+					
 					p1 = p2;
     			}
-    			else if(event.getX()>p+(width-10) && event.getX()<=p+width){
+    			else if(event.getX()>p+(width-12) && event.getX()<=p+width){
     				p2 = event.getX();
     				System.out.println(p2-p1);
     				width+=p2-p1;
