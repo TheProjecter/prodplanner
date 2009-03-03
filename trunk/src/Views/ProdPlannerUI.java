@@ -10,6 +10,8 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import Controllers.TaskController;
@@ -170,7 +172,6 @@ public class ProdPlannerUI {
 
 				}
 			};
-			jTable.setDragEnabled(true);
 			
 			
 			model.addTableModelListener(new javax.swing.event.TableModelListener() {
@@ -214,6 +215,16 @@ public class ProdPlannerUI {
 	
 				}
 			});
+			
+			/*
+			jTable.getSelectionModel().addListSelectionListener(
+					new ListSelectionListener() {
+						public void valueChanged(ListSelectionEvent e) {
+							TLDraw.setSelection(true, jTable.getSelectedRow());
+						}
+					}
+		
+			);*/
 			
 			
 		}

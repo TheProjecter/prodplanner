@@ -5,16 +5,21 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class TimeLineRulerView extends JPanel
 {
 	private String text;
 	private int startDate, endDate;
+	private GregorianCalendar cal = new GregorianCalendar();
 	
 	public TimeLineRulerView(String text)
 	{
 		this.text = text;
 		setBackground(new Color(255,255,204));
+		
 	}
 		
 	@Override public void paintComponent(Graphics g) {
