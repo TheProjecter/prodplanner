@@ -204,7 +204,11 @@ public class ProdPlannerUI {
 						else if(a==2){ //start date
 							if (!taskController.addEarliestDate(b,(String) model.getValueAt(b, a))){
 								model.setValueAt(taskController.getEarliestDate(idOnLine.get(b)) ,b,2);
+								//TLDraw.setEarliest(Integer.parseInt((String)model.getValueAt(b, a)));
+
 							}
+							TLDraw.paintDuration(taskController.getEarliestDateInDays(selectedTask),taskController.getLatestDateInDays(selectedTask));
+
 							model.setValueAt(taskController.getLatestDate(idOnLine.get(b)) ,b,3);
 						}
 						else{
@@ -237,9 +241,12 @@ public class ProdPlannerUI {
 								 	TLDraw.setSelection(false, selectedTask);
 						        	selectedTask = jTable.getSelectedRow();
 						        	TLDraw.setSelection(true,selectedTask);
+
 									TLDraw.paintDuration(taskController.getEarliestDateInDays(selectedTask),taskController.getLatestDateInDays(selectedTask));
+
+
 									//x
-						        	System.out.println("THIS IS THE SELECTED ID:" + selectedTask);
+						        	//System.out.println("THIS IS THE SELECTED ID:" + selectedTask);
 								}
 							}
 						}
