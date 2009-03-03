@@ -16,7 +16,7 @@ public class Box extends Rectangle2D{
 	
     public Box(double p, double q, double width, double height, int id) {
     	this.id=id;
-		namn="" + id;
+		this.namn = "";
     	k1=0;
     	k2=0;
     	this.p=p;
@@ -244,6 +244,10 @@ public class Box extends Rectangle2D{
 	}
 	public String getNamn() {
 		return namn;
+	}
+	public void setName(String name)
+	{
+		this.namn = name;
 	}
 
 	public void remove() {
