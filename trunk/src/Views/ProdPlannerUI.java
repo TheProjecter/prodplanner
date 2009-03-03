@@ -198,7 +198,7 @@ public class ProdPlannerUI {
 							model.setValueAt(taskController.getLatestDate(idOnLine.get(b)),b,3);
 							
 							// grym oneliner haha
-							TLDraw.setLength(Integer.parseInt((String)model.getValueAt(b, a)), jTable.getSelectedRow());
+							TLDraw.setLength(Integer.parseInt((String)model.getValueAt(b, a)));
 
 						}
 						else if(a==2){ //start date
