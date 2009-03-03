@@ -99,4 +99,8 @@ public class TaskController {
 	public Boolean addEarliestDate(int i, String date) {
 		return tasks.get(i).setStringDate(date);
 	}
+
+	public void drop(int temp) {
+		tasks.remove(temp);
+	}
 }

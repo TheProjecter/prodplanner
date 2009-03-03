@@ -123,17 +123,19 @@ public class ProdPlannerUI {
 			jButton.setText("New");
 			jButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					System.out.println(count);
 					idOnLine.add(count);
 					taskController.addTask(count);
-
 					TLDraw.addTask(count);
 
-					int duration = taskController.getDuration(count);
-					String earliestDate = taskController.getEarliestDate(count);
-					String latestDate = taskController.getLatestDate(count);
+					int duration = taskController.getDuration(jTable.getRowCount());
+					String earliestDate = taskController.getEarliestDate(jTable.getRowCount());
+					String latestDate = taskController.getLatestDate(jTable.getRowCount());
 
-					model.insertRow(count, new Object[] {"",duration,earliestDate,latestDate} );
+					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,earliestDate,latestDate} );
+			
 					count++;
+					
 				}
 			});
 		}
@@ -203,7 +205,7 @@ public class ProdPlannerUI {
 							System.out.println("Other change " + a);
 						}
 						taskController.printAll();
-						System.out.println(taskController.getLatestDate(idOnLine.get(b)));
+//						System.out.println(taskController.getLatestDate(idOnLine.get(b)));
 
 					} catch (Exception e1) {
 						
@@ -244,13 +246,19 @@ public class ProdPlannerUI {
 			
 			deleteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int temp=idOnLine.get(jTable.getSelectedRow());
-					System.out.print("Du vill ta bort rad: " + jTable.getSelectedRow() + " som har id: "+ temp);
-					TLDraw.removeTask(temp);
-					
-					model.removeRow(temp);
-					
-					
+					try{
+						int markeradRad=jTable.getSelectedRow();
+						int temp=idOnLine.get(markeradRad);
+						System.out.print("Du vill ta bort rad: " + markeradRad + " som har id: "+ temp);
+	
+						model.removeRow(markeradRad);
+						TLDraw.dropTask(markeradRad);
+						taskController.drop(markeradRad);
+						idOnLine.remove(markeradRad);
+					} catch (Exception e1) {
+						
+						//e1.printStackTrace();
+					}
 				}});
 			
 		}
