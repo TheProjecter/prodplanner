@@ -20,7 +20,7 @@ public class TimeLineView extends JPanel
     double s2=0;// typ2 vid grab
     int s3=0;
     int k=0; //bit som håller koll på vilket håll en box går åt.
-    private int x, y;
+    private int x, y; // mousepos in pane
 
 
 	public TimeLineView(String text, Color bg)
@@ -58,6 +58,10 @@ public class TimeLineView extends JPanel
 			    g2d.setColor(new Color(255,255,255));
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
 			    
+			    if (mouseOverBox((int)rects.get(i).getX(), (int)rects.get(i).getY(), (int)rects.get(i).getWidth(), (int)rects.get(i).getHeight())) {
+		        	drawInfoBox(g2d, this.x, this.y);
+				}	
+			    
 			}
 		}
 	    if (rectangle != null) {
@@ -68,9 +72,18 @@ public class TimeLineView extends JPanel
 		}
         
         
-        drawInfoBox(g2d, this.x, this.y);
-        
 	    repaint();
+	}
+	
+	private boolean mouseOverBox(int x, int y, int w, int h) {
+		if ( ( (this.x < x+w)&&(this.x > x)) && ((this.y > y) && (this.y < y+h))) {
+			//System.out.println("X = " + x + " Y = " + y + " w = " + w + " h = " + h);
+			  
+			return true;
+		}
+		
+		return false;
+		
 	}
     public void drawSquares(Graphics2D g2, Rectangle2D rect) {
     	double p = rect.getX();
@@ -82,14 +95,16 @@ public class TimeLineView extends JPanel
     
    public void drawInfoBox(Graphics2D g2d, int x, int y)
    {
-	   int w, h;
+	   int w, h, tmpY;
 	   String cust , dur, earliest, latest, start, end;
 	   w = 120;
 	   h = 120;
 	   cust = dur = earliest = latest = start = end = null;
 	   //y = x = 10; // this is gonna be dynamic
 	   
-	   
+	   if (y > 90) {
+		   y = y - h;
+	   }
 	   
 	   g2d.setColor(new Color(255,255,204));
 	   g2d.fillRect(x, y, w, h);
@@ -241,8 +256,8 @@ public class TimeLineView extends JPanel
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
 				    	    				int k = rects.get(i).getAbs();
 				    	    				rects.get(j).addP(15*k);
-				    	    				System.out.println(k); // höger blir negativt och vänster.
-				    	    				System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 15*k);
+				    	    				//System.out.println(k); // höger blir negativt och vänster.
+				    	    				//System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 15*k);
 				    	    				fixIntersect(j,k);
 			
 				    	    			}
@@ -263,6 +278,9 @@ public class TimeLineView extends JPanel
 	    	x = event.getX();
 	    	y = event.getY();
 	    	
+	    	System.out.println("mouse X = " + x);
+	    	System.out.println("mouse Y = " + y);
+	    	
 	    }
     }
 
@@ -277,7 +295,7 @@ public class TimeLineView extends JPanel
 
 				if(rects.size()>0 && id!=j && rects.get(id).getRect().intersects(rects.get(j).getRect())){
 					rects.get(j).addP((15*k));
-					System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 	15*k);
+					//System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 	15*k);
 				}
 			}
 		}

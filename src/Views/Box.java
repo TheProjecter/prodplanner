@@ -169,7 +169,7 @@ public class Box extends Rectangle2D{
 		p1 = p2;
 		k1=-1;
 		k2=-1;
-       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
 
 		
 	}
@@ -182,7 +182,7 @@ public class Box extends Rectangle2D{
 		p1 = p2;
 		k1=1;
 		k2=1;
-       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
 
 //		System.out.println(width);
 
@@ -201,7 +201,7 @@ public class Box extends Rectangle2D{
 		k2=k1;
        	k1= (p2-p1);
        	
-       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
 //       	System.out.println("width: " + width);
 		p1 = p2;
 		//q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
@@ -254,16 +254,16 @@ public class Box extends Rectangle2D{
 
 	public int getAbs() {
 		if(k2!=0 && k2 >=0){
-			System.out.println("1. k1=" + k1);
+			//System.out.println("1. k1=" + k1);
 			return 1;
 		}else if(k2!=0 && k2<0){
-			System.out.println("2. k1=" + k1);
+			//System.out.println("2. k1=" + k1);
 			return -1;
 		}else if(k1>=0){
-			System.out.println("3. k2=" + k2);
+			//System.out.println("3. k2=" + k2);
 			return 1;
 		}
-		System.out.println("4. k1=" + k1 + "k2=" + k2);
+		//System.out.println("4. k1=" + k1 + "k2=" + k2);
 		return -1;
 	}
 	public int getID() {
