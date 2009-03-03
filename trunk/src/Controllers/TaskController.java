@@ -103,4 +103,8 @@ public class TaskController {
 	public void drop(int temp) {
 		tasks.remove(temp);
 	}
+
+	public int getEarliestDateInDays(int selectedTask) {
+		return tasks.get(selectedTask).getEarliestInDays();
+	}
 }
