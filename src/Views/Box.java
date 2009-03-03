@@ -156,6 +156,23 @@ public class Box extends Rectangle2D{
  			width=width-(width%15);
  		}
 //		System.out.println("Final W: " + width);
+	}
+	public void centerQ() {
+//		System.out.println("Before W: " + width);
+
+		if(q%30>15){
+			q=q+(30-q%30);
+ 		}else if(q%30==0){
+ 		}
+ 		else{
+ 			q=q-(q%30);
+ 		}
+		q+=5;
+		if (q<0 || q>150){
+			q=150;
+			
+		}
+//		System.out.println("Final W: " + width);
 
 	}
 
@@ -204,8 +221,8 @@ public class Box extends Rectangle2D{
        	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
 //       	System.out.println("width: " + width);
 		p1 = p2;
-		//q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
-       	//q1 = q2;
+		q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+       	q1 = q2;
 	}
 
 
