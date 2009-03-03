@@ -237,8 +237,8 @@ public class ProdPlannerUI {
 								 	TLDraw.setSelection(false, selectedTask);
 						        	selectedTask = jTable.getSelectedRow();
 						        	TLDraw.setSelection(true,selectedTask);
-									TLDraw.paintDuration(taskController.getEarliestDateInDays(selectedTask),2);
-									//taskController.getLatestDateInDays(selectedTask)
+									TLDraw.paintDuration(taskController.getEarliestDateInDays(selectedTask),taskController.getLatestDateInDays(selectedTask));
+									//x
 						        	System.out.println("THIS IS THE SELECTED ID:" + selectedTask);
 								}
 							}
