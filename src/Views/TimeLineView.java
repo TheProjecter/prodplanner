@@ -17,8 +17,8 @@ public class TimeLineView extends JPanel
 	public ArrayList<Box> rects = new ArrayList<Box>();
     private Rectangle2D rect2;
     private Rectangle2D rectangle;
-    private int lineX1;
-    private int lineX2;
+    private int lineX1=0;
+    private int lineX2=0;
     
     Cursor cursor;
     int s=0;//typ av grab.
@@ -359,8 +359,8 @@ public class TimeLineView extends JPanel
 	}
 	public void paintDuration(int x1, int x2)
 	{
-		lineX1=x1+1;
-		lineX2=x2+1;
+		lineX1=x1*5-1;
+		lineX2=x2*5-1;
 		repaint();
 	}
 }

@@ -165,13 +165,18 @@ public class Task {
 		this.duration=new Integer(duration);
 	}
 	public int getEarliestInDays() {
-		long a =getEarliestDateInMillis();
-		long b =new GregorianCalendar().getTimeInMillis();
+		long a =getEarliestDateInMillis()/(1000*60*60*24);
+		long b =new GregorianCalendar().getTimeInMillis()/(1000*60*60*24);
 
-		GregorianCalendar c = new GregorianCalendar();
-		c.setTimeInMillis(b-a);
-		System.out.println(c.get(Calendar.DAY_OF_YEAR));
-		return c.get(Calendar.DAY_OF_YEAR);
+		System.out.println(a-b);
+		return (int) (a-b);
+	}
+	public int getLatestInDays() {
+		long a =getLatestDateInMillis()/(1000*60*60*24);
+		long b =new GregorianCalendar().getTimeInMillis()/(1000*60*60*24);
+
+		System.out.println(a-b);
+		return (int) (a-b);
 	}
 	
 }

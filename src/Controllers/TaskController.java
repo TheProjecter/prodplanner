@@ -107,4 +107,9 @@ public class TaskController {
 	public int getEarliestDateInDays(int selectedTask) {
 		return tasks.get(selectedTask).getEarliestInDays();
 	}
+
+	public int getLatestDateInDays(int selectedTask) {
+
+		return tasks.get(selectedTask).getLatestInDays();
+	}
 }
