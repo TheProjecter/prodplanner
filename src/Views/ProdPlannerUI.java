@@ -136,7 +136,9 @@ public class ProdPlannerUI {
 					String latestDate = taskController.getLatestDate(jTable.getRowCount());
 
 					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,earliestDate,latestDate} );
-			
+					
+					TLDraw.setData("", "" + duration, earliestDate, latestDate, "", "", (int)idOnLine.get(count));
+					
 					count++;
 					
 				}
@@ -208,6 +210,14 @@ public class ProdPlannerUI {
 						else{
 							System.out.println("Other change " + a);
 						}
+						TLDraw.setData(
+								(String)model.getValueAt(jTable.getSelectedRow(), 0),
+								(String)model.getValueAt(jTable.getSelectedRow(), 1),
+								(String)model.getValueAt(jTable.getSelectedRow(), 2),
+								(String)model.getValueAt(jTable.getSelectedRow(), 3),
+								(String)model.getValueAt(jTable.getSelectedRow(), 4),
+								(String)model.getValueAt(jTable.getSelectedRow(), 5),
+								jTable.getSelectedRow());
 						taskController.printAll();
 //						System.out.println(taskController.getLatestDate(idOnLine.get(b)));
 

@@ -59,8 +59,10 @@ public class TimeLineView extends JPanel
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
 			    
 			    if (mouseOverBox((int)rects.get(i).getX(), (int)rects.get(i).getY(), (int)rects.get(i).getWidth(), (int)rects.get(i).getHeight())) {
-		        	drawInfoBox(g2d, this.x, this.y);
-				}	
+		        	drawInfoBox(g2d, this.x, this.y, rects.get(i).getID());
+				}
+			    
+			    
 			    
 			}
 		}
@@ -93,16 +95,25 @@ public class TimeLineView extends JPanel
 	    g2.setColor(Color.black);
     }
     
-   public void drawInfoBox(Graphics2D g2d, int x, int y)
+   public void drawInfoBox(Graphics2D g2d, int x, int y, int id)
    {
-	   int w, h, tmpY;
+	   int w, h;
 	   String cust , dur, earliest, latest, start, end;
 	   w = 120;
 	   h = 120;
-	   cust = dur = earliest = latest = start = end = null;
+	   //cust = dur = earliest = latest = start = end = null;
+	   cust = rects.get(id).namn;
+	   dur = rects.get(id).dur;
+	   earliest = rects.get(id).earliest;
+	   latest = rects.get(id).latest;
+	   start = rects.get(id).start;
+	   end = rects.get(id).end;
 	   //y = x = 10; // this is gonna be dynamic
+	  // cust = rects.get(id).getNamn();
 	   
 	   if (y > 90) {
+		// we've reached a point where we need to draw
+		   // the box upwards.
 		   y = y - h;
 	   }
 	   
@@ -278,8 +289,8 @@ public class TimeLineView extends JPanel
 	    	x = event.getX();
 	    	y = event.getY();
 	    	
-	    	System.out.println("mouse X = " + x);
-	    	System.out.println("mouse Y = " + y);
+	    	//System.out.println("mouse X = " + x);
+	    	//System.out.println("mouse Y = " + y);
 	    	
 	    }
     }
@@ -311,9 +322,16 @@ public class TimeLineView extends JPanel
 		//Ta bort en task.
 	}
 	
-	public void setName(String name, int selectedTask)
+	public void setData(String name, String dur, String e, String l, String s, String ed, int selectedTask)
 	{
-		rects.get(selectedTask).setName(name);
+		System.out.println("SetData: " + name);
+		rects.get(selectedTask).setData(name, dur, e, l, s, ed);
+		repaint();
+	}
+	
+	public void setName(String name, int id)
+	{
+		rects.get(id).setName(name);
 		repaint();
 	}
 	
