@@ -20,6 +20,7 @@ public class TimeLineView extends JPanel
     private int lineX1=0;
     private int lineX2=0;
     
+    
     Cursor cursor;
     int s=0;//typ av grab.
     double s2=0;// typ2 vid grab
@@ -27,7 +28,8 @@ public class TimeLineView extends JPanel
     int k=0; //bit som håller koll på vilket håll en box går åt.
     int k2=-1; //vilket objekt som dras
     private int x, y; // mousepos in pane
-
+    int malarBrada1=0;
+    int malarBrada2=0;
 
 	public TimeLineView(String text, Color bg)
 	{
@@ -40,8 +42,9 @@ public class TimeLineView extends JPanel
 	@Override public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-
 		
+		g2d.translate(malarBrada1,0);
+		malarBrada2=malarBrada1;
 		for (int i=1; i<=5; i++) {
 			g2d.setColor(new Color(0,0,0));
 			g2d.drawLine(0, 30*i, 541, 30*i);
@@ -352,6 +355,11 @@ public class TimeLineView extends JPanel
 	public void setLength(int width)
 	{
 		lineX2=lineX1-1+width*5;
+		repaint();
+	}
+
+	public void moveBoard(int value) {
+		malarBrada1=value;
 		repaint();
 	}
 }
