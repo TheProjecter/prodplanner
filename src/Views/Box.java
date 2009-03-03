@@ -24,7 +24,7 @@ public class Box extends Rectangle2D{
     	k1=0;
     	k2=0;
     	this.p=60*id;
-    	this.q=-180;
+    	this.q=0;
     	this.width=width;
     	this.height=height;
     	this.p1=p1;

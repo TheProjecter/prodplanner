@@ -121,7 +121,6 @@ public class TimeLineView extends JPanel
 	       	  			if (rects.get(i).getRect().intersects(r)) {
 	       	  				rect2=rects.get(i).getRect();
 	       	  				rectangle = rects.get(i).getRect().getBounds2D();
-	       	  				System.out.println("Du träffade första");
 	       	  			}
        	  			}
        	  		}
