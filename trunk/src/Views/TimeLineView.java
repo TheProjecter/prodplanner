@@ -184,7 +184,7 @@ public class TimeLineView extends JPanel
    	  					rects.get(k2).setP(s2);
    	  				}
 	   	  			else{
-	   	  				fixIntersect(k2,1);
+	   	  				fixIntersect(k2,2);
 	   	  				if(s2!=0){
 	   	  					rects.get(k2).setWidth(s2);
 	   	  				}
@@ -204,86 +204,43 @@ public class TimeLineView extends JPanel
     		int x = event.getX();
     		int y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
-       	  		for (int i =0; i<rects.size();i++){
-       	  			if(rects.get(i)!=null){
-	       	  			if (rects.get(i).getRect().intersects(r)) {
-	       	  				rect2=rects.get(i).getRect();
-	       	  				rectangle = rects.get(i).getRect().getBounds2D();
-	       	  			}
+       	  		
+   	  			if(rects.get(k2)!=null){
+       	  			if (rects.get(k2).getRect().intersects(r)) {
+       	  				rect2=rects.get(k2).getRect();
+       	  				rectangle = rects.get(k2).getRect().getBounds2D();
        	  			}
-       	  		}
+   	  			}
+       	  		
 
     		}
     	}
     	class EventMouseMotionListener extends MouseMotionAdapter {
     		public void mouseDragged(MouseEvent event) {
-    			for (int i =0; i<rects.size();i++){
-    				if(rects.get(i)!=null){
-	    				if (rects.get(i).getRect().contains(event.getX(), event.getY())) {
-			    			rectangle = null;
-			    			rect2 = rects.get(i).getRect();
-			    			//event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12
-			    			if(s==1){
-			    	    		for (int j =0; j<rects.size();j++){
-			        				if(rects.get(j)!=null){
-	
-				    	    			if (i!=j && !rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    						rects.get(i).dragLeft(event.getX());
-				    	    			}
-				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				//rects.get(j).addP(-15);
-				    	    				fixIntersect(i,-1);
-				    	    			}
-				    	    			else if(rects.size()==1){
-				    	    				rects.get(i).dragLeft(event.getX());
-				    	    			}
-			        				}
-			    	    		}
-			    				
-			    			}
+				if(rects.get(k2)!=null){
+    				if (rects.get(k2).getRect().contains(event.getX(), event.getY())) {
+		    			rectangle = null;
+		    			rect2 = rects.get(k2).getRect();
+		    			//event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12
+		    			if(s==1){
+		    	    		
+		    	    		fixIntersect(k2,-1);
+    	    				rects.get(k2).dragLeft(event.getX());
+		    				
+		    			}
 //			    			event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()
-			    			else if(s==2){
-			    				for (int j =0; j<rects.size();j++){
-			        				if(rects.get(j)!=null){
-			        					
-				    					if (i!=j && !rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				rects.get(i).dragRight(event.getX());
-				    	    			}
-				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				
-				    	    				fixIntersect(i,1);
-				    	    			}
-				    	    			else if(rects.size()==1){
-				    	    				rects.get(i).dragRight(event.getX());
-				    	    			}
-			        				}
-			    	    		}
-			    				
-			    			}
-			    			else{
-			    				//for (int j =0; j<rects.size();j++){
-//			        				if(rects.get(j)!=null){
+		    			else if(s==2){
+		    				rects.get(k2).dragRight(event.getX());
+		    				fixIntersect(k2,1);
 
-//				    	    			if (i!=j && !rects.get(i).getRect().intersects(rects.get(j).getRect())){
-//				    	    				rects.get(i).dragCenter(event.getX(), event.getY());	
-//				    	    			}
-				    	    			//else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				//int k = rects.get(i).getAbs();
-				    	    				//rects.get(j).addP(15*k);
-				    	    				//System.out.println(k); // höger blir negativt och vänster.
-				    	    				//System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 15*k);
-				    	    				
-			
-				    	    			//}
-//				    	    			else if(rects.size()==1){
-				    	    				rects.get(k2).dragCenter(event.getX(), event.getY());
-//				    	    			}
-//			        				}
-			    	    		//}
-			    				
-			    			}
-						}
-    				}
+		    			}
+		    			else{
+
+    	    				rects.get(k2).dragCenter(event.getX(), event.getY());
+		    				
+		    			}
+					}
+				
 	    		}
 		        repaint();
 	        } 
@@ -299,33 +256,32 @@ public class TimeLineView extends JPanel
 		Box temp=new Box(id*45, 5, 45, 20, id);
 		rects.add(temp);
 	}
-//	public void fixIntersect(int id, int k) {
-//		for (int j =0; j<rects.size();j++){
-//			if(rects.get(j)!=null){
-//
-//				if(rects.size()>0 && id!=j && rects.get(id).getRect().intersects(rects.get(j).getRect())){
-//					rects.get(j).addP((15*k));
-//					//System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 	15*k);
-//				}
-//			}
-//		}
-//	}
+
 	public void fixIntersect(int i, int k){
 		int numberOfIntersects=0;
 		int firstHit=-1;
 		for (int j =0; j<rects.size();j++){
 			if(j!=i && rects.get(i).getRect()!=null && rects.get(j).getRect()!=null){
 				if(rects.get(i).getRect().intersects(rects.get(j).getRect())){
-					if(k>0){
+					if(k==2){
+						rects.get(i).setP(rects.get(j).getP());
 						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
 						rects.get(j).addP(numberOfIntersects*5);
+						if(numberOfIntersects==0){
+							firstHit=j;
+							k=1;
+						}
+					}
+					else if(k>0){
+						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
+						//rects.get(j).addP(numberOfIntersects*5);
 						if(numberOfIntersects==0){
 							firstHit=j;
 						}
 					}
 					else{
 						rects.get(j).setP((int)((rects.get(i).getP()-rects.get(j).getWidth())));
-						rects.get(j).addP(numberOfIntersects*-5);
+						//rects.get(j).addP(numberOfIntersects*-5);
 						if(numberOfIntersects==0){
 							firstHit=j;
 						}
