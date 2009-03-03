@@ -174,8 +174,8 @@ public class Box extends Rectangle2D{
        	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
        	
 		p1 = p2;
-		q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
-       	q1 = q2;
+		//q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
+       	//q1 = q2;
 
 		
 	}
@@ -244,6 +244,22 @@ public class Box extends Rectangle2D{
 	}
 	public String getNamn() {
 		return namn;
+	}
+
+	public void remove() {
+    	this.id=0;
+		namn="";
+    	k1=0;
+    	k2=0;
+    	this.p=0;
+    	this.q=0;
+    	this.width=0;
+    	this.height=0;
+    	this.p1=0;
+    	this.p2=0;
+    	this.q1=0;
+    	this.q2=0;
+		
 	}
 }
 	
