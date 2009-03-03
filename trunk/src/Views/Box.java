@@ -14,13 +14,13 @@ public class Box extends Rectangle2D{
 	int p1, p2, q1, q2;
 	int id;
 	int k1, k2;
-	String namn;
+	public String namn, dur, earliest, latest, start, end;
 	private Color color;
 	private boolean isSelected = false;
 	
     public Box(double p, double q, double width, double height, int id) {
     	this.id=id;
-		this.namn = "";
+		this.namn= "";
     	k1=0;
     	k2=0;
     	this.p=60*id;
@@ -275,6 +275,16 @@ public class Box extends Rectangle2D{
 	public void setName(String name)
 	{
 		this.namn = name;
+	}
+	
+	public void setData(String name, String dur, String e, String l, String s, String ed)
+	{
+		this.namn = name;
+		this.dur = dur;
+		this.earliest = e;
+		this.latest = l;
+		this.start = s;
+		this.end = ed;
 	}
 
 	public void remove() {
