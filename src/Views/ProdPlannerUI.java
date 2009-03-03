@@ -188,6 +188,9 @@ public class ProdPlannerUI {
 						else if(a==1){ //duration
 							taskController.addDuration(b,(String) model.getValueAt(b, a));
 							model.setValueAt(taskController.getLatestDate(b),b,3);
+							
+							// grym oneliner haha
+							TLDraw.setLength(Integer.parseInt((String)model.getValueAt(b, a))*30, jTable.getSelectedRow());
 
 						}
 						else if(a==2){ //start date
