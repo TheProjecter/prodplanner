@@ -237,7 +237,9 @@ public class ProdPlannerUI {
 			
 			deleteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					model.removeRow(jTable.getSelectedRow());
+					int temp=jTable.getSelectedRow();
+					model.removeRow(temp);
+					ParkDraw.removeTask(temp);
 					
 				}});
 			
