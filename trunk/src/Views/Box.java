@@ -24,7 +24,7 @@ public class Box extends Rectangle2D{
     	k1=0;
     	k2=0;
     	this.p=60*id;
-    	this.q=0;
+    	this.q=155;
     	this.width=width;
     	this.height=height;
     	this.p1=p1;
@@ -134,19 +134,29 @@ public class Box extends Rectangle2D{
 
 
 	public void centerP() {
-		if(p%5>15){
-  			 p=p+(5-p%5);
+		System.out.println("Before P: " + p);
+
+		if(p%15>8){
+  			 p=p+(15-p%15);
   		  }else{
-  			 p=p-(p%5);
+  			 p=p-(p%15);
   		 }
+		System.out.println("Final P: " + p);
+
 		
 	}
 	public void centerWidth() {
-		if(width%5>15){
-			width=width+(5-width%5);
- 		}else{
- 			width=width-(width%5);
+		System.out.println("Before W: " + width);
+
+		if(width%15>8){
+			width=width+(15-width%15);
+ 		}else if(width%15==0){
  		}
+ 		else{
+ 			width=width-(width%15);
+ 		}
+		System.out.println("Final W: " + width);
+
 	}
 
 
@@ -154,8 +164,8 @@ public class Box extends Rectangle2D{
 		p2 = x;
 		p = p + p2 - p1;
 		width=width + (p1-p2);
-		System.out.println(id + " Left");
-
+		//System.out.println(id + " Left");
+		System.out.println(width);
 		p1 = p2;
 		k1=-1;
 		
@@ -164,10 +174,12 @@ public class Box extends Rectangle2D{
 
 	public void dragRight(int x) {
 		p2 = x;
-		System.out.println(id + " Drag Right");
+
 		width+=p2-p1;
 		p1 = p2;
 		k1=1;
+		System.out.println(width);
+
 	}
 	
 	public Color getColor()
@@ -183,8 +195,8 @@ public class Box extends Rectangle2D{
 		k2=k1;
        	k1= (p2-p1);
        	
-       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
-       	
+       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+       	System.out.println("width: " + width);
 		p1 = p2;
 		//q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
        	//q1 = q2;
@@ -195,14 +207,14 @@ public class Box extends Rectangle2D{
 
 	@Override
 	public Rectangle2D createIntersection(Rectangle2D r) {
-			// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 
 	@Override
 	public Rectangle2D createUnion(Rectangle2D r) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -228,7 +240,7 @@ public class Box extends Rectangle2D{
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

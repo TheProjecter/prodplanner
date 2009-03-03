@@ -17,6 +17,8 @@ public class TimeLineView extends JPanel
     private Rectangle2D rectangle;
     Cursor cursor;
     int s=0;//typ av grab.
+    double s2=0;// typ2 vid grab
+    int s3=0;
 
 
 	public TimeLineView(String text, Color bg)
@@ -45,9 +47,10 @@ public class TimeLineView extends JPanel
 					g2d.setColor(rects.get(i).getColor());
 				}
 				
-				g2d.draw(rects.get(i).getRect());	    
+					    
 			    g2d.fill(rects.get(i).getRect());
-			    
+			    g2d.setColor(new Color(90,0,50));
+			    g2d.draw(rects.get(i).getRect());
 			    // draws a shadow effect behind the text.
 			    g2d.setColor(new Color(0,0,0));
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+11,(int)rects.get(i).getRect().getY()+16);
@@ -85,11 +88,20 @@ public class TimeLineView extends JPanel
        	  					rectangle = rects.get(i).getRect().getBounds2D();
        	  					rects.get(i).setP1(event.getX());
        	  					rects.get(i).setQ1(event.getY());
-       	  					if(event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12){
-       	  						s=1;
-       	  					}
-       	  					else if(event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()){
-       	  						s=2;
+       	  					if(s3==0){
+	       	  					if(event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12){
+	       	  						s=1;
+	       	  						//s2=rects.get(i).getWidth();
+	       	  					}
+	       	  					else if(event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()){
+	       	  						s=2;
+	       	  						s2=rects.get(i).getP();
+	       	  					}
+	       	  					else{
+	       	  						s=3;
+	       	  						s2=rects.get(i).getWidth();
+	       	  					}
+	       	  					s3=1;
        	  					}
        	  				}
        	  			}
@@ -105,12 +117,29 @@ public class TimeLineView extends JPanel
 	   	  			if (rects.get(i).getRect().intersects(r)) {
 	   	  				rectangle = rects.get(i).getRect().getBounds2D();
 	   	  				rect2 = rects.get(i).getRect();
+
 	   	  				rects.get(i).centerP();
 	   	  				rects.get(i).centerWidth();
+	   	  				System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
+	   	  				if(s==1){
+	   	  					//rects.get(i).setWidth(s2);
+	   	  				}
+	   	  				else if(s==2){
+	   	  					rects.get(i).setP(s2);
+	   	  				}
+		   	  			else{
+	   	  					rects.get(i).setWidth(s2);
+		   	  			}
+	   	  				
 	   	  			}
 	       	  	}
        	  	}
+       	  	
        	  	s=0;
+       	  	s3=0;
+       	  	s2=0;
+ 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
+
     	}
     	public void mouseClicked(MouseEvent event) {
     		int x = event.getX();
@@ -143,7 +172,7 @@ public class TimeLineView extends JPanel
 				    						rects.get(i).dragLeft(event.getX());
 				    	    			}
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				rects.get(j).addP(-30);
+				    	    				rects.get(j).addP(-15);
 				    	    				fixIntersect(j,-1);
 				    	    			}
 				    	    			else if(rects.size()==1){
@@ -162,7 +191,7 @@ public class TimeLineView extends JPanel
 				    	    				rects.get(i).dragRight(event.getX());
 				    	    			}
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				rects.get(j).addP(30);
+				    	    				rects.get(j).addP(15);
 				    	    				fixIntersect(j,1);
 				    	    			}
 				    	    			else if(rects.size()==1){
@@ -181,9 +210,9 @@ public class TimeLineView extends JPanel
 				    	    			}
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
 				    	    				int k = rects.get(j).getAbs();
-				    	    				rects.get(j).addP(30*k);
+				    	    				rects.get(j).addP(15*k);
 				    	    				System.out.println(k); // höger blir negativt och vänster.
-				    	    				System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 30*k);
+				    	    				System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 15*k);
 				    	    				fixIntersect(j,k);
 			
 				    	    			}
@@ -206,7 +235,7 @@ public class TimeLineView extends JPanel
 
 	public void addTask(int id) {
 		// width baseras på duration
-		Box temp=new Box(id*60, 5, 5*10, 20, id);
+		Box temp=new Box(id*45, 5, 45, 20, id);
 		rects.add(temp);
 	}
 	public void fixIntersect(int id, int k) {
@@ -214,8 +243,8 @@ public class TimeLineView extends JPanel
 			if(rects.get(j)!=null){
 
 				if(rects.size()>0 && id!=j && rects.get(id).getRect().intersects(rects.get(j).getRect())){
-					rects.get(j).addP((30*k));
-					System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 30*k);
+					rects.get(j).addP((15*k));
+					System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 	15*k);
 				}
 			}
 		}
