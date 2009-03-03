@@ -221,12 +221,13 @@ public class TimeLineView extends JPanel
 		}
 	}
 
-	public void removeTask(int selectedTask) {
+	public void dropTask(int selectedTask) {
 		System.out.println("selectedTask: "  + selectedTask);
 		rects.get(selectedTask).remove();
 		rects.get(selectedTask).setRect(0,0,0,0);
 		repaint();
 		rects.set(selectedTask, null);
+		rects.remove(selectedTask);
 		//Ta bort en task.
 	}
 	
