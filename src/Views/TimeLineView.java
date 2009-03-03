@@ -334,12 +334,6 @@ public class TimeLineView extends JPanel
 		repaint();
 	}
 	
-	public void setLength(int width, int selectedTask)
-	{
-		rects.get(selectedTask).width = (double)width*5;
-		repaint();
-	}
-	
 	public void setSelection(boolean b, int st)
 	{
 		rects.get(st).selection(b);
@@ -361,6 +355,11 @@ public class TimeLineView extends JPanel
 	{
 		lineX1=x1*5-1;
 		lineX2=x2*5-1;
+		repaint();
+	}
+	public void setLength(int width)
+	{
+		lineX2=lineX1-1+width*5;
 		repaint();
 	}
 }
