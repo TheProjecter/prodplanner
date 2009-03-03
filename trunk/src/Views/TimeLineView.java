@@ -80,8 +80,12 @@ public class TimeLineView extends JPanel
 	
 	private void draw2Lines(Graphics2D g2d) {	
 	    g2d.setColor(Color.red);
-	    g2d.drawLine(lineX1, 0, lineX1, 150);
-	    g2d.drawLine(lineX2, 0, lineX2, 150);
+	    if(lineX1==lineX2){
+	    	
+	    }else{
+		    g2d.drawLine(lineX1, 0, lineX1, 150);
+		    g2d.drawLine(lineX2, 0, lineX2, 150);
+	    }
 	}
 
 	private boolean mouseOverBox(int x, int y, int w, int h) {
