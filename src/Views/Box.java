@@ -16,6 +16,7 @@ public class Box extends Rectangle2D{
 	int k1, k2;
 	String namn;
 	private Color color;
+	private boolean isSelected = false;
 	
     public Box(double p, double q, double width, double height, int id) {
     	this.id=id;
@@ -133,18 +134,18 @@ public class Box extends Rectangle2D{
 
 
 	public void centerP() {
-		if(p%30>15){
-  			 p=p+(30-p%30);
+		if(p%5>15){
+  			 p=p+(5-p%5);
   		  }else{
-  			 p=p-(p%30);
+  			 p=p-(p%5);
   		 }
 		
 	}
 	public void centerWidth() {
-		if(width%30>15){
-			width=width+(30-width%30);
+		if(width%5>15){
+			width=width+(5-width%5);
  		}else{
- 			width=width-(width%30);
+ 			width=width-(width%5);
  		}
 	}
 
@@ -275,6 +276,16 @@ public class Box extends Rectangle2D{
     	this.q1=0;
     	this.q2=0;
 		
+	}
+	
+	public void selection(boolean b)
+	{
+		this.isSelected = b;
+	}
+	
+	public boolean getSelection()
+	{
+		return this.isSelected;
 	}
 }
 	
