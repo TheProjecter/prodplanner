@@ -164,5 +164,14 @@ public class Task {
 	public void setDuration(String duration) {
 		this.duration=new Integer(duration);
 	}
+	public int getEarliestInDays() {
+		long a =getEarliestDateInMillis();
+		long b =new GregorianCalendar().getTimeInMillis();
+
+		GregorianCalendar c = new GregorianCalendar();
+		c.setTimeInMillis(b-a);
+		System.out.println(c.get(Calendar.DAY_OF_YEAR));
+		return c.get(Calendar.DAY_OF_YEAR);
+	}
 	
 }

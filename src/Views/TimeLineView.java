@@ -5,16 +5,21 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.util.*;
 
 public class TimeLineView extends JPanel
 {
+
 	private String text;
 	public ArrayList<Box> rects = new ArrayList<Box>();
     private Rectangle2D rect2;
     private Rectangle2D rectangle;
+    private int lineX1;
+    private int lineX2;
+    
     Cursor cursor;
     int s=0;//typ av grab.
     double s2=0;// typ2 vid grab
@@ -58,13 +63,10 @@ public class TimeLineView extends JPanel
 			    // draws the text
 			    g2d.setColor(new Color(255,255,255));
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
-			    
+			    draw2Lines(g2d);
 			    if (mouseOverBox((int)rects.get(i).getX(), (int)rects.get(i).getY(), (int)rects.get(i).getWidth(), (int)rects.get(i).getHeight())) {
 		        	drawInfoBox(g2d, this.x, this.y, rects.get(i).getID());
 				}
-			    
-			    
-			    
 			}
 		}
 	    if (rectangle != null) {
@@ -73,11 +75,15 @@ public class TimeLineView extends JPanel
         if (cursor != null){
         	setCursor(cursor);
 		}
-        
-        
 	    repaint();
 	}
 	
+	private void draw2Lines(Graphics2D g2d) {	
+	    g2d.setColor(Color.red);
+	    g2d.drawLine(lineX1, 0, lineX1, 150);
+	    g2d.drawLine(lineX2, 0, lineX2, 150);
+	}
+
 	private boolean mouseOverBox(int x, int y, int w, int h) {
 //		if ( ( (this.x < x+w)&&(this.x > x)) && ((this.y > y) && (this.y < y+h))) {
 //			//System.out.println("X = " + x + " Y = " + y + " w = " + w + " h = " + h);
@@ -94,7 +100,7 @@ public class TimeLineView extends JPanel
 	    double width = rect.getWidth();
 	    double height = rect.getHeight();
 	    g2.setColor(Color.black);
-    }
+	}
     
    public void drawInfoBox(Graphics2D g2d, int x, int y, int id)
    {
@@ -187,9 +193,12 @@ public class TimeLineView extends JPanel
 	    				for (int j=0; j<rects.size();j++){
 	    					if (rects.get(j).getRect().contains(event.getX(), event.getY())){
 	    						rects.get(k2).setP(rects.get(j).getP());
+	    						fixIntersect(j,2);
+	    					}
+	    					else{
+	    						fixIntersect(k2,2);
 	    					}
 	    				}
-	   	  				fixIntersect(k2,2);
 	   	  				if(s2!=0){
 	   	  					rects.get(k2).setWidth(s2);
 	   	  				}
@@ -301,9 +310,6 @@ public class TimeLineView extends JPanel
 			//System.out.println("en rekursiv operation: " + numberOfIntersects);
 		}
 	}
-	
-	
-	
 
 	public void dropTask(int selectedTask) {
 //		System.out.println("selectedTask: "  + selectedTask);
@@ -350,5 +356,11 @@ public class TimeLineView extends JPanel
 
 	public int getArraySize() {
 		return rects.size();
+	}
+	public void paintDuration(int x1, int x2)
+	{
+		lineX1=x1+1;
+		lineX2=x2+1;
+		repaint();
 	}
 }
