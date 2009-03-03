@@ -43,6 +43,7 @@ public class ProdPlannerUI {
 	private int count=0;
 	private ArrayList<Integer> idOnLine = new ArrayList<Integer>();
 
+	private int selectedTask;
 
 	public ProdPlannerUI()
 	{
@@ -174,6 +175,8 @@ public class ProdPlannerUI {
 			};
 			
 			
+			
+			
 			model.addTableModelListener(new javax.swing.event.TableModelListener() {
 				public void tableChanged(javax.swing.event.TableModelEvent e) {
 			        TableModel model = (TableModel)e.getSource();
@@ -216,16 +219,19 @@ public class ProdPlannerUI {
 				}
 			});
 			
-			/*
 			jTable.getSelectionModel().addListSelectionListener(
 					new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent e) {
-							TLDraw.setSelection(true, jTable.getSelectedRow());
+							 if (jTable.getSelectedRow() >= 0) {
+								 	TLDraw.setSelection(false, selectedTask);
+						        	selectedTask = jTable.getSelectedRow();
+						        	TLDraw.setSelection(true,selectedTask);
+						        	System.out.println("THIS IS THE SELECTED ID:" + selectedTask);
+						      }
 						}
 					}
 		
-			);*/
-			
+			);
 			
 		}
 		return jTable;
@@ -266,6 +272,7 @@ public class ProdPlannerUI {
 						TLDraw.dropTask(markeradRad);
 						taskController.drop(markeradRad);
 						idOnLine.remove(markeradRad);
+						//TLDraw.setSelection(false, markeradRad);
 					} catch (Exception e1) {
 						
 						//e1.printStackTrace();
