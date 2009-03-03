@@ -32,11 +32,18 @@ public class TimeLineView extends JPanel
 		Graphics2D g2d = (Graphics2D)g;
 		for (int i =0; i<rects.size();i++){
 			if(rects.get(i)!=null){
-			    g2d.setColor(new Color(0,0,0));
+			    
+				g2d.setColor(rects.get(i).getColor());
 			    g2d.draw(rects.get(i).getRect());	    
 			    g2d.fill(rects.get(i).getRect());
+			    
+			    // draws a shadow effect behind the text.
+			    g2d.setColor(new Color(0,0,0));
+			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+11,(int)rects.get(i).getRect().getY()+16);
+			    // draws the text
 			    g2d.setColor(new Color(255,255,255));
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
+			    
 			}
 		}
 	    if (rectangle != null) {
