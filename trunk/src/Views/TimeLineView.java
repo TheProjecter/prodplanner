@@ -44,7 +44,7 @@ public class TimeLineView extends JPanel
 				g2d.setColor(new Color(90,0,50));
 				g2d.draw(rects.get(i).getRect());
 				if (paintAsSelected(i)) {
-					g2d.setColor(new Color(255,255,204));
+					g2d.setColor(new Color(255,0,0));
 				} else {
 					g2d.setColor(rects.get(i).getColor());
 				}					    
@@ -277,6 +277,7 @@ public class TimeLineView extends JPanel
 	{
 		rects.get(st).selection(b);
 	}
+	
 	public boolean paintAsSelected(int st)
 	{
 		if (rects.get(st).getSelection() == true) {
