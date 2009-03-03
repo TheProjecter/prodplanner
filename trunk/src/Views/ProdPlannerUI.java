@@ -18,6 +18,7 @@ import Controllers.TaskController;
 import javax.swing.JLabel;
 import java.awt.Point;
 import java.util.ArrayList;
+import javax.swing.JScrollBar;
 
 public class ProdPlannerUI {
 
@@ -44,6 +45,7 @@ public class ProdPlannerUI {
 	private ArrayList<Integer> idOnLine = new ArrayList<Integer>();
 
 	private int selectedTask;
+	private JScrollBar jScrollBar = null;
 
 	public ProdPlannerUI()
 	{
@@ -109,6 +111,7 @@ public class ProdPlannerUI {
  			jContentPane.add(L4, null);
  			jContentPane.add(Park, null);
  			jContentPane.add(L5, null);
+ 			jContentPane.add(getJScrollBar(), null);
  			
 		}
 		return jContentPane;
@@ -135,7 +138,7 @@ public class ProdPlannerUI {
 					String earliestDate = taskController.getEarliestDate(jTable.getRowCount());
 					String latestDate = taskController.getLatestDate(jTable.getRowCount());
 
-					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,earliestDate,latestDate} );
+					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,earliestDate,latestDate,"","","Park"} );
 					
 					TLDraw.setData("", "" + duration, earliestDate, latestDate, "", "", (int)idOnLine.get(count));
 					
@@ -160,7 +163,8 @@ public class ProdPlannerUI {
 					"Earliest", 
 					"Latest", 
 					"Start", 
-					"End"}; 
+					"End",
+					"L"};
 			model.setColumnIdentifiers(titles);
 		
 			jTable = new JTable(model){
@@ -371,5 +375,24 @@ public class ProdPlannerUI {
 			TimeLineDraw.setLocation(new Point(0, 0));
 		}
 		return TimeLineDraw;
+	}
+
+	/**
+	 * This method initializes jScrollBar	
+	 * 	
+	 * @return javax.swing.JScrollBar	
+	 */
+	private JScrollBar getJScrollBar() {
+		if (jScrollBar == null) {
+			jScrollBar = new JScrollBar(0);
+			jScrollBar.setValue(25);
+			jScrollBar.setBounds(new Rectangle(135, 0, 538, 16));
+			jScrollBar.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+				public void adjustmentValueChanged(java.awt.event.AdjustmentEvent e) {
+					System.out.println(jScrollBar.getValue());
+				}
+			});
+		}
+		return jScrollBar;
 	}
 }

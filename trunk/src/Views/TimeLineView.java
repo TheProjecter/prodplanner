@@ -40,6 +40,7 @@ public class TimeLineView extends JPanel
 	@Override public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
+
 		
 		for (int i=1; i<=5; i++) {
 			g2d.setColor(new Color(0,0,0));
@@ -182,7 +183,6 @@ public class TimeLineView extends JPanel
    	  			if (rects.get(k2).getRect().intersects(r)) {
    	  				rectangle = rects.get(k2).getRect().getBounds2D();
    	  				rect2 = rects.get(k2).getRect();
-
    	  				rects.get(k2).centerP();
    	  				rects.get(k2).centerWidth();
    	  				rects.get(k2).centerQ();
@@ -197,7 +197,7 @@ public class TimeLineView extends JPanel
 	    				for (int j=0; j<rects.size();j++){
 	    					if (rects.get(j).getRect().contains(event.getX(), event.getY())){
 	    						rects.get(k2).setP(rects.get(j).getP());
-	    						fixIntersect(j,2);
+	    						fixIntersect(k2,2);
 	    					}
 	    					else{
 	    						fixIntersect(k2,2);
@@ -207,31 +207,24 @@ public class TimeLineView extends JPanel
 	   	  					rects.get(k2).setWidth(s2);
 	   	  				}
 	   	  			}
-   	  				
    	  			}
        	  	}
-
-       	  	
        	  	s=0;
        	  	s3=0;
        	  	s2=0;
 // 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
-
     	}
     	public void mouseClicked(MouseEvent event) {
     		int x = event.getX();
     		int y = event.getY();
-       	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
-       	  		
+       	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);		
    	  			if(rects.get(k2)!=null){
        	  			if (rects.get(k2).getRect().intersects(r)) {
        	  				rect2=rects.get(k2).getRect();
        	  				rectangle = rects.get(k2).getRect().getBounds2D();
        	  			}
    	  			}
-       	  		
-
-    		}
+       	  	}
     	}
     	class EventMouseMotionListener extends MouseMotionAdapter {
     		public void mouseDragged(MouseEvent event) {
@@ -241,21 +234,16 @@ public class TimeLineView extends JPanel
 		    			rect2 = rects.get(k2).getRect();
 		    			//event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12
 		    			if(s==1){
-		    	    		
 		    	    		fixIntersect(k2,-1);
     	    				rects.get(k2).dragLeft(event.getX());
-		    				
 		    			}
 //			    			event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()
 		    			else if(s==2){
 		    				rects.get(k2).dragRight(event.getX());
 		    				fixIntersect(k2,1);
-
 		    			}
 		    			else{
-
     	    				rects.get(k2).dragCenter(event.getX(), event.getY());
-		    				
 		    			}
 					}
 				
