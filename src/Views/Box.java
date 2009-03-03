@@ -1,20 +1,22 @@
 package Views;
 
+import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
 /**
  * @author Simonko
  *
  */
-public class Box {
-	Rectangle2D rect;
+public class Box extends Rectangle2D{
 	double p, q, width, height;
 	int p1, p2, q1, q2;
+	int id=0;
 	
 	
     public Box(double p, double q, double width, double height) {
-    	this.rect= new Rectangle2D.Double(p, q, width, height);
+    	id++;
     	this.p=p;
+    	this.q=q;
     	this.width=width;
     	this.height=height;
     	this.p1=p1;
@@ -23,14 +25,20 @@ public class Box {
     	this.q2=q2;
     }
 
+	@Override
+	public void setRect(double x, double y, double w, double h) {
+		p=x;
+		q=y;
+		width=w;
+		height=h;
+	}
 
 	public Rectangle2D getRect() {
-		return rect;
+		return this;
 	}
 
 
 	public void setRect(Rectangle2D rect) {
-		this.rect = rect;
 	}
 
 
@@ -157,6 +165,57 @@ public class Box {
 		q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
        	q1 = q2;
 		
+	}
+
+
+	@Override
+	public Rectangle2D createIntersection(Rectangle2D r) {
+			// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Rectangle2D createUnion(Rectangle2D r) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int outcode(double x, double y) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public double getX() {
+		return p;
+	}
+
+
+	@Override
+	public double getY() {
+		return q;
+	}
+
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void addP(int i) {
+		p+=i;
+		
+	}
+
+	public int getAbs() {
+		if(p1-p>=0)
+			return -1;
+		return 1;
 	}
 }
 	
