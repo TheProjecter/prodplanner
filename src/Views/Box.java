@@ -10,11 +10,15 @@ import java.awt.geom.Rectangle2D;
 public class Box extends Rectangle2D{
 	double p, q, width, height;
 	int p1, p2, q1, q2;
-	int id=0;
+	int id;
+	int k1, k2;
+	String namn;
 	
-	
-    public Box(double p, double q, double width, double height) {
-    	id++;
+    public Box(double p, double q, double width, double height, int id) {
+    	this.id=id;
+		namn="" + id;
+    	k1=0;
+    	k2=0;
     	this.p=p;
     	this.q=q;
     	this.width=width;
@@ -143,17 +147,20 @@ public class Box extends Rectangle2D{
 		p2 = x;
 		p = p + p2 - p1;
 		width=width + (p1-p2);
+		System.out.println(id + " Left");
+
 		p1 = p2;
+		k1=-1;
 		
 	}
 
 
 	public void dragRight(int x) {
 		p2 = x;
-		System.out.println(p2-p1);
+		System.out.println(id + " Drag Right");
 		width+=p2-p1;
-		p1 = p2;  
-		
+		p1 = p2;
+		k1=1;
 	}
 
 
@@ -161,9 +168,15 @@ public class Box extends Rectangle2D{
 		p2 = x;
 		q2 = y;
 		p = p + p2 - p1;
+		k2=k1;
+       	k1= (p2-p1);
+       	
+       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+       	
 		p1 = p2;
 		q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
        	q1 = q2;
+
 		
 	}
 
@@ -213,9 +226,24 @@ public class Box extends Rectangle2D{
 	}
 
 	public int getAbs() {
-		if(p1-p>=0)
+		if(k2!=0 && k2 >=0){
+			System.out.println("1. k1=" + k1);
+			return 1;
+		}else if(k2!=0 && k2<0){
+			System.out.println("2. k1=" + k1);
 			return -1;
-		return 1;
+		}else if(k1>=0){
+			System.out.println("3. k2=" + k2);
+			return 1;
+		}
+		System.out.println("4. k1=" + k1 + "k2=" + k2);
+		return -1;
+	}
+	public int getID() {
+		return id;
+	}
+	public String getNamn() {
+		return namn;
 	}
 }
 	

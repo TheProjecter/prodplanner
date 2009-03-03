@@ -34,7 +34,7 @@ public class TimeLineView extends JPanel
 		    g2d.draw(rects.get(i).getRect());	    
 		    g2d.fill(rects.get(i).getRect());
 		    g2d.setColor(new Color(255,255,255));
-		    g2d.drawString("Customer",(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
+		    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
 		}
 	    if (rectangle != null) {
 	    	drawSquares(g2d, rectangle);
@@ -138,7 +138,13 @@ public class TimeLineView extends JPanel
 	    	    				rects.get(i).dragCenter(event.getX(), event.getY());	
 	    	    			}
 	    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-	    	    				rects.get(j).addP(30*rects.get(j).getAbs());
+	    	    				int k = rects.get(j).getAbs();
+	    	    				rects.get(j).addP(30*k);
+	    	    				System.out.println(k); // höger blir negativt och vänster.
+	    	    				System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 30*k);
+	    	    				fixIntersect(j,k);
+	    	    				fixIntersect(j,k);
+
 	    	    			}
 	    	    			else if(rects.size()==1){
 	    	    				rects.get(i).dragCenter(event.getX(), event.getY());
@@ -148,23 +154,26 @@ public class TimeLineView extends JPanel
 	    			}
 				}
     		}
-	        if (rect2 != null)
-//	        	display(rect2);
+
 	        repaint();
         } 
 	    public void mouseMoved(MouseEvent event) {
 	    	cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 	    }
     }
-//    public void display(Shape shape) {
-//    	double p = rect2.getX();
-//    	double q = rect2.getY();
-//    	double width= rect2.getWidth();
-//    	double height = rect2.getHeight();
-//    }
+
 	public void addTask(int id) {
-		Box temp=new Box(id*60, 5, 60, 20);
+		Box temp=new Box(id*60, 5, 60, 20, id);
 		rects.add(temp);
+	}
+	public void fixIntersect(int id, int k) {
+		for (int j =0; j<rects.size();j++){
+
+			if(rects.size()>0 && id!=j && rects.get(id).getRect().intersects(rects.get(j).getRect())){
+				rects.get(j).addP((30*k + (int)rects.get(j).getWidth()));
+				System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 30*k);
+			}
+		}
 	}
 }
 
