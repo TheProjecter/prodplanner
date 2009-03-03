@@ -30,6 +30,12 @@ public class TimeLineView extends JPanel
 	@Override public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
+		
+		for (int i=1; i<=5; i++) {
+			g2d.setColor(new Color(0,0,0));
+			g2d.drawLine(0, 30*i, 541, 30*i);
+		}
+		
 		for (int i =0; i<rects.size();i++){
 			if(rects.get(i)!=null){
 			    
@@ -195,7 +201,8 @@ public class TimeLineView extends JPanel
     }
 
 	public void addTask(int id) {
-		Box temp=new Box(id*60, 5, 60, 20, id);
+		// width baseras på duration
+		Box temp=new Box(id*60, 5, 300, 20, id);
 		rects.add(temp);
 	}
 	public void fixIntersect(int id, int k) {
@@ -222,6 +229,11 @@ public class TimeLineView extends JPanel
 	public void setName(String name, int selectedTask)
 	{
 		rects.get(selectedTask).setName(name);
+		repaint();
+	}
+	public void setLength(int width, int selectedTask)
+	{
+		rects.get(selectedTask).width = (double)width;
 		repaint();
 	}
 }
