@@ -168,32 +168,31 @@ public class TimeLineView extends JPanel
     		int x = event.getX();
     		int y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
-       	  	for (int i =0; i<rects.size();i++){
-	       	  	if(rects.get(i)!=null){
-	   	  			if (rects.get(i).getRect().intersects(r)) {
-	   	  				rectangle = rects.get(i).getRect().getBounds2D();
-	   	  				rect2 = rects.get(i).getRect();
+       	  	if(rects.get(k2)!=null){
+   	  			if (rects.get(k2).getRect().intersects(r)) {
+   	  				rectangle = rects.get(k2).getRect().getBounds2D();
+   	  				rect2 = rects.get(k2).getRect();
 
-	   	  				rects.get(i).centerP();
-	   	  				rects.get(i).centerWidth();
-	   	  				rects.get(i).centerQ();
+   	  				rects.get(k2).centerP();
+   	  				rects.get(k2).centerWidth();
+   	  				rects.get(k2).centerQ();
 //	   	  				System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
-	   	  				if(s==1){
-	   	  					//rects.get(i).setWidth(s2);
+   	  				if(s==1){
+   	  					//rects.get(i).setWidth(s2);
+   	  				}
+   	  				else if(s==2){
+   	  					rects.get(k2).setP(s2);
+   	  				}
+	   	  			else{
+	   	  				fixIntersect(k2,1);
+	   	  				if(s2!=0){
+	   	  					rects.get(k2).setWidth(s2);
 	   	  				}
-	   	  				else if(s==2){
-	   	  					rects.get(i).setP(s2);
-	   	  				}
-		   	  			else{
-		   	  				interSector(k2);
-		   	  				if(s2!=0){
-		   	  					rects.get(i).setWidth(s2);
-		   	  				}
-		   	  			}
-	   	  				
 	   	  			}
-	       	  	}
+   	  				
+   	  			}
        	  	}
+
        	  	
        	  	s=0;
        	  	s3=0;
@@ -252,7 +251,7 @@ public class TimeLineView extends JPanel
 				    	    			}
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
 				    	    				
-				    	    				interSector(i);
+				    	    				fixIntersect(i,1);
 				    	    			}
 				    	    			else if(rects.size()==1){
 				    	    				rects.get(i).dragRight(event.getX());
@@ -341,27 +340,7 @@ public class TimeLineView extends JPanel
 			//System.out.println("en rekursiv operation: " + numberOfIntersects);
 		}
 	}
-	public void interSector(int i){
-		int numberOfIntersects=0;
-		int firstHit=-1;
-		for (int j =0; j<rects.size();j++){
-			if(j!=i && rects.get(i).getRect()!=null && rects.get(j).getRect()!=null){
-				if(rects.get(i).getRect().intersects(rects.get(j).getRect())){
-					rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
-					rects.get(j).addP(numberOfIntersects*5);
-					if(numberOfIntersects==0){
-						firstHit=j;
-					}
-					numberOfIntersects++;
-					//System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 	15*k);
-				}
-			}
-		}
-		if(firstHit!=-1){
-			interSector(firstHit);
-			//System.out.println("en iterativ operation: " + numberOfIntersects);
-		}
-	}
+	
 	
 	
 
