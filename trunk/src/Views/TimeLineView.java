@@ -286,4 +286,8 @@ public class TimeLineView extends JPanel
 		
 		return false;
 	}
+
+	public int getArraySize() {
+		return rects.size();
+	}
 }
