@@ -12,9 +12,9 @@ import java.util.*;
 public class TimeLineView extends JPanel
 {
 	private String text;
-	ArrayList<Box> rects = new ArrayList<Box>();
-    Rectangle2D rect2;
-    Rectangle2D rectangle;
+	public ArrayList<Box> rects = new ArrayList<Box>();
+    private Rectangle2D rect2;
+    private Rectangle2D rectangle;
     Cursor cursor;
     int s=0;//typ av grab.
 
@@ -211,5 +211,10 @@ public class TimeLineView extends JPanel
 		rects.set(selectedTask, null);
 		//Ta bort en task.
 	}
+	
+	public void setName(String name, int selectedTask)
+	{
+		rects.get(selectedTask).setName(name);
+		repaint();
+	}
 }
-

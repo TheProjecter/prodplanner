@@ -181,7 +181,9 @@ public class ProdPlannerUI {
 
 						System.out.println(a + ", " + b + ", " + model.getValueAt(b, a));  
 						if(a==0){ 
+							
 							taskController.addCostumer(b,(String) model.getValueAt(b, a));
+							ParkDraw.setName((String)model.getValueAt(b, a), jTable.getSelectedRow());
 						}
 						else if(a==1){ //duration
 							taskController.addDuration(b,(String) model.getValueAt(b, a));
