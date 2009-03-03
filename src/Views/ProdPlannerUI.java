@@ -222,12 +222,14 @@ public class ProdPlannerUI {
 			jTable.getSelectionModel().addListSelectionListener(
 					new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent e) {
-							 if (jTable.getSelectedRow() >= 0) {
+							if (jTable.getSelectedRow() >= 0) {
+								if(TLDraw.getArraySize()>selectedTask){
 								 	TLDraw.setSelection(false, selectedTask);
 						        	selectedTask = jTable.getSelectedRow();
 						        	TLDraw.setSelection(true,selectedTask);
 						        	System.out.println("THIS IS THE SELECTED ID:" + selectedTask);
-						      }
+								}
+							}
 						}
 					}
 		
