@@ -34,7 +34,7 @@ public class ProdPlannerUI {
 	private JLabel L4 = null;
 	private JLabel Park = null;
 	private JLabel L5 = null;
-	private TimeLineView[] TLDraw = new TimeLineView[5];
+	private TimeLineView TLDraw = null;
 	private TimeLineView ParkDraw = null;
 	private TimeLineRulerView TimeLineDraw = null;
 
@@ -122,7 +122,7 @@ public class ProdPlannerUI {
 			jButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					taskController.addTask(jTable.getRowCount());
-					ParkDraw.addTask(jTable.getRowCount());
+					TLDraw.addTask(jTable.getRowCount());
 					int duration = taskController.getDuration(jTable.getRowCount());
 					String earliestDate = taskController.getEarliestDate(jTable.getRowCount());
 					String latestDate = taskController.getLatestDate(jTable.getRowCount());
@@ -183,7 +183,7 @@ public class ProdPlannerUI {
 						if(a==0){ 
 							
 							taskController.addCostumer(b,(String) model.getValueAt(b, a));
-							ParkDraw.setName((String)model.getValueAt(b, a), jTable.getSelectedRow());
+							TLDraw.setName((String)model.getValueAt(b, a), jTable.getSelectedRow());
 						}
 						else if(a==1){ //duration
 							taskController.addDuration(b,(String) model.getValueAt(b, a));
@@ -241,7 +241,7 @@ public class ProdPlannerUI {
 				public void actionPerformed(ActionEvent e) {
 					int temp=jTable.getSelectedRow();
 					model.removeRow(temp);
-					ParkDraw.removeTask(temp);
+					TLDraw.removeTask(temp);
 					
 				}});
 			
@@ -265,6 +265,7 @@ public class ProdPlannerUI {
 			timeLinePane.setBounds(new Rectangle(135, 16, 541, 225));
 			timeLinePane.add(getTimeLineDraw(), getTimeLineDraw().getName());
 			
+			/*
 			Color bg2 = new Color(224, 224, 224);
 			Color bg1 = new Color(255, 255, 255);
 			for (int i=1; i<=5; i++) {
@@ -275,9 +276,9 @@ public class ProdPlannerUI {
 				}
 					timeLinePane.add(getTLDraw("L"+i,bg,new Dimension(541, 31),	new Point(0,30*i), i-1)	);
 				
-			}
-			
-			timeLinePane.add(getParkDraw(), getParkDraw().getName());
+			}*/
+			bg = new Color(255, 255, 255);
+			timeLinePane.add(getTLDraw("TimeLinePane",bg, new Dimension(541, 180), new Point(0,30)));
 			
 			
 		}
@@ -289,14 +290,14 @@ public class ProdPlannerUI {
 	 * 	
 	 * @return Views.TimeLineView	
 	 */
-	private TimeLineView getTLDraw(String txt, Color bg, Dimension d, Point p, int index) {
+	private TimeLineView getTLDraw(String txt, Color bg, Dimension d, Point p) {
 		
-		if (TLDraw[index] == null) {
-			TLDraw[index] = new TimeLineView(txt, bg);
-			TLDraw[index].setSize(d);
-			TLDraw[index].setLocation(p);
+		if (TLDraw == null) {
+			TLDraw = new TimeLineView(txt, bg);
+			TLDraw.setSize(d);
+			TLDraw.setLocation(p);
 		}
-		return TLDraw[index];
+		return TLDraw;
 	}
 	
 	
