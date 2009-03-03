@@ -19,6 +19,7 @@ public class TimeLineView extends JPanel
     int s=0;//typ av grab.
     double s2=0;// typ2 vid grab
     int s3=0;
+    int k=0; //bit som håller koll på vilket håll en box går åt.
 
 
 	public TimeLineView(String text, Color bg)
@@ -118,7 +119,7 @@ public class TimeLineView extends JPanel
 
 	   	  				rects.get(i).centerP();
 	   	  				rects.get(i).centerWidth();
-	   	  				System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
+//	   	  				System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
 	   	  				if(s==1){
 	   	  					//rects.get(i).setWidth(s2);
 	   	  				}
@@ -126,7 +127,9 @@ public class TimeLineView extends JPanel
 	   	  					rects.get(i).setP(s2);
 	   	  				}
 		   	  			else{
-	   	  					rects.get(i).setWidth(s2);
+		   	  				if(s2!=0){
+		   	  					rects.get(i).setWidth(s2);
+		   	  				}
 		   	  			}
 	   	  				
 	   	  			}
@@ -136,7 +139,7 @@ public class TimeLineView extends JPanel
        	  	s=0;
        	  	s3=0;
        	  	s2=0;
- 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
+// 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
 
     	}
     	public void mouseClicked(MouseEvent event) {
@@ -207,7 +210,7 @@ public class TimeLineView extends JPanel
 				    	    				rects.get(i).dragCenter(event.getX(), event.getY());	
 				    	    			}
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				int k = rects.get(j).getAbs();
+				    	    				int k = rects.get(i).getAbs();
 				    	    				rects.get(j).addP(15*k);
 				    	    				System.out.println(k); // höger blir negativt och vänster.
 				    	    				System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 15*k);
@@ -249,7 +252,7 @@ public class TimeLineView extends JPanel
 	}
 
 	public void dropTask(int selectedTask) {
-		System.out.println("selectedTask: "  + selectedTask);
+//		System.out.println("selectedTask: "  + selectedTask);
 		rects.get(selectedTask).remove();
 		rects.get(selectedTask).setRect(0,0,0,0);
 		repaint();

@@ -134,19 +134,19 @@ public class Box extends Rectangle2D{
 
 
 	public void centerP() {
-		System.out.println("Before P: " + p);
+//		System.out.println("Before P: " + p);
 
 		if(p%15>8){
   			 p=p+(15-p%15);
   		  }else{
   			 p=p-(p%15);
   		 }
-		System.out.println("Final P: " + p);
+//		System.out.println("Final P: " + p);
 
 		
 	}
 	public void centerWidth() {
-		System.out.println("Before W: " + width);
+//		System.out.println("Before W: " + width);
 
 		if(width%15>8){
 			width=width+(15-width%15);
@@ -155,7 +155,7 @@ public class Box extends Rectangle2D{
  		else{
  			width=width-(width%15);
  		}
-		System.out.println("Final W: " + width);
+//		System.out.println("Final W: " + width);
 
 	}
 
@@ -165,9 +165,12 @@ public class Box extends Rectangle2D{
 		p = p + p2 - p1;
 		width=width + (p1-p2);
 		//System.out.println(id + " Left");
-		System.out.println(width);
+//		System.out.println(width);
 		p1 = p2;
 		k1=-1;
+		k2=-1;
+       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+
 		
 	}
 
@@ -178,7 +181,10 @@ public class Box extends Rectangle2D{
 		width+=p2-p1;
 		p1 = p2;
 		k1=1;
-		System.out.println(width);
+		k2=1;
+       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+
+//		System.out.println(width);
 
 	}
 	
@@ -195,13 +201,11 @@ public class Box extends Rectangle2D{
 		k2=k1;
        	k1= (p2-p1);
        	
-       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
-       	System.out.println("width: " + width);
+       	System.out.println("p2-p1: " + k1 + ", k2:" + k2);
+//       	System.out.println("width: " + width);
 		p1 = p2;
 		//q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
        	//q1 = q2;
-
-		
 	}
 
 
@@ -221,7 +225,6 @@ public class Box extends Rectangle2D{
 
 	@Override
 	public int outcode(double x, double y) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
