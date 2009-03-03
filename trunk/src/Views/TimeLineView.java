@@ -20,6 +20,7 @@ public class TimeLineView extends JPanel
     double s2=0;// typ2 vid grab
     int s3=0;
     int k=0; //bit som håller koll på vilket håll en box går åt.
+    private int x, y;
 
 
 	public TimeLineView(String text, Color bg)
@@ -66,7 +67,8 @@ public class TimeLineView extends JPanel
         	setCursor(cursor);
 		}
         
-        drawInfoBox(g2d);
+        
+        drawInfoBox(g2d, this.x, this.y);
         
 	    repaint();
 	}
@@ -78,14 +80,14 @@ public class TimeLineView extends JPanel
 	    g2.setColor(Color.black);
     }
     
-   public void drawInfoBox(Graphics2D g2d)
+   public void drawInfoBox(Graphics2D g2d, int x, int y)
    {
-	   int w, h, x, y;
+	   int w, h;
 	   String cust , dur, earliest, latest, start, end;
 	   w = 120;
 	   h = 120;
 	   cust = dur = earliest = latest = start = end = null;
-	   y = x = 10; // this is gonna be dynamic
+	   //y = x = 10; // this is gonna be dynamic
 	   
 	   
 	   
@@ -258,6 +260,9 @@ public class TimeLineView extends JPanel
 	        } 
 	    public void mouseMoved(MouseEvent event) {
 	    	cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+	    	x = event.getX();
+	    	y = event.getY();
+	    	
 	    }
     }
 
