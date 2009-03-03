@@ -39,8 +39,13 @@ public class TimeLineView extends JPanel
 		for (int i =0; i<rects.size();i++){
 			if(rects.get(i)!=null){
 			    
-				g2d.setColor(rects.get(i).getColor());
-			    g2d.draw(rects.get(i).getRect());	    
+				if (paintAsSelected(i)) {
+					g2d.setColor(new Color(255,255,204));
+				} else {
+					g2d.setColor(rects.get(i).getColor());
+				}
+				
+				g2d.draw(rects.get(i).getRect());	    
 			    g2d.fill(rects.get(i).getRect());
 			    
 			    // draws a shadow effect behind the text.
@@ -202,7 +207,7 @@ public class TimeLineView extends JPanel
 
 	public void addTask(int id) {
 		// width baseras på duration
-		Box temp=new Box(id*60, 5, 300, 20, id);
+		Box temp=new Box(id*60, 5, 5*10, 20, id);
 		rects.add(temp);
 	}
 	public void fixIntersect(int id, int k) {
@@ -231,9 +236,23 @@ public class TimeLineView extends JPanel
 		rects.get(selectedTask).setName(name);
 		repaint();
 	}
+	
 	public void setLength(int width, int selectedTask)
 	{
-		rects.get(selectedTask).width = (double)width;
+		rects.get(selectedTask).width = (double)width*5;
 		repaint();
+	}
+	
+	public void setSelection(boolean b, int st)
+	{
+		rects.get(st).selection(b);
+	}
+	public boolean paintAsSelected(int st)
+	{
+		if (rects.get(st).getSelection() == true) {
+			return true;
+		}
+		
+		return false;
 	}
 }

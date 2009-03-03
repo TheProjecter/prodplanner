@@ -177,8 +177,9 @@ public class ProdPlannerUI {
 			        TableModel model = (TableModel)e.getSource();
 			        int a = e.getColumn();
 			        int b = e.getFirstRow();
+			        
 			        try {
-
+			        	
 						System.out.println(a + ", " + b + ", " + model.getValueAt(b, a));  
 						if(a==0){ 
 							
@@ -190,7 +191,7 @@ public class ProdPlannerUI {
 							model.setValueAt(taskController.getLatestDate(b),b,3);
 							
 							// grym oneliner haha
-							TLDraw.setLength(Integer.parseInt((String)model.getValueAt(b, a))*30, jTable.getSelectedRow());
+							TLDraw.setLength(Integer.parseInt((String)model.getValueAt(b, a)), jTable.getSelectedRow());
 
 						}
 						else if(a==2){ //start date
@@ -212,6 +213,8 @@ public class ProdPlannerUI {
 	
 				}
 			});
+			
+			
 		}
 		return jTable;
 	}

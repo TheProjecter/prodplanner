@@ -23,7 +23,7 @@ public class TimeLineRulerView extends JPanel
 		g.drawLine(0, 30, getWidth(), 30);
 		
 		for (int i = 0; i < getWidth(); i++) {
-			if (i%30 == 0) {
+			if (i%5 == 0) {
 				if(i%7 == 0){ // varje ny vecka(måndag) ska börja med en lite högre linje
 					g.drawLine(i, 30, i, 15);
 				}
