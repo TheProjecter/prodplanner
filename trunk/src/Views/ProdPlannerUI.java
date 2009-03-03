@@ -256,7 +256,7 @@ public class ProdPlannerUI {
 		if (timeLinePane == null) {
 			
 			timeLinePane = new JPanel();
-			
+			timeLinePane.setOpaque(true);
 			timeLinePane.setLayout(null);
 			timeLinePane.setBounds(new Rectangle(135, 16, 541, 225));
 			timeLinePane.add(getTimeLineDraw(), getTimeLineDraw().getName());
@@ -269,12 +269,7 @@ public class ProdPlannerUI {
 				} else {
 					bg = bg2;
 				}
-					timeLinePane.add(
-							getTLDraw("L"+i, 
-									bg, 
-									new Dimension(541, 31), 
-									new Point(0,30*i), i-1)
-								);
+					timeLinePane.add(getTLDraw("L"+i,bg,new Dimension(541, 31),	new Point(0,30*i), i-1)	);
 				
 			}
 			
