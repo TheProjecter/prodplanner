@@ -110,6 +110,7 @@ public class TimeLineView extends JPanel
 	    	    			}
 	    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
 	    	    				rects.get(j).addP(-30);
+	    	    				fixIntersect(j,-1);
 	    	    			}
 	    	    			else if(rects.size()==1){
 	    	    				rects.get(i).dragLeft(event.getX());
@@ -123,8 +124,8 @@ public class TimeLineView extends JPanel
 	    	    				rects.get(i).dragRight(event.getX());
 	    	    			}
 	    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-	    	    				
 	    	    				rects.get(j).addP(30);
+	    	    				fixIntersect(j,1);
 	    	    			}
 	    	    			else if(rects.size()==1){
 	    	    				rects.get(i).dragRight(event.getX());
@@ -142,7 +143,6 @@ public class TimeLineView extends JPanel
 	    	    				rects.get(j).addP(30*k);
 	    	    				System.out.println(k); // höger blir negativt och vänster.
 	    	    				System.out.println("1. ID " + rects.get(j).getID() + ", antal steg " + 30*k);
-	    	    				fixIntersect(j,k);
 	    	    				fixIntersect(j,k);
 
 	    	    			}
@@ -170,7 +170,7 @@ public class TimeLineView extends JPanel
 		for (int j =0; j<rects.size();j++){
 
 			if(rects.size()>0 && id!=j && rects.get(id).getRect().intersects(rects.get(j).getRect())){
-				rects.get(j).addP((30*k + (int)rects.get(j).getWidth()));
+				rects.get(j).addP((30*k));
 				System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 30*k);
 			}
 		}
