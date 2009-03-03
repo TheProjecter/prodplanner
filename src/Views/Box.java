@@ -23,8 +23,8 @@ public class Box extends Rectangle2D{
 		this.namn = "";
     	k1=0;
     	k2=0;
-    	this.p=p;
-    	this.q=q;
+    	this.p=60*id;
+    	this.q=-180;
     	this.width=width;
     	this.height=height;
     	this.p1=p1;
