@@ -184,6 +184,11 @@ public class TimeLineView extends JPanel
    	  					rects.get(k2).setP(s2);
    	  				}
 	   	  			else{
+	    				for (int j=0; j<rects.size();j++){
+	    					if (rects.get(j).getRect().contains(event.getX(), event.getY())){
+	    						rects.get(k2).setP(rects.get(j).getP());
+	    					}
+	    				}
 	   	  				fixIntersect(k2,2);
 	   	  				if(s2!=0){
 	   	  					rects.get(k2).setWidth(s2);
@@ -263,16 +268,16 @@ public class TimeLineView extends JPanel
 		for (int j =0; j<rects.size();j++){
 			if(j!=i && rects.get(i).getRect()!=null && rects.get(j).getRect()!=null){
 				if(rects.get(i).getRect().intersects(rects.get(j).getRect())){
-					if(k==2){
-						rects.get(i).setP(rects.get(j).getP());
-						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
-						rects.get(j).addP(numberOfIntersects*5);
-						if(numberOfIntersects==0){
-							firstHit=j;
-							k=1;
-						}
-					}
-					else if(k>0){
+//					if(k==2){
+//						rects.get(i).setP(rects.get(j).getP());
+//						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
+//						rects.get(j).addP(numberOfIntersects*5);
+//						if(numberOfIntersects==0){
+//							firstHit=j;
+//							k=1;
+//						}
+//					}
+					if(k>0){
 						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
 						//rects.get(j).addP(numberOfIntersects*5);
 						if(numberOfIntersects==0){
