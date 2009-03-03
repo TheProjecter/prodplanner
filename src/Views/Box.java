@@ -1,7 +1,9 @@
 package Views;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 /**
  * @author Simonko
@@ -13,6 +15,7 @@ public class Box extends Rectangle2D{
 	int id;
 	int k1, k2;
 	String namn;
+	private Color color;
 	
     public Box(double p, double q, double width, double height, int id) {
     	this.id=id;
@@ -27,6 +30,9 @@ public class Box extends Rectangle2D{
     	this.p2=p2;
     	this.q1=q1;
     	this.q2=q2;
+    	
+    	Random rn = new Random();
+    	color = new Color(rn.nextInt(255), rn.nextInt(255), rn.nextInt(255));
     }
 
 	@Override
@@ -161,6 +167,11 @@ public class Box extends Rectangle2D{
 		width+=p2-p1;
 		p1 = p2;
 		k1=1;
+	}
+	
+	public Color getColor()
+	{
+		return this.color;
 	}
 
 
