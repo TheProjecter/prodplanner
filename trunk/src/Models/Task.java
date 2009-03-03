@@ -34,7 +34,6 @@ public class Task {
     	this.id=id;
     	this.costumer= costumer;
     	this.duration= duration;
-    	this.id=id;
     	this.line=0;
         earliestDate = new GregorianCalendar();
         earliestDate=new GregorianCalendar(earliestDate.get(Calendar.YEAR), (earliestDate.get(Calendar.MONTH)), earliestDate.get(Calendar.DAY_OF_MONTH));
@@ -51,14 +50,6 @@ public class Task {
 		// behövs parametrar?
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Task test = new Task(1, "nånne", 1);
-		test.skrivUt();
-		
-	}
 	
 	/**
 	 * Bara för att testa.

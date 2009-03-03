@@ -15,6 +15,7 @@ import javax.swing.table.TableModel;
 import Controllers.TaskController;
 import javax.swing.JLabel;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class ProdPlannerUI {
 
@@ -37,6 +38,9 @@ public class ProdPlannerUI {
 	private TimeLineView TLDraw = null;
 	private TimeLineView ParkDraw = null;
 	private TimeLineRulerView TimeLineDraw = null;
+	private int count=0;
+	private ArrayList<Integer> idOnLine = new ArrayList<Integer>();
+
 
 	public ProdPlannerUI()
 	{
@@ -90,9 +94,7 @@ public class ProdPlannerUI {
 			timeLineLabels = new JLabel();
 			timeLineLabels.setBounds(new Rectangle(15, 14, 106, 201));
 			jContentPane = new JPanel();
-			
  			jContentPane.setLayout(null);
- 			
  			jContentPane.add(getJButton(), null);
  			jContentPane.add(getJTable(), null);
  			jContentPane.add(getTableScroll(), null);
@@ -121,20 +123,17 @@ public class ProdPlannerUI {
 			jButton.setText("New");
 			jButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					taskController.addTask(jTable.getRowCount());
-					TLDraw.addTask(jTable.getRowCount());
-					int duration = taskController.getDuration(jTable.getRowCount());
-					String earliestDate = taskController.getEarliestDate(jTable.getRowCount());
-					String latestDate = taskController.getLatestDate(jTable.getRowCount());
+					idOnLine.add(count);
+					taskController.addTask(count);
 
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					System.out.println(jTable.getRowCount());
-					System.out.println(jTable.getColumnCount());
-					
-					//model.addRow(data);
-					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,earliestDate,latestDate} );
-					//model.insertRow(rowCount++, new Object[]{"fd","fd","fd","sd","as","asd"});
-					
+					TLDraw.addTask(count);
+
+					int duration = taskController.getDuration(count);
+					String earliestDate = taskController.getEarliestDate(count);
+					String latestDate = taskController.getLatestDate(count);
+
+					model.insertRow(count, new Object[] {"",duration,earliestDate,latestDate} );
+					count++;
 				}
 			});
 		}
@@ -183,12 +182,12 @@ public class ProdPlannerUI {
 						System.out.println(a + ", " + b + ", " + model.getValueAt(b, a));  
 						if(a==0){ 
 							
-							taskController.addCostumer(b,(String) model.getValueAt(b, a));
+							taskController.addCostumer(idOnLine.get(b),(String) model.getValueAt(b, a));
 							TLDraw.setName((String)model.getValueAt(b, a), jTable.getSelectedRow());
 						}
 						else if(a==1){ //duration
-							taskController.addDuration(b,(String) model.getValueAt(b, a));
-							model.setValueAt(taskController.getLatestDate(b),b,3);
+							taskController.addDuration(idOnLine.get(b),(String) model.getValueAt(b, a));
+							model.setValueAt(taskController.getLatestDate(idOnLine.get(b)),b,3);
 							
 							// grym oneliner haha
 							TLDraw.setLength(Integer.parseInt((String)model.getValueAt(b, a)), jTable.getSelectedRow());
@@ -196,18 +195,18 @@ public class ProdPlannerUI {
 						}
 						else if(a==2){ //start date
 							if (!taskController.addEarliestDate(b,(String) model.getValueAt(b, a))){
-								model.setValueAt(taskController.getEarliestDate(b) ,b,2);
+								model.setValueAt(taskController.getEarliestDate(idOnLine.get(b)) ,b,2);
 							}
-							model.setValueAt(taskController.getLatestDate(b) ,b,3);
+							model.setValueAt(taskController.getLatestDate(idOnLine.get(b)) ,b,3);
 						}
 						else{
 							System.out.println("Other change " + a);
 						}
 						taskController.printAll();
-						System.out.println(taskController.getLatestDate(b));
+						System.out.println(taskController.getLatestDate(idOnLine.get(b)));
 
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
+						
 						//e1.printStackTrace();
 					}
 	
@@ -245,9 +244,12 @@ public class ProdPlannerUI {
 			
 			deleteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int temp=jTable.getSelectedRow();
-					model.removeRow(temp);
+					int temp=idOnLine.get(jTable.getSelectedRow());
+					System.out.print("Du vill ta bort rad: " + jTable.getSelectedRow() + " som har id: "+ temp);
 					TLDraw.removeTask(temp);
+					
+					model.removeRow(temp);
+					
 					
 				}});
 			
