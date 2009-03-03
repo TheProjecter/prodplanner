@@ -65,6 +65,9 @@ public class TimeLineView extends JPanel
         if (cursor != null){
         	setCursor(cursor);
 		}
+        
+        drawInfoBox(g2d);
+        
 	    repaint();
 	}
     public void drawSquares(Graphics2D g2, Rectangle2D rect) {
@@ -74,6 +77,30 @@ public class TimeLineView extends JPanel
 	    double height = rect.getHeight();
 	    g2.setColor(Color.black);
     }
+    
+   public void drawInfoBox(Graphics2D g2d)
+   {
+	   int w, h, x, y;
+	   String cust , dur, earliest, latest, start, end;
+	   w = 120;
+	   h = 120;
+	   cust = dur = earliest = latest = start = end = null;
+	   y = x = 10; // this is gonna be dynamic
+	   
+	   
+	   
+	   g2d.setColor(new Color(255,255,204));
+	   g2d.fillRect(x, y, w, h);
+	   g2d.setColor(new Color(0,0,0));
+	   g2d.drawRect(x, y, w, h);
+	   
+	   g2d.drawString("Customer: " + cust, x+5, y+15);
+	   g2d.drawString("Duration: " + dur, x+5, y+35);
+	   g2d.drawString("Earliest: " + earliest, x+5, y+55);
+	   g2d.drawString("Latest: " + latest, x+5, y+75);
+	   g2d.drawString("Start: " + start, x+5, y+95);
+	   g2d.drawString("End: " + end, x+5, y+115);
+   }
     
     class EventMouseListener extends MouseAdapter {
     	public void mousePressed(MouseEvent event) {
