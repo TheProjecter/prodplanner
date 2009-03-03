@@ -67,6 +67,12 @@ public class TimeLineView extends JPanel
        	  					rectangle = rects.get(i).getRect().getBounds2D();
        	  					rects.get(i).setP1(event.getX());
        	  					rects.get(i).setQ1(event.getY());
+       	  					if(event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12){
+       	  						s=1;
+       	  					}
+       	  					else if(event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()){
+       	  						s=2;
+       	  					}
        	  				}
        	  			}
        	  		}
@@ -86,6 +92,7 @@ public class TimeLineView extends JPanel
 	   	  			}
 	       	  	}
        	  	}
+       	  	s=0;
     	}
     	public void mouseClicked(MouseEvent event) {
     		int x = event.getX();
@@ -110,7 +117,8 @@ public class TimeLineView extends JPanel
 	    				if (rects.get(i).getRect().contains(event.getX(), event.getY())) {
 			    			rectangle = null;
 			    			rect2 = rects.get(i).getRect();
-			    			if(event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12){
+			    			//event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12
+			    			if(s==1){
 			    	    		for (int j =0; j<rects.size();j++){
 			        				if(rects.get(j)!=null){
 	
@@ -128,10 +136,11 @@ public class TimeLineView extends JPanel
 			    	    		}
 			    				
 			    			}
-			    			else if(event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()){
+//			    			event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()
+			    			else if(s==2){
 			    				for (int j =0; j<rects.size();j++){
 			        				if(rects.get(j)!=null){
-
+			        					
 				    					if (i!=j && !rects.get(i).getRect().intersects(rects.get(j).getRect())){
 				    	    				rects.get(i).dragRight(event.getX());
 				    	    			}
