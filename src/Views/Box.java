@@ -168,8 +168,8 @@ public class Box extends Rectangle2D{
  			q=q-(q%30);
  		}
 		q+=5;
-		if (q<0 || q>150){
-			q=150;
+		if (q<0 || q>155){
+			q=155;
 			
 		}
 //		System.out.println("Final W: " + width);

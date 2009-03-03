@@ -232,8 +232,8 @@ public class TimeLineView extends JPanel
 				    						rects.get(i).dragLeft(event.getX());
 				    	    			}
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				rects.get(j).addP(-15);
-				    	    				fixIntersect(k2,-1);
+				    	    				//rects.get(j).addP(-15);
+				    	    				fixIntersect(i,-1);
 				    	    			}
 				    	    			else if(rects.size()==1){
 				    	    				rects.get(i).dragLeft(event.getX());
@@ -251,8 +251,8 @@ public class TimeLineView extends JPanel
 				    	    				rects.get(i).dragRight(event.getX());
 				    	    			}
 				    	    			else if(rects.size()>0 && i!=j && rects.get(i).getRect().intersects(rects.get(j).getRect())){
-				    	    				rects.get(j).addP(15);
-				    	    				fixIntersect(k2,1);
+				    	    				
+				    	    				interSector(i);
 				    	    			}
 				    	    			else if(rects.size()==1){
 				    	    				rects.get(i).dragRight(event.getX());
@@ -318,14 +318,14 @@ public class TimeLineView extends JPanel
 			if(j!=i && rects.get(i).getRect()!=null && rects.get(j).getRect()!=null){
 				if(rects.get(i).getRect().intersects(rects.get(j).getRect())){
 					if(k>0){
-						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getWidth()));
+						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
 						rects.get(j).addP(numberOfIntersects*5);
 						if(numberOfIntersects==0){
 							firstHit=j;
 						}
 					}
 					else{
-						rects.get(j).setP(rects.get(i).getP()-rects.get(j).getWidth());
+						rects.get(j).setP((int)((rects.get(i).getP()-rects.get(j).getWidth())));
 						rects.get(j).addP(numberOfIntersects*-5);
 						if(numberOfIntersects==0){
 							firstHit=j;
@@ -337,8 +337,8 @@ public class TimeLineView extends JPanel
 			}
 		}
 		if(firstHit!=-1){
-			interSector(firstHit);
-			System.out.println("en rekursiv operation: " + numberOfIntersects);
+			fixIntersect(firstHit,k);
+			//System.out.println("en rekursiv operation: " + numberOfIntersects);
 		}
 	}
 	public void interSector(int i){
@@ -359,7 +359,7 @@ public class TimeLineView extends JPanel
 		}
 		if(firstHit!=-1){
 			interSector(firstHit);
-			System.out.println("en iterativ operation: " + numberOfIntersects);
+			//System.out.println("en iterativ operation: " + numberOfIntersects);
 		}
 	}
 	
