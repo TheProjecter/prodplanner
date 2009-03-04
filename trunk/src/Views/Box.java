@@ -18,17 +18,17 @@ public class Box extends Rectangle2D{
 	private Color color;
 	private boolean isSelected = false;
 	
-    public Box(double p, double q, double width, double height, int id) {
+    public Box(double p, double q, double width, double height, int id, int malarBrada1) {
     	this.id=id;
 		this.namn= "";
     	k1=0;
     	k2=0;
-    	this.p=60*id;
+    	this.p=45*id;
     	this.q=155;
     	this.width=width;
     	this.height=height;
-    	this.p1=p1;
-    	this.p2=p2;
+    	this.p1=p1+malarBrada1;
+    	this.p2=p2+malarBrada1;
     	this.q1=q1;
     	this.q2=q2;
     	
