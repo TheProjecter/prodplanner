@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
  *
  */
 public class Task {
-
+	static final int DAY=5;
 	public String costumer;
 	int duration;
 	GregorianCalendar earliestDate = new GregorianCalendar();

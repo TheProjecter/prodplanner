@@ -10,6 +10,8 @@ import java.util.Random;
  *
  */
 public class Box extends Rectangle2D{
+	static final int DAY=5;
+	
 	public double p;
 	double q;
 	public double width;
@@ -145,27 +147,27 @@ public class Box extends Rectangle2D{
 
 	public void centerP() {
 //		System.out.println("Before P: " + p);
-		if(p%15==0){
+		if(p%DAY==0){
 			System.out.println(p);
 		}
-		else if(p%15>8){
-  			 p=p+(15-p%15);
+		else if(p%DAY>DAY/2){
+  			 p=p+(DAY-p%DAY);
 		}else{
-  			 p=p-(p%15);
+  			 p=p-(p%DAY);
   		 }
 //		System.out.println("Final P: " + p);	
 	}
 	public void centerWidth() {
 //		System.out.println("Before W: " + width);
 
-		if(width%15==0){
+		if(width%DAY==0){
 			
  		}
-		else if(width%15>8){
-			width=width+(15-width%15);
+		else if(width%DAY>DAY/2){
+			width=width+(DAY-width%DAY);
  		}
  		else{
- 			width=width-(width%15);
+ 			width=width-(width%DAY);
  		}
 //		if(width==0){
 //			width=15;

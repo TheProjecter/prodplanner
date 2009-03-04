@@ -23,7 +23,7 @@ import java.util.*;
 
 public class TimeLineView extends JPanel
 {
-
+	static final int DAY=5;
 	private String text;
 	public ArrayList<Box> rects = new ArrayList<Box>();
 	ArrayList<Task> tasks = new ArrayList<Task>();	
@@ -61,7 +61,7 @@ public class TimeLineView extends JPanel
 		malarBrada2=malarBrada1;
 		for (int i=1; i<=5; i++) {
 			g2d.setColor(new Color(0,0,0));
-			g2d.drawLine(-450, 30*i, 790, 30*i);
+			g2d.drawLine(-450, 30*i, 1050, 30*i);
 		}
 		
 		for (int i =0; i<rects.size();i++){
@@ -333,9 +333,11 @@ public class TimeLineView extends JPanel
 
 	public void addTask(int id) {
 		// width baseras på duration
+		tasks.size();
 		Task tempTask=new Task(id,"", 35);
 		tasks.add(tempTask);
-
+// 	Här kan man snygga till om man vilL! dvs om task.size != id... försök hitta den tomma platsen och ge dess id
+		//alternativt göra en lista med tomma lediga idnummer.
 		Box temp=new Box(0, 5, 45, 20, id,malarBrada1, tempTask.getEarliestInDays(), tempTask.getLatestInDays()*5);
 		System.out.println("Earliest in days: " + tempTask.getEarliestInDays());
 		rects.add(temp);
