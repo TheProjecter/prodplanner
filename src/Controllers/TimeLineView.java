@@ -63,7 +63,8 @@ public class TimeLineView extends JPanel
 			g2d.setColor(new Color(0,0,0));
 			g2d.drawLine(-450, 30*i, 1050, 30*i);
 		}
-		
+		draw2Lines(g2d);
+		int tmp=-1;
 		for (int i =0; i<rects.size();i++){
 			if(rects.get(i)!=null){
 				g2d.setColor(new Color(90,0,50));
@@ -81,12 +82,15 @@ public class TimeLineView extends JPanel
 			    // draws the text
 			    g2d.setColor(new Color(255,255,255));
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
-			    draw2Lines(g2d);
-				    if (mouseOverBox((int)rects.get(i).getX(), (int)rects.get(i).getY(), (int)rects.get(i).getWidth(), (int)rects.get(i).getHeight())) {
-			        	drawInfoBox(g2d, this.x, this.y, i);
-					}
 			    
+			    
+			    if (mouseOverBox((int)rects.get(i).getX(), (int)rects.get(i).getY(), (int)rects.get(i).getWidth(), (int)rects.get(i).getHeight())) {
+			    	tmp=i;
+				}    
 			}
+		}
+		if(tmp!=-1){
+			drawInfoBox(g2d, this.x, this.y, tmp);
 		}
 	    if (rectangle != null) {
 	    	drawSquares(g2d, rectangle);
@@ -94,6 +98,7 @@ public class TimeLineView extends JPanel
         if (cursor != null){
         	setCursor(cursor);
 		}
+       
 	    repaint();
 	}
 	
@@ -135,11 +140,11 @@ public class TimeLineView extends JPanel
 	   h = 100;
 	   //cust = dur = earliest = latest = start = end = null;
 	  // cust = tasks.get(id).costumer;
-	   dur = "" + tasks.get(id).getDurationOfTask();
+	   dur = "" + tasks.get(id).getDurationOfTask()/5 + " days";
 	   earliest = tasks.get(id).getStringEarliestDate();
 	   latest = tasks.get(id).getStringLatestDate();
-	   start = "" + tasks.get(id).startDate;
-	   end = "" + tasks.get(id).endDate;
+	   start = "" + tasks.get(id).getStringStartDate();
+	   end = "" + tasks.get(id).getStringEndDate();
 	   //y = x = 10; // this is gonna be dynamic
 	  // cust = rects.get(id).getNamn();
 	   
@@ -258,13 +263,16 @@ public class TimeLineView extends JPanel
        	  		int temp = rects.get(k).calcTimeLine();
        	  		tasks.get(k).setTimeLine(temp);
        	  		
-       	  		int startTemp=tasks.get(k).startDate;
-       	  		int endTemp=tasks.get(k).endDate;
+       	  		String startTemp=tasks.get(k).getStringStartDate();
+       	  		String endTemp=tasks.get(k).getStringEndDate();
        	  		int lineTemp=tasks.get(k).line;
        	  		model.setValueAt(startTemp,k,4);
        	  		model.setValueAt(endTemp,k,5);
-       	  		model.setValueAt(lineTemp,k,6);
-       	 		
+       	  		if(lineTemp==6){
+           	  		model.setValueAt("Park",k,6);
+       	  		}else{
+           	  		model.setValueAt(lineTemp,k,6);
+       	  		}
        	  	}
        	  	
 // 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
@@ -279,22 +287,23 @@ public class TimeLineView extends JPanel
    	  					rects.get(i).selection(true);
    	  					k2=i;
    	  					table.setRowSelectionInterval(k2, k2);
+   	  					paintDuration(k2);
    	  				}
    	  				else{
    	  					rects.get(i).selection(false);
    	  				}
    	  			}
    	  		}
-       	  	for (int i = 0; i<rects.size();i++){
-       	  	rects.get(i).selection(false);
-       	  	}  	
-   	  			if(rects.size()>0){
-       	  			if (rects.get(k2).getRect().intersects(r)) {
-       	  				rect2=rects.get(k2).getRect();
-       	  				rectangle = rects.get(k2).getRect().getBounds2D();
-       	  				rects.get(k2).selection(true);
-       	  			}
-   	  			}
+//       	  	for (int i = 0; i<rects.size();i++){
+//       	  	rects.get(i).selection(false);
+//       	  	}  	
+//   	  			if(rects.size()>0){
+//       	  			if (rects.get(k2).getRect().intersects(r)) {
+//       	  				rect2=rects.get(k2).getRect();
+//       	  				rectangle = rects.get(k2).getRect().getBounds2D();
+//       	  				rects.get(k2).selection(true);
+//       	  			}
+//   	  			}
        	  	}
     	}
     	class EventMouseMotionListener extends MouseMotionAdapter {
@@ -338,7 +347,7 @@ public class TimeLineView extends JPanel
 		tasks.add(tempTask);
 // 	Här kan man snygga till om man vilL! dvs om task.size != id... försök hitta den tomma platsen och ge dess id
 		//alternativt göra en lista med tomma lediga idnummer.
-		Box temp=new Box(0, 5, 45, 20, id,malarBrada1, tempTask.getEarliestInDays(), tempTask.getLatestInDays()*5);
+		Box temp=new Box(0, 5, 45, 20, id,malarBrada1, tempTask.getEarliestInDays()*5, tempTask.getLatestInDays()*5);
 		System.out.println("Earliest in days: " + tempTask.getEarliestInDays());
 		rects.add(temp);
 	}
@@ -416,13 +425,13 @@ public class TimeLineView extends JPanel
 	}
 	public void paintDuration(int selectedTask)
 	{
-		int x1=getEarliestDateInDays(selectedTask);
-		int x2=getLatestDateInDays(selectedTask);
+		int x1=tasks.get(selectedTask).getEarliestInDays();
+		int x2=tasks.get(selectedTask).getLatestInDays();
 		rects.get(selectedTask).setLine1(x1);
 		rects.get(selectedTask).setLine2(x2);
 
 		
-		rects.get(k2).setDuration(x1*5-1,x2*5-1);
+		rects.get(k2).setDuration(x1*5,x2*5);
 		repaint();
 	}
 	public void moveBoard(int value) {
@@ -452,12 +461,8 @@ public class TimeLineView extends JPanel
 	public String getLatestDate(int rowCount) {
 		return tasks.get(rowCount).getStringLatestDate();
 	}
-	public int getEarliestDateInDays(int selectedTask) {
-		return tasks.get(selectedTask).getEarliestInDays();
-	}
-	public int getLatestDateInDays(int selectedTask) {
-		return tasks.get(selectedTask).getLatestInDays();
-	}
+
+
 	public Boolean addEarliestDate(int i, String date) {
 		return tasks.get(i).setStringDate(date);
 	}
@@ -499,15 +504,17 @@ public class TimeLineView extends JPanel
 
 	public void valueChanged(ListSelectionEvent e, int selectedTask,int getSelectedRow) {
 		if (getSelectedRow >= 0) {
-			if(getArraySize()>selectedTask){
+			if(getArraySize()>getSelectedRow){
 				for (int i = 0; i<rects.size();i++){
 		       	  	rects.get(i).selection(false);
 	       	 	}
 				setSelection(true,getSelectedRow);
-				paintDuration(selectedTask);
+				k2=getSelectedRow;
+				paintDuration(getSelectedRow);
 	       }
 	        
 		}
+		
 	}
 
 	public void scrollBarAdjustments(int value) {

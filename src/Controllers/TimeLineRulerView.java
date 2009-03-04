@@ -12,7 +12,10 @@ public class TimeLineRulerView extends JPanel
 	private String text;
 	private int startDate, endDate;
 	private int week;
+	private int daay;
+
     int malarBrada1=-70*5;
+    
     int malarBrada2=-70*5;
 
 	
@@ -24,6 +27,9 @@ public class TimeLineRulerView extends JPanel
 		Calendar now = Calendar.getInstance();
 //		now.add(Calendar.DAY_OF_YEAR, -21);
 		week = now.get(Calendar.WEEK_OF_YEAR);
+		daay = now.get(Calendar.DAY_OF_WEEK)-2;
+		System.out.println("DAAY:" + daay);
+
 		
 	}
 		
@@ -37,8 +43,8 @@ public class TimeLineRulerView extends JPanel
 		int w = 0;
 		for (int i =0; i < 1050; i++) {
 			if (i%5 == 0) {
-				if(i%7 == 0){ // varje ny vecka(måndag) ska börja med en lite högre linje
-					int week2=week;
+				if((i+daay*5)%7 == 0){ // varje ny vecka(måndag) ska börja med en lite högre linje
+					int week2=week+1;
 					g.drawString("" + (week2+w), i, 12);
 					g.drawLine(i, 30, i, 15);
 					w++;
@@ -56,7 +62,7 @@ public class TimeLineRulerView extends JPanel
 		w=0;
 		for (int i =0; i > -300; i--) {
 			if (i%5 == 0) {
-				if(i%7 == 0){ // varje ny vecka(måndag) ska börja med en lite högre linje
+				if((i+daay*5)%7 == 0){ // varje ny vecka(måndag) ska börja med en lite högre linje
 					int week2=week;
 
 					g.drawString("" + (week2-w), i, 12);
@@ -75,7 +81,7 @@ public class TimeLineRulerView extends JPanel
 		}
 	}
 	public void moveBoard(int value) {
-		System.out.println(value);
+//		System.out.println(value);
 		malarBrada1=-value*5;
 		repaint();
 	}

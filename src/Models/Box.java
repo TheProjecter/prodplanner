@@ -155,6 +155,7 @@ public class Box extends Rectangle2D{
 		}else{
   			 p=p-(p%DAY);
   		 }
+
 //		System.out.println("Final P: " + p);	
 	}
 	public void centerWidth() {
@@ -204,9 +205,10 @@ public class Box extends Rectangle2D{
 		p1 = p2;
 		k1=-1;
 		k2=-1;
-       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
-
-		
+		if(width<9){
+			width=10;
+		}
+       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);	
 	}
 
 
@@ -217,6 +219,9 @@ public class Box extends Rectangle2D{
 		p1 = p2;
 		k1=1;
 		k2=1;
+		if(width<9){
+			width=10;
+		}
        	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
 
 //		System.out.println(width);
