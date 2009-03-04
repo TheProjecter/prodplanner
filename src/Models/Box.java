@@ -24,7 +24,7 @@ public class Box extends Rectangle2D{
     private int lineX2=0;
     int line;
 	
-    public Box(double p, double q, double width, double height, int id, int malarBrada1) {
+    public Box(double p, double q, double width, double height, int id, int malarBrada1, int i, int j) {
     	line=0;
     	this.id=id;
 		this.namn= "";
@@ -38,6 +38,8 @@ public class Box extends Rectangle2D{
     	this.p2=p2+malarBrada1;
     	this.q1=q1;
     	this.q2=q2;
+    	lineX1=i;
+    	lineX2=j;
 
     	
     	Random rn = new Random();
@@ -151,14 +153,13 @@ public class Box extends Rectangle2D{
 		}else{
   			 p=p-(p%15);
   		 }
-//		System.out.println("Final P: " + p);
-
-		
+//		System.out.println("Final P: " + p);	
 	}
 	public void centerWidth() {
 //		System.out.println("Before W: " + width);
 
 		if(width%15==0){
+			
  		}
 		else if(width%15>8){
 			width=width+(15-width%15);
@@ -166,9 +167,9 @@ public class Box extends Rectangle2D{
  		else{
  			width=width-(width%15);
  		}
-		if(width==0){
-			width=15;
-		}
+//		if(width==0){
+//			width=15;
+//		}
 //		System.out.println("Final W: " + width);
 	}
 	public void centerQ() {

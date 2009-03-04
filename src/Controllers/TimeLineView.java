@@ -109,10 +109,11 @@ public class TimeLineView extends JPanel
 		}
 	    else{
 		    if(lineX1==lineX2){
-		    	
+		    	g2d.drawLine(lineX1, 0, lineX1, 0);
+		    	g2d.drawLine(lineX2, 0, lineX2,0 );
 		    }else{
-		    	g2d.drawLine(lineX1, 0, lineX1, 150);
-		    	g2d.drawLine(lineX2, 0, lineX2, 150);
+		    	g2d.drawLine(lineX1, 0, lineX1, 0);
+		    	g2d.drawLine(lineX2, 0, lineX2, 0);
 		    }
 		}
 	}
@@ -200,11 +201,11 @@ public class TimeLineView extends JPanel
     	}
     	public void mouseReleased(MouseEvent event) {
 	   	  
-    		int x = event.getX()-malarBrada1;
+//    		int x = event.getX()-malarBrada1;
 ////    		System.out.println("Klick= " + x);
-    		int y = event.getY();
+//    		int y = event.getY();
 //       	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
-
+    		System.out.println("x= " + x + " y " + y);
        	  	if(rects.size()>0){
 //   	  			if (rects.get(k2).getRect().intersects(r)) {
    	  				rectangle = rects.get(k2).getRect().getBounds2D();
@@ -338,7 +339,7 @@ public class TimeLineView extends JPanel
 	public void addTask(int id) {
 		// width baseras på duration
 		Task tempTask=new Task(id,"", 35);
-		Box temp=new Box(0, 5, 45, 20, id,malarBrada1);
+		Box temp=new Box(0, 5, 45, 20, id,malarBrada1, tempTask.getEarliestInDays(), tempTask.getEarliestInDays());
 		rects.add(temp);
 		tasks.add(tempTask);
 	}
