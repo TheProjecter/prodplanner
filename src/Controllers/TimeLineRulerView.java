@@ -62,7 +62,7 @@ public class TimeLineRulerView extends JPanel
 		repaint();
 	}
 
-	public void scrollBarAdjustments(AdjustmentEvent e, int value) {
+	public void scrollBarAdjustments(int value) {
 		moveBoard(value);
 	}
 }
