@@ -61,7 +61,7 @@ public class TaskController {
 	 * @param args
 	 */
 	public void addTask(int ID) {
-		Task temp = new Task(ID,"", 10); // TODO: Fixa rätt input.
+		Task temp = new Task(ID,"", 35); // TODO: Fixa rätt input.
 		tasks.add(temp);
 		System.out.println("Ny task skapad");
 	}
