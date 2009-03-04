@@ -14,8 +14,8 @@ public class Task {
 	public String costumer;
 	int duration;
 	GregorianCalendar earliestDate = new GregorianCalendar();
-//	GregorianCalendar startDate = new GregorianCalendar();
-//	GregorianCalendar endDate = new GregorianCalendar();
+	GregorianCalendar startDateG = new GregorianCalendar();
+	GregorianCalendar endDateG = new GregorianCalendar();
 	public int startDate;
 	public int endDate;
 
@@ -142,6 +142,7 @@ public class Task {
 		svar += endDate.get(Calendar.DAY_OF_MONTH);
 		return svar;
 	}
+
 	public String getStringEarliestDate() {
 		String svar = "";
 		svar += earliestDate.get(Calendar.YEAR) + " ";
@@ -174,18 +175,18 @@ public class Task {
 		earliestDate.set(year, month-1, day);
 		return true;
 	}
-	public void setCostumer(int duration) {
-		this.duration=duration;
-	}
+
 	public void setDuration(int duration) {
 		this.duration=duration;
 	}
 	public int getEarliestInDays() {
 		long a =getEarliestDateInMillis()/(1000*60*60*24);
 		long b =new GregorianCalendar().getTimeInMillis()/(1000*60*60*24);
-
-		System.out.println(a-b);
-		return (int) (a-b);
+		GregorianCalendar temp=new GregorianCalendar();
+		System.out.println((int) a-(int) b);
+		
+		
+		return (int) (a-b)+1;// + 1 för timmar osv.
 	}
 	public int getLatestInDays() {
 		long a =getLatestDateInMillis()/(1000*60*60*24);
@@ -200,7 +201,24 @@ public class Task {
 	}
 	public int getDurationOfTask() {
 		
-		return endDate-startDate;
+		return (endDate-startDate);
 	}
-	
+	public String getStringStartDate() {
+		GregorianCalendar temp = new GregorianCalendar();
+		temp.add(Calendar.DAY_OF_MONTH, startDate/5);
+		String svar = "";
+		svar += temp.get(Calendar.YEAR) + " ";
+		svar += (temp.get(Calendar.MONTH)+1) + " ";
+		svar += temp.get(Calendar.DAY_OF_MONTH);
+		return svar;
+	}
+	public String getStringEndDate() {
+		GregorianCalendar temp = new GregorianCalendar();
+		temp.add(Calendar.DAY_OF_MONTH, endDate/5);
+		String svar = "";
+		svar += temp.get(Calendar.YEAR) + " ";
+		svar += (temp.get(Calendar.MONTH)+1) + " ";
+		svar += temp.get(Calendar.DAY_OF_MONTH);
+		return svar;
+	}
 }
