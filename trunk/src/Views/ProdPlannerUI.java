@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import javax.swing.JScrollBar;
 
 public class ProdPlannerUI {
-
+	static final int DAY=5;
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="8,7"
 	private JPanel jContentPane = null;
 	private JButton jButton = null;
@@ -311,12 +311,14 @@ public class ProdPlannerUI {
 	private JScrollBar getJScrollBar() {
 		if (jScrollBar == null) {
 			jScrollBar = new JScrollBar(0);
-			jScrollBar.setValue(-70);
+
 			jScrollBar.setMaximum(100);
 			jScrollBar.setMinimum(-50);
 			jScrollBar.setBounds(new Rectangle(135, 0, 540, 16));
-			TLDraw.scrollBarAdjustments(-70);
-			TimeLineDraw.scrollBarAdjustments(-70);
+			TLDraw.scrollBarAdjustments(-20);
+			TimeLineDraw.scrollBarAdjustments(-20);
+			jScrollBar.setValue(-20);
+			
 			jScrollBar.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
 				public void adjustmentValueChanged(java.awt.event.AdjustmentEvent e) {
 					TLDraw.scrollBarAdjustments(jScrollBar.getValue());
