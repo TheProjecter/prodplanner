@@ -28,8 +28,8 @@ public class TimeLineView extends JPanel
     int k=0; //bit som håller koll på vilket håll en box går åt.
     int k2=-1; //vilket objekt som dras
     private int x, y; // mousepos in pane
-    int malarBrada1=0;
-    int malarBrada2=0;
+    int malarBrada1=70*5;
+    int malarBrada2=70*5;
 
 	public TimeLineView(String text, Color bg)
 	{
@@ -182,6 +182,10 @@ public class TimeLineView extends JPanel
     		int x = event.getX();
     		int y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
+       	  	for(int i =0;i<rects.size();i++){
+       	  		System.out.println(event.getX());
+       	  		System.out.println(rects.get(i).p);
+       	  	}
        	  	if(rects.get(k2)!=null){
    	  			if (rects.get(k2).getRect().intersects(r)) {
    	  				rectangle = rects.get(k2).getRect().getBounds2D();
@@ -262,7 +266,7 @@ public class TimeLineView extends JPanel
 
 	public void addTask(int id) {
 		// width baseras på duration
-		Box temp=new Box(id*45, 5, 45, 20, id);
+		Box temp=new Box(0, 5, 45, 20, id,malarBrada1);
 		rects.add(temp);
 	}
 
@@ -359,7 +363,10 @@ public class TimeLineView extends JPanel
 	}
 
 	public void moveBoard(int value) {
-		malarBrada1=value;
+		malarBrada1=value*5;
+		for(int i = 0; i<rects.size();i++){
+			rects.get(i).addP((malarBrada1-malarBrada2)/10);
+		}
 		repaint();
 	}
 }

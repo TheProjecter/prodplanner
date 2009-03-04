@@ -385,8 +385,8 @@ public class ProdPlannerUI {
 	private JScrollBar getJScrollBar() {
 		if (jScrollBar == null) {
 			jScrollBar = new JScrollBar(0);
-			jScrollBar.setValue(25);
-			jScrollBar.setMaximum(1000);
+			jScrollBar.setValue(70);
+			jScrollBar.setMaximum(100);
 			jScrollBar.setBounds(new Rectangle(135, 0, 538, 16));
 			jScrollBar.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
 				public void adjustmentValueChanged(java.awt.event.AdjustmentEvent e) {
