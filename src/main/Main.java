@@ -1,3 +1,4 @@
+package main;
 import Controllers.ProdPlannerController;
 import Views.ProdPlannerUI;
 
