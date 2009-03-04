@@ -387,11 +387,13 @@ public class ProdPlannerUI {
 			jScrollBar = new JScrollBar(0);
 			jScrollBar.setValue(70);
 			jScrollBar.setMaximum(100);
-			jScrollBar.setBounds(new Rectangle(135, 0, 538, 16));
+			jScrollBar.setMinimum(-50);
+			jScrollBar.setBounds(new Rectangle(135, 0, 540, 16));
 			jScrollBar.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
 				public void adjustmentValueChanged(java.awt.event.AdjustmentEvent e) {
 					System.out.println(jScrollBar.getValue());
 					TLDraw.moveBoard(jScrollBar.getValue());
+					TimeLineDraw.moveBoard(jScrollBar.getValue());
 				}
 			});
 		}

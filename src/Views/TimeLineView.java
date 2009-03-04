@@ -47,7 +47,7 @@ public class TimeLineView extends JPanel
 		malarBrada2=malarBrada1;
 		for (int i=1; i<=5; i++) {
 			g2d.setColor(new Color(0,0,0));
-			g2d.drawLine(0, 30*i, 541, 30*i);
+			g2d.drawLine(-450, 30*i, 790, 30*i);
 		}
 		
 		for (int i =0; i<rects.size();i++){
@@ -147,7 +147,8 @@ public class TimeLineView extends JPanel
     
     class EventMouseListener extends MouseAdapter {
     	public void mousePressed(MouseEvent event) {
-    		int x = event.getX();
+    		int x = event.getX()-malarBrada1;
+//    		System.out.println("Klick= " + x);
     		int y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
        	  		for (int i =0; i<rects.size();i++){
@@ -156,14 +157,14 @@ public class TimeLineView extends JPanel
        	  					k2=i;
        	  					rect2=rects.get(i).getRect();
        	  					rectangle = rects.get(i).getRect().getBounds2D();
-       	  					rects.get(i).setP1(event.getX());
+       	  					rects.get(i).setP1(x);
        	  					rects.get(i).setQ1(event.getY());
        	  					if(s3==0){
-	       	  					if(event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12){
+	       	  					if(x>rects.get(i).getP() && x<=rects.get(i).getP()+12){
 	       	  						s=1;
 	       	  						//s2=rects.get(i).getWidth();
 	       	  					}
-	       	  					else if(event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()){
+	       	  					else if(x>rects.get(i).getP()+(rects.get(i).getWidth()-12) && x<=rects.get(i).getP()+rects.get(i).getWidth()){
 	       	  						s=2;
 	       	  						s2=rects.get(i).getP();
 	       	  					}
@@ -179,14 +180,12 @@ public class TimeLineView extends JPanel
     	}
     	public void mouseReleased(MouseEvent event) {
 	   	  
-    		int x = event.getX();
+    		int x = event.getX()-malarBrada1;
+//    		System.out.println("Klick= " + x);
     		int y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
-       	  	for(int i =0;i<rects.size();i++){
-       	  		System.out.println(event.getX());
-       	  		System.out.println(rects.get(i).p);
-       	  	}
-       	  	if(rects.get(k2)!=null){
+
+       	  	if(rects.size()>0){
    	  			if (rects.get(k2).getRect().intersects(r)) {
    	  				rectangle = rects.get(k2).getRect().getBounds2D();
    	  				rect2 = rects.get(k2).getRect();
@@ -202,8 +201,8 @@ public class TimeLineView extends JPanel
    	  				}
 	   	  			else{
 	    				for (int j=0; j<rects.size();j++){
-	    					if (rects.get(j).getRect().contains(event.getX(), event.getY())){
-	    						rects.get(k2).setP(rects.get(j).getP());
+	    					if (rects.get(j).getRect().contains(x, event.getY())){
+//	    						rects.get(k2).setP(rects.get(j).getP());
 	    						fixIntersect(k2,2);
 	    					}
 	    					else{
@@ -222,10 +221,11 @@ public class TimeLineView extends JPanel
 // 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
     	}
     	public void mouseClicked(MouseEvent event) {
-    		int x = event.getX();
+    		int x = event.getX()-malarBrada1;
+//    		System.out.println("Klick= " + x);
     		int y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);		
-   	  			if(rects.get(k2)!=null){
+   	  			if(rects.size()>0){
        	  			if (rects.get(k2).getRect().intersects(r)) {
        	  				rect2=rects.get(k2).getRect();
        	  				rectangle = rects.get(k2).getRect().getBounds2D();
@@ -235,22 +235,24 @@ public class TimeLineView extends JPanel
     	}
     	class EventMouseMotionListener extends MouseMotionAdapter {
     		public void mouseDragged(MouseEvent event) {
-				if(rects.get(k2)!=null){
-    				if (rects.get(k2).getRect().contains(event.getX(), event.getY())) {
+    			int x = event.getX()-malarBrada1;
+//        		System.out.println("Klick= " + x);
+				if(rects.size()>0){
+    				if (rects.get(k2).getRect().contains(x, event.getY())) {
 		    			rectangle = null;
 		    			rect2 = rects.get(k2).getRect();
 		    			//event.getX()>rects.get(i).getP() && event.getX()<=rects.get(i).getP()+12
 		    			if(s==1){
 		    	    		fixIntersect(k2,-1);
-    	    				rects.get(k2).dragLeft(event.getX());
+    	    				rects.get(k2).dragLeft(x);
 		    			}
 //			    			event.getX()>rects.get(i).getP()+(rects.get(i).getWidth()-12) && event.getX()<=rects.get(i).getP()+rects.get(i).getWidth()
 		    			else if(s==2){
-		    				rects.get(k2).dragRight(event.getX());
+		    				rects.get(k2).dragRight(x);
 		    				fixIntersect(k2,1);
 		    			}
 		    			else{
-    	    				rects.get(k2).dragCenter(event.getX(), event.getY());
+    	    				rects.get(k2).dragCenter(x, event.getY());
 		    			}
 					}
 				
@@ -259,7 +261,8 @@ public class TimeLineView extends JPanel
 	        } 
 	    public void mouseMoved(MouseEvent event) {
 	    	cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
-	    	x = event.getX();
+	    	int x = event.getX()-malarBrada1;
+//    		System.out.println("Klick= " + x);
 	    	y = event.getY();
 	    }
     }
@@ -276,15 +279,15 @@ public class TimeLineView extends JPanel
 		for (int j =0; j<rects.size();j++){
 			if(j!=i && rects.get(i).getRect()!=null && rects.get(j).getRect()!=null){
 				if(rects.get(i).getRect().intersects(rects.get(j).getRect())){
-//					if(k==2){
-//						rects.get(i).setP(rects.get(j).getP());
-//						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
-//						rects.get(j).addP(numberOfIntersects*5);
-//						if(numberOfIntersects==0){
-//							firstHit=j;
-//							k=1;
-//						}
-//					}
+					if(k==2){
+						rects.get(i).setP(rects.get(j).getP());
+						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
+						rects.get(j).addP(numberOfIntersects*5);
+						if(numberOfIntersects==0){
+							firstHit=j;
+							k=1;
+						}
+					}
 					if(k>0){
 						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
 						//rects.get(j).addP(numberOfIntersects*5);
@@ -365,7 +368,7 @@ public class TimeLineView extends JPanel
 	public void moveBoard(int value) {
 		malarBrada1=value*5;
 		for(int i = 0; i<rects.size();i++){
-			rects.get(i).addP((malarBrada1-malarBrada2)/10);
+			rects.get(i).addP((malarBrada1-malarBrada2)/11);
 		}
 		repaint();
 	}
