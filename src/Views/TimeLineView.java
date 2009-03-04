@@ -69,7 +69,7 @@ public class TimeLineView extends JPanel
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+10,(int)rects.get(i).getRect().getY()+15);
 			    draw2Lines(g2d);
 			    if (mouseOverBox((int)rects.get(i).getX(), (int)rects.get(i).getY(), (int)rects.get(i).getWidth(), (int)rects.get(i).getHeight())) {
-		        	drawInfoBox(g2d, this.x, this.y, rects.get(i).getID());
+		        	//drawInfoBox(g2d, this.x, this.y, rects.get(i).getID());
 				}
 			}
 		}
@@ -93,12 +93,12 @@ public class TimeLineView extends JPanel
 	}
 
 	private boolean mouseOverBox(int x, int y, int w, int h) {
-//		if ( ( (this.x < x+w)&&(this.x > x)) && ((this.y > y) && (this.y < y+h))) {
-//			//System.out.println("X = " + x + " Y = " + y + " w = " + w + " h = " + h);
-//			  
-//			return true;
-//		}
-//		
+		if ( ( (this.x < x+w)&&(this.x > x)) && ((this.y > y) && (this.y < y+h))) {
+			//System.out.println("X = " + x + " Y = " + y + " w = " + w + " h = " + h);
+			  
+			return true;
+		}
+		
 		return false;
 		
 	}
