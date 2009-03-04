@@ -49,6 +49,7 @@ public class ProdPlannerUI {
 
 	private int selectedTask;
 	private JScrollBar jScrollBar = null;
+	private JLabel timeLineLabel = null;
 
 	public ProdPlannerUI()
 	{
@@ -80,6 +81,9 @@ public class ProdPlannerUI {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			timeLineLabel = new JLabel();
+			timeLineLabel.setBounds(new Rectangle(90, 15, 46, 31));
+			timeLineLabel.setText("Weeks");
 			L5 = new JLabel();
 			L5.setBounds(new Rectangle(90, 165, 46, 31));
 			L5.setText("L5");
@@ -116,6 +120,7 @@ public class ProdPlannerUI {
  			jContentPane.add(Park, null);
  			jContentPane.add(L5, null);
  			jContentPane.add(getJScrollBar(), null); 			
+ 			jContentPane.add(timeLineLabel, null);
 		}
 		return jContentPane;
 	}
