@@ -222,7 +222,7 @@ public class TimeLineView extends JPanel
    	  				}
 	   	  			else{
 	    				for (int j=0; j<rects.size();j++){
-	    					if(j!=k){
+	    					if(j!=k2){
 		    					if (rects.get(j).getRect().contains(x, y)){
 		    						//Försöker hjälpa den rekursiva funktionen
 		    						int startp=(int) rects.get(j).getP();
@@ -509,7 +509,7 @@ public class TimeLineView extends JPanel
 		}
 	}
 
-	public void scrollBarAdjustments(AdjustmentEvent e, int value) {
+	public void scrollBarAdjustments(int value) {
 		moveBoard(value);
 	}
 
