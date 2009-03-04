@@ -11,15 +11,17 @@ import java.util.StringTokenizer;
  */
 public class Task {
 
-	String costumer;
+	public String costumer;
 	int duration;
 	GregorianCalendar earliestDate = new GregorianCalendar();
-	GregorianCalendar startDate = new GregorianCalendar();
-	GregorianCalendar endDate = new GregorianCalendar();
+//	GregorianCalendar startDate = new GregorianCalendar();
+//	GregorianCalendar endDate = new GregorianCalendar();
+	public int startDate;
+	public int endDate;
 
 	int id=0;
 	//Rectangle rectangle=new Rectangle();
-	int line=0; // vilken rad en task ligger på.
+	public int line; // vilken rad en task ligger på.
 	
 	/**
 	 * Construktor.
@@ -37,8 +39,10 @@ public class Task {
     	this.line=0;
         earliestDate = new GregorianCalendar();
         earliestDate=new GregorianCalendar(earliestDate.get(Calendar.YEAR), (earliestDate.get(Calendar.MONTH)), earliestDate.get(Calendar.DAY_OF_MONTH));
-    	startDate = null;
-    	endDate = null;
+//    	startDate = null;
+//    	endDate = null;
+        startDate=0;
+        endDate=0;
 
 //    	System.out.println("start1 " + startDate.get(Calendar.DAY_OF_MONTH) + " " + (startDate.get(Calendar.MONTH)+1)  + " " + startDate.get(Calendar.YEAR));
     }
@@ -48,6 +52,18 @@ public class Task {
 	 */
 	public Task() {
 		// behövs parametrar?
+	}
+	public void setStartDate(int i) {
+		startDate=i;
+	}
+	public void setEndDate(int i) {
+		endDate=i;
+	}
+	public void setLine(int i) {
+		line=i;
+	}
+	public int getLine() {
+		return line;
 	}
 
 	
@@ -81,7 +97,7 @@ public class Task {
 	public void setEarliestDate(GregorianCalendar startDate) {
 		this.earliestDate = startDate;
 	}
-	public GregorianCalendar getStartDate() {
+	public GregorianCalendar getEarliestDate() {
 		return earliestDate;
 	}
 	/**
@@ -161,8 +177,8 @@ public class Task {
 	public void setCostumer(int duration) {
 		this.duration=duration;
 	}
-	public void setDuration(String duration) {
-		this.duration=new Integer(duration);
+	public void setDuration(int duration) {
+		this.duration=duration;
 	}
 	public int getEarliestInDays() {
 		long a =getEarliestDateInMillis()/(1000*60*60*24);
@@ -177,6 +193,14 @@ public class Task {
 
 		System.out.println(a-b);
 		return (int) (a-b);
+	}
+	public void setTimeLine(int temp) {
+		line=temp;
+		
+	}
+	public int getDurationOfTask() {
+		
+		return endDate-startDate;
 	}
 	
 }
