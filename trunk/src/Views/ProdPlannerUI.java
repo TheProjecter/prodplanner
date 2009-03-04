@@ -14,7 +14,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import Controllers.TaskController;
+//import Controllers.TaskController;
+import Controllers.TimeLineRulerView;
+import Controllers.TimeLineView;
+
 import javax.swing.JLabel;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ public class ProdPlannerUI {
 	private JPanel jContentPane = null;
 	private JButton jButton = null;
 	private JTable jTable = null;
-	TaskController taskController = new TaskController();  //  @jve:decl-index=0:
+	//TaskController taskController = new TaskController();  //  @jve:decl-index=0:
     DefaultTableModel model = new DefaultTableModel();
 	private JScrollPane tableScroll = null;
 	private JButton deleteButton = null;
@@ -42,7 +45,7 @@ public class ProdPlannerUI {
 	private TimeLineView ParkDraw = null;
 	private TimeLineRulerView TimeLineDraw = null;
 	private int count=0;
-	private ArrayList<Integer> idOnLine = new ArrayList<Integer>();
+//	private ArrayList<Integer> idOnLine = new ArrayList<Integer>();  //  @jve:decl-index=0:
 
 	private int selectedTask;
 	private JScrollBar jScrollBar = null;
@@ -66,7 +69,6 @@ public class ProdPlannerUI {
 			jFrame.setContentPane(getJContentPane());
 			jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			jFrame.setVisible(true);
-			
 		}
 		return jFrame;
 	}
@@ -101,18 +103,19 @@ public class ProdPlannerUI {
 			jContentPane = new JPanel();
  			jContentPane.setLayout(null);
  			jContentPane.add(getJButton(), null);
- 			jContentPane.add(getJTable(), null);
+ 			jTable=getJTable();
+ 			jContentPane.add(jTable, null);
  			jContentPane.add(getTableScroll(), null);
  			jContentPane.add(getDeleteButton(), null);
  			jContentPane.add(getTimeLinePane(), null);
+ 			TLDraw.getImportentObjects(jTable, model);
  			jContentPane.add(L1, null);
  			jContentPane.add(L2, null);
  			jContentPane.add(L3, null);
  			jContentPane.add(L4, null);
  			jContentPane.add(Park, null);
  			jContentPane.add(L5, null);
- 			jContentPane.add(getJScrollBar(), null);
- 			
+ 			jContentPane.add(getJScrollBar(), null); 			
 		}
 		return jContentPane;
 	}
@@ -130,20 +133,18 @@ public class ProdPlannerUI {
 			jButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(count);
-					idOnLine.add(count);
-					taskController.addTask(count);
-					TLDraw.addTask(count);
+//					idOnLine.add(count);
+//					taskController.addTask(count);
+					TLDraw.addTask(jTable.getRowCount());
 
-					int duration = taskController.getDuration(jTable.getRowCount());
-					String earliestDate = taskController.getEarliestDate(jTable.getRowCount());
-					String latestDate = taskController.getLatestDate(jTable.getRowCount());
+					String earliestDate = TLDraw.getEarliestDate(jTable.getRowCount());
+					String latestDate = TLDraw.getLatestDate(jTable.getRowCount());
 
-					model.insertRow(jTable.getRowCount(), new Object[] {"",duration,earliestDate,latestDate,"","","Park"} );
+					model.insertRow(jTable.getRowCount(), new Object[] {"",35,earliestDate,latestDate,"","","Park"} );
 					
-					TLDraw.setData("", "" + duration, earliestDate, latestDate, "", "", (int)idOnLine.get(count));
+					//TLDraw.setData("", "" + duration, earliestDate, latestDate, "", "", (int)idOnLine.get(count));
 					
 					count++;
-					
 				}
 			});
 		}
@@ -166,10 +167,8 @@ public class ProdPlannerUI {
 					"End",
 					"L"};
 			model.setColumnIdentifiers(titles);
-		
-			jTable = new JTable(model){
 			
-				
+			jTable = new JTable(model){
 				public boolean isCellEditable(int rowIndex, int vColIndex) {
 			        if (vColIndex< 3) {
 			            return true;
@@ -179,85 +178,24 @@ public class ProdPlannerUI {
 
 				}
 			};
-			
-			
-			
-			
+
+
 			model.addTableModelListener(new javax.swing.event.TableModelListener() {
 				public void tableChanged(javax.swing.event.TableModelEvent e) {
-			        TableModel model = (TableModel)e.getSource();
-			        int a = e.getColumn();
-			        int b = e.getFirstRow();
-			        
-			        try {
-			        	
-						System.out.println(a + ", " + b + ", " + model.getValueAt(b, a));  
-						if(a==0){ 
-							
-							taskController.addCostumer(idOnLine.get(b),(String) model.getValueAt(b, a));
-							TLDraw.setName((String)model.getValueAt(b, a), jTable.getSelectedRow());
-						}
-						else if(a==1){ //duration
-							taskController.addDuration(idOnLine.get(b),(String) model.getValueAt(b, a));
-							model.setValueAt(taskController.getLatestDate(idOnLine.get(b)),b,3);
-							
-							// grym oneliner haha
-							TLDraw.setLength(Integer.parseInt((String)model.getValueAt(b, a)));
-
-						}
-						else if(a==2){ //start date
-							if (!taskController.addEarliestDate(b,(String) model.getValueAt(b, a))){
-								model.setValueAt(taskController.getEarliestDate(idOnLine.get(b)) ,b,2);
-								//TLDraw.setEarliest(Integer.parseInt((String)model.getValueAt(b, a)));
-
-							}
-							TLDraw.paintDuration(taskController.getEarliestDateInDays(selectedTask),taskController.getLatestDateInDays(selectedTask));
-
-							model.setValueAt(taskController.getLatestDate(idOnLine.get(b)) ,b,3);
-						}
-						else{
-							System.out.println("Other change " + a);
-						}
-						TLDraw.setData(
-								(String)model.getValueAt(jTable.getSelectedRow(), 0),
-								(String)model.getValueAt(jTable.getSelectedRow(), 1),
-								(String)model.getValueAt(jTable.getSelectedRow(), 2),
-								(String)model.getValueAt(jTable.getSelectedRow(), 3),
-								(String)model.getValueAt(jTable.getSelectedRow(), 4),
-								(String)model.getValueAt(jTable.getSelectedRow(), 5),
-								jTable.getSelectedRow());
-						taskController.printAll();
-//						System.out.println(taskController.getLatestDate(idOnLine.get(b)));
-
-					} catch (Exception e1) {
-						
-						//e1.printStackTrace();
-					}
-	
+			        TLDraw.tableChanged(e);
 				}
 			});
 			
 			jTable.getSelectionModel().addListSelectionListener(
-					new ListSelectionListener() {
-						public void valueChanged(ListSelectionEvent e) {
-							if (jTable.getSelectedRow() >= 0) {
-								if(TLDraw.getArraySize()>selectedTask){
-								 	TLDraw.setSelection(false, selectedTask);
-						        	selectedTask = jTable.getSelectedRow();
-						        	TLDraw.setSelection(true,selectedTask);
-
-									TLDraw.paintDuration(taskController.getEarliestDateInDays(selectedTask),taskController.getLatestDateInDays(selectedTask));
-
-
-									//x
-						        	//System.out.println("THIS IS THE SELECTED ID:" + selectedTask);
-								}
-							}
-						}
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						TLDraw.valueChanged(e, selectedTask, jTable.getSelectedRow());
 					}
+				}
 		
 			);
 			
+
 		}
 		return jTable;
 	}
@@ -288,19 +226,14 @@ public class ProdPlannerUI {
 			
 			deleteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					int markerad=jTable.getSelectedRow();
+					TLDraw.deleteEvent(e, markerad, deleteButton);
 					try{
-						int markeradRad=jTable.getSelectedRow();
-						int temp=idOnLine.get(markeradRad);
-						System.out.print("Du vill ta bort rad: " + markeradRad + " som har id: "+ temp);
-	
-						model.removeRow(markeradRad);
-						TLDraw.dropTask(markeradRad);
-						taskController.drop(markeradRad);
-						idOnLine.remove(markeradRad);
-						//TLDraw.setSelection(false, markeradRad);
-					} catch (Exception e1) {
+						model.removeRow(markerad);
+//						idOnLine.remove(markerad);
+					}
+					catch(Exception e1){
 						
-						//e1.printStackTrace();
 					}
 				}});
 			
@@ -324,18 +257,6 @@ public class ProdPlannerUI {
 			timeLinePane.setBounds(new Rectangle(135, 16, 541, 225));
 			timeLinePane.add(getTimeLineDraw(), getTimeLineDraw().getName());
 			
-			/*
-			Color bg2 = new Color(224, 224, 224);
-			Color bg1 = new Color(255, 255, 255);
-			for (int i=1; i<=5; i++) {
-				if (i%2 == 0 ) {
-					bg = bg1;
-				} else {
-					bg = bg2;
-				}
-					timeLinePane.add(getTLDraw("L"+i,bg,new Dimension(541, 31),	new Point(0,30*i), i-1)	);
-				
-			}*/
 			bg = new Color(255, 255, 255);
 			timeLinePane.add(getTLDraw("TimeLinePane",bg, new Dimension(541, 180), new Point(0,30)));
 			
@@ -391,9 +312,8 @@ public class ProdPlannerUI {
 			jScrollBar.setBounds(new Rectangle(135, 0, 540, 16));
 			jScrollBar.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
 				public void adjustmentValueChanged(java.awt.event.AdjustmentEvent e) {
-					System.out.println(jScrollBar.getValue());
-					TLDraw.moveBoard(jScrollBar.getValue());
-					TimeLineDraw.moveBoard(jScrollBar.getValue());
+					TLDraw.scrollBarAdjustments(e, jScrollBar.getValue());
+					TimeLineDraw.scrollBarAdjustments(e, jScrollBar.getValue());
 				}
 			});
 		}
