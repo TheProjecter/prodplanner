@@ -2,67 +2,67 @@
    <greenVersion="30100"/>
    <type>
       <name="=Prodplanner/src<Views{ProdPlannerUI.java[ProdPlannerUI"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="9"/>
-      <y="27"/>
+      <height="200"/>
+      <width="146"/>
+      <x="19"/>
+      <y="14"/>
    </type>
    <type>
       <name="=Prodplanner/src<Models{Task.java[Task"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="393"/>
-      <y="56"/>
+      <height="200"/>
+      <width="100"/>
+      <x="448"/>
+      <y="11"/>
    </type>
    <type>
       <name="=Prodplanner/src<Models{Box.java[Box"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="698"/>
-      <y="166"/>
+      <height="200"/>
+      <width="100"/>
+      <x="988"/>
+      <y="366"/>
    </type>
    <type>
       <name="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="200"/>
-      <y="0"/>
+      <height="200"/>
+      <width="187"/>
+      <x="711"/>
+      <y="64"/>
    </type>
    <type>
       <name="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView[EventMouseListener"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="600"/>
-      <y="0"/>
+      <height="200"/>
+      <width="265"/>
+      <x="434"/>
+      <y="329"/>
    </type>
    <type>
       <name="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView[EventMouseMotionListener"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="0"/>
-      <y="200"/>
+      <height="200"/>
+      <width="303"/>
+      <x="952"/>
+      <y="27"/>
    </type>
    <type>
       <name="=Prodplanner/src<Controllers{TimeLineRulerView.java[TimeLineRulerView"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="200"/>
-      <y="200"/>
+      <height="200"/>
+      <width="191"/>
+      <x="231"/>
+      <y="9"/>
    </type>
    <type>
       <name="=Prodplanner/src<Controllers{ProdPlannerController.java[ProdPlannerController"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="400"/>
-      <y="200"/>
+      <height="200"/>
+      <width="208"/>
+      <x="203"/>
+      <y="250"/>
    </type>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
-      <sourceType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView"/>
-      <targetType="=Prodplanner/src<Models{Box.java[Box"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
+   <type>
+      <name="=Prodplanner/src<main{Main.java[Main"/>
+      <height="200"/>
+      <width="100"/>
+      <x="42"/>
+      <y="248"/>
+   </type>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
       <sourceType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView"/>
@@ -73,14 +73,21 @@
    <relationship>
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
       <sourceType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView"/>
-      <targetType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView[EventMouseListener"/>
+      <targetType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView[EventMouseMotionListener"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView"/>
+      <targetType="=Prodplanner/src<Models{Box.java[Box"/>
       <bendpoints>
       </bendpoints>
    </relationship>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
       <sourceType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView"/>
-      <targetType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView[EventMouseMotionListener"/>
+      <targetType="=Prodplanner/src<Controllers{TimeLineView.java[TimeLineView[EventMouseListener"/>
       <bendpoints>
       </bendpoints>
    </relationship>

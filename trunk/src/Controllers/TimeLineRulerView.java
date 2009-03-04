@@ -1,14 +1,10 @@
 package Controllers;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
+import javax.swing.JPanel;
 
 public class TimeLineRulerView extends JPanel
 {
