@@ -30,8 +30,8 @@ public class TimeLineView extends JPanel
 
     private Rectangle2D rect2;
     private Rectangle2D rectangle;
-    private int lineX1=0;
-    private int lineX2=0;
+//    private int lineX1=0;
+//    private int lineX2=0;
 
     Cursor cursor;
     int s=0;//typ av grab.
@@ -102,19 +102,14 @@ public class TimeLineView extends JPanel
 	    if(k2!=-1 && k2<rects.size()){
 	    	g2d.drawLine(rects.get(k2).getLine1(), 0, rects.get(k2).getLine1(), 150);
 	    	g2d.drawLine(rects.get(k2).getLine2(), 0, rects.get(k2).getLine2(), 150);
+//	    	System.out.println(rects.get(k2).getLine1());
 		}
 	    else if(k2>=rects.size()){
 //	    	g2d.drawLine(rects.get(k2).getLine1(), 0, rects.get(k2).getLine1(), 150);
 //	    	g2d.drawLine(rects.get(k2).getLine2(), 0, rects.get(k2).getLine2(), 150);
 		}
 	    else{
-		    if(lineX1==lineX2){
-		    	g2d.drawLine(lineX1, 0, lineX1, 0);
-		    	g2d.drawLine(lineX2, 0, lineX2,0 );
-		    }else{
-		    	g2d.drawLine(lineX1, 0, lineX1, 0);
-		    	g2d.drawLine(lineX2, 0, lineX2, 0);
-		    }
+
 		}
 	}
 	private boolean mouseOverBox(int x, int y, int w, int h) {
@@ -339,9 +334,11 @@ public class TimeLineView extends JPanel
 	public void addTask(int id) {
 		// width baseras på duration
 		Task tempTask=new Task(id,"", 35);
-		Box temp=new Box(0, 5, 45, 20, id,malarBrada1, tempTask.getEarliestInDays(), tempTask.getEarliestInDays());
-		rects.add(temp);
 		tasks.add(tempTask);
+
+		Box temp=new Box(0, 5, 45, 20, id,malarBrada1, tempTask.getEarliestInDays(), tempTask.getLatestInDays()*5);
+		System.out.println("Earliest in days: " + tempTask.getEarliestInDays());
+		rects.add(temp);
 	}
 
 	public void fixIntersect(int i, int k){
@@ -419,8 +416,10 @@ public class TimeLineView extends JPanel
 	{
 		int x1=getEarliestDateInDays(selectedTask);
 		int x2=getLatestDateInDays(selectedTask);
-		lineX1=x1*5-1;
-		lineX2=x2*5-1;
+		rects.get(selectedTask).setLine1(x1);
+		rects.get(selectedTask).setLine2(x2);
+
+		
 		rects.get(k2).setDuration(x1*5-1,x2*5-1);
 		repaint();
 	}
@@ -442,7 +441,6 @@ public class TimeLineView extends JPanel
 	}
 	public void setDuration(int i, int duration) {
 		tasks.get(i).setDuration(duration);
-		lineX2=lineX1-1+duration*5;
 		rects.get(k2).setLine2(duration);
 		repaint();
 	}

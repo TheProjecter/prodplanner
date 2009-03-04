@@ -20,8 +20,8 @@ public class Box extends Rectangle2D{
 	public String namn, dur, earliest, latest, start, end;
 	private Color color;
 	private boolean isSelected = false;
-    private int lineX1=0;
-    private int lineX2=0;
+    private int lineX1;
+    private int lineX2;
     int line;
 	
     public Box(double p, double q, double width, double height, int id, int malarBrada1, int i, int j) {
@@ -382,6 +382,10 @@ public class Box extends Rectangle2D{
 		}
 		else{}
 		return 0;
+	}
+
+	public void setLine1(int x1) {
+		lineX1=x1;
 	}
 }
 	
