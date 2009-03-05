@@ -38,7 +38,7 @@ public class TimeLineRulerView extends JPanel
 		g.translate(malarBrada1,0);
 		malarBrada2=malarBrada1;
 
-		g.drawLine(0, 30, getWidth(), 30);
+		g.drawLine(-300, 29, 1050, 29);
 		//System.out.println(getWidth());
 		int w = 0;
 		for (int i =0; i < 1050; i++) {

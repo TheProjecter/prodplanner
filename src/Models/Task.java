@@ -34,7 +34,7 @@ public class Task {
 	 */
     public Task(int id, String costumer, int duration) {
     	this.id=id;
-    	this.costumer= costumer;
+    	this.costumer= "" + id;
     	this.duration= duration;
     	this.line=0;
         earliestDate = new GregorianCalendar();
@@ -44,7 +44,6 @@ public class Task {
         startDate=0;
         endDate=0;
 
-//    	System.out.println("start1 " + startDate.get(Calendar.DAY_OF_MONTH) + " " + (startDate.get(Calendar.MONTH)+1)  + " " + startDate.get(Calendar.YEAR));
     }
 	/**
 	 * Construktor.
@@ -183,7 +182,6 @@ public class Task {
 		long a =getEarliestDateInMillis()/(1000*60*60*24);
 		long b =new GregorianCalendar().getTimeInMillis()/(1000*60*60*24);
 		GregorianCalendar temp=new GregorianCalendar();
-		System.out.println((int) a-(int) b);
 		
 		
 		return (int) (a-b)+1;// + 1 för timmar osv.
@@ -192,7 +190,6 @@ public class Task {
 		long a =getLatestDateInMillis()/(1000*60*60*24);
 		long b =new GregorianCalendar().getTimeInMillis()/(1000*60*60*24);
 
-		System.out.println(a-b);
 		return (int) (a-b);
 	}
 	public void setTimeLine(int temp) {

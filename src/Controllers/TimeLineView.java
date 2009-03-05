@@ -52,6 +52,7 @@ public class TimeLineView extends JPanel
 		setBackground(bg);
 		addMouseListener(new EventMouseListener());
 		addMouseMotionListener(new EventMouseMotionListener());
+
 	}
 	@Override public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -73,9 +74,35 @@ public class TimeLineView extends JPanel
 					g2d.setColor(new Color(255,0,0));
 				} else {
 					g2d.setColor(rects.get(i).getColor());
-				}					    
+				}		
+				
 			    g2d.fill(rects.get(i).getRect());
-			   
+
+				
+				g2d.setColor(new Color(90,90,90));
+				if((int) rects.get(i).p>(int) rects.get(i).lineX2 || (int) rects.get(i).p+rects.get(i).width<(int) rects.get(i).lineX1){
+					g2d.fill(rects.get(i).getRect());
+
+				}
+				else{
+					if((int) rects.get(i).p<(int) rects.get(i).lineX1){
+						if((rects.get(i).p+rects.get(i).width)>rects.get(i).lineX2){
+							g2d.fillRect((int) rects.get(i).lineX2, (int) rects.get(i).q, (int) ((int) rects.get(i).width+rects.get(i).p-rects.get(i).lineX2),20 );
+						}
+						
+						g2d.fillRect((int) rects.get(i).p, (int) rects.get(i).q, ((int) rects.get(i).lineX1-(int) rects.get(i).p),20 );
+						
+					}
+	
+					if(rects.get(i).p+rects.get(i).width>rects.get(i).lineX2){
+						g2d.fillRect((int) rects.get(i).lineX2, (int) rects.get(i).q, (int) ((int) rects.get(i).width+rects.get(i).p-rects.get(i).lineX2),20 );
+					}
+				}
+				
+				g2d.setColor(rects.get(i).getColor());
+			    
+			    
+			    
 			    // draws a shadow effect behind the text.
 			    g2d.setColor(new Color(0,0,0));
 			    g2d.drawString(rects.get(i).getNamn(),(int)rects.get(i).getRect().getX()+11,(int)rects.get(i).getRect().getY()+16);
@@ -107,7 +134,7 @@ public class TimeLineView extends JPanel
 	    if(k2!=-1 && k2<rects.size()){
 	    	g2d.drawLine(rects.get(k2).getLine1(), 0, rects.get(k2).getLine1(), 150);
 	    	g2d.drawLine(rects.get(k2).getLine2(), 0, rects.get(k2).getLine2(), 150);
-//	    	System.out.println(rects.get(k2).getLine1());
+
 		}
 	    else if(k2>=rects.size()){
 //	    	g2d.drawLine(rects.get(k2).getLine1(), 0, rects.get(k2).getLine1(), 150);
@@ -119,7 +146,6 @@ public class TimeLineView extends JPanel
 	}
 	private boolean mouseOverBox(int x, int y, int w, int h) {
 		if ( ( (this.x < x+w)&&(this.x > x)) && ((this.y > y) && (this.y < y+h))) {
-//			System.out.println("X = " + x + " Y = " + y + " w = " + w + " h = " + h);	  
 			return true;
 		}
 		return false;
@@ -134,6 +160,8 @@ public class TimeLineView extends JPanel
     
    public void drawInfoBox(Graphics2D g2d, int x, int y, int id)
    {
+	   x+=5;
+	   y+=2;
 	   int w, h;
 	   String cust , dur, earliest, latest, start, end;
 	   w = 120;
@@ -148,9 +176,10 @@ public class TimeLineView extends JPanel
 	   //y = x = 10; // this is gonna be dynamic
 	  // cust = rects.get(id).getNamn();
 	   
-	   if (y > 90) {
+	   if (y > 88) {
 		// we've reached a point where we need to draw
 		   // the box upwards.
+		   y-=6;
 		   y = y - h;
 	   }
 	   g2d.setColor(new Color(255,255,204));
@@ -168,9 +197,8 @@ public class TimeLineView extends JPanel
     
     class EventMouseListener extends MouseAdapter {
     	public void mousePressed(MouseEvent event) {
-    		int x = event.getX()-malarBrada1;
-//    		System.out.println("Klick= " + x);
-    		int y = event.getY();
+    		x = event.getX()-malarBrada1;
+    		y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
        	  		for (int i =0; i<rects.size();i++){
        	  			if(rects.get(i)!=null){
@@ -199,20 +227,20 @@ public class TimeLineView extends JPanel
        	  			}
        	  		}
     	}
-    	public void mouseReleased(MouseEvent event) {
-	   	  
-//    		int x = event.getX()-malarBrada1;
-////    		System.out.println("Klick= " + x);
-//    		int y = event.getY();
+	    public void mouseReleased(MouseEvent event) {
+			repaint();
+			System.out.println(rects.size());
+//			egenWait();
+    		x = event.getX()-malarBrada1;
+    		y = event.getY();
 //       	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
-    		System.out.println("x= " + x + " y " + y);
        	  	if(rects.size()>0){
+       	  		
 //   	  			if (rects.get(k2).getRect().intersects(r)) {
    	  				rectangle = rects.get(k2).getRect().getBounds2D();
    	  				rect2 = rects.get(k2).getRect();
 	   	  			rects.get(k2).centerWidth();
    	  				rects.get(k2).centerQ();
-//	   	  				System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
    	  				if(s==1){
    	   	  				rects.get(k2).centerP();
 
@@ -223,23 +251,42 @@ public class TimeLineView extends JPanel
    	  				}
 	   	  			else{
 	    				for (int j=0; j<rects.size();j++){
+
 	    					if(j!=k2){
 		    					if (rects.get(j).getRect().contains(x, y)){
 		    						//Försöker hjälpa den rekursiva funktionen
 		    						int startp=(int) rects.get(j).getP();
-//		    						/System.out.println((int) (rects.get(k2).getP()));
+
+
 		    						rects.get(k2).setP(startp);
+		    						tasks.get(k2).setStartDate(startp);
+
+		    						int temp= (int)(rects.get(k2).getP());
+
+		    						System.out.println(" " +temp+" " + startp);
 		    						rects.get(j).setP(startp+(int) rects.get(k2).getWidth());
-		    						rects.get(k2).setP(rects.get(j).getP());
-		    						fixIntersect(k2,2);
-		    						if ((int) (rects.get(k2).getP())==startp){
-		    							System.out.println("det Gick bra");
+		    						tasks.get(k2).setStartDate(startp);
+		    						tasks.get(j).setStartDate(startp+1);
+//		    						rects.get(k2).setP(rects.get(j).getP());
+		    						temp= (int)(rects.get(k2).getP());
+
+	    							System.out.println(" " + temp+ " " + startp);
+
+		    						repaint();
+//		    						egenWait();
+		    						fixIntersect(k2,1);
+		    					
+		    						temp= (int)(rects.get(k2).getP());
+
+//		    						System.out.println("hahahhahahmnaugaeug " + j + " " + k2 + " " + rects.get(k2).getP() + " " + rects.get(j).getP());
+		    						if (temp==startp){
+		    							System.out.println("det Gick bra " + temp+ " " + startp);
 		    							System.out.println((int) (rects.get(k2).getP()));
 		    							System.out.println((int) (startp));
 		    						}else {
 			    						rects.get(k2).setP(startp);
 			    						fixIntersect(k2,2);
-		    							System.out.println("det Gick inte bra");
+		    							System.out.println("det Gick inte bra " + temp+ " " + startp);
 		    						}
 		    					}
 	    					}
@@ -278,8 +325,8 @@ public class TimeLineView extends JPanel
 // 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
     	}
     	public void mouseClicked(MouseEvent event) {
-    		int x = event.getX()-malarBrada1;
-    		int y = event.getY();
+    		x = event.getX()-malarBrada1;
+    		y = event.getY();
        	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);	
    	  		for (int i =0; i<rects.size();i++){
    	  			if(rects.get(i)!=null){
@@ -308,8 +355,7 @@ public class TimeLineView extends JPanel
     	}
     	class EventMouseMotionListener extends MouseMotionAdapter {
     		public void mouseDragged(MouseEvent event) {
-    			int x = event.getX()-malarBrada1;
-//        		System.out.println("Klick= " + x);
+    			x = event.getX()-malarBrada1;
 				if(rects.size()>0){
 //    				if (rects.get(k2).getRect().contains(x, event.getY())) {
 		    			rectangle = null;
@@ -335,13 +381,65 @@ public class TimeLineView extends JPanel
 	    public void mouseMoved(MouseEvent event) {
 	    	cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 	    	x = event.getX()-malarBrada1;
-//    		System.out.println("Klick= " + x);
 	    	y = event.getY();
 	    }
+
     }
 
+
+
+	public void fixIntersect(int i, int k){
+		int numberOfIntersects=0;
+		int firstHit=-1;
+		for (int j =0; j<rects.size();j++){
+			if(j!=i && rects.get(i).getRect()!=null && rects.get(j).getRect()!=null){
+				if(rects.get(i).getRect().intersects(rects.get(j).getRect())){
+//					if(k==2){
+//						rects.get(i).setP(rects.get(j).getP());
+//						rects.get(j).setP((int) (rects.get(i).getP()+rects.get(i).getWidth()));
+//						//rects.get(j).addP(numberOfIntersects*5);
+//						if(numberOfIntersects==0){
+//							firstHit=j;
+//							k=2;
+//						}
+//					}
+					if(k>0){
+//						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
+						//rects.get(j).addP(numberOfIntersects*5);
+							rects.get(j).setP((int) (rects.get(i).getP()+rects.get(i).getWidth()+1));
+//							k=tasks.get(j).startDate;
+							if(numberOfIntersects==0){
+								firstHit=j;
+							}
+				
+					}
+					else{
+						rects.get(j).setP((int)((rects.get(i).getP()-rects.get(j).getWidth())));
+						//rects.get(j).addP(numberOfIntersects*-5);
+						if(numberOfIntersects==0){
+							firstHit=j;
+						}
+					}
+					numberOfIntersects++;
+				}
+			}
+		}
+		if(firstHit!=-1){
+			fixIntersect(firstHit,k);
+		}
+	}
+	
+	
+	private void egenWait() {
+		double i =0;	
+		do{
+			System.out.println(i++);
+		}while(i<10000);
+		
+	}
 	public void addTask(int id) {
 		// width baseras på duration
+		
 		tasks.size();
 		Task tempTask=new Task(id,"", 35);
 		tasks.add(tempTask);
@@ -352,53 +450,6 @@ public class TimeLineView extends JPanel
 		rects.add(temp);
 	}
 
-	public void fixIntersect(int i, int k){
-		int numberOfIntersects=0;
-		int firstHit=-1;
-		for (int j =0; j<rects.size();j++){
-			if(j!=i && rects.get(i).getRect()!=null && rects.get(j).getRect()!=null){
-				if(rects.get(i).getRect().intersects(rects.get(j).getRect())){
-					if(k==2){
-						rects.get(i).setP(rects.get(j).getP());
-						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
-						rects.get(j).addP(numberOfIntersects*5);
-						if(numberOfIntersects==0){
-							firstHit=j;
-							k=1;
-						}
-					}
-					else if(k>0){
-						rects.get(j).addP((int) (rects.get(i).getP()+rects.get(i).getWidth()-rects.get(j).getP()));
-						//rects.get(j).addP(numberOfIntersects*5);
-
-						if(numberOfIntersects==0){
-							firstHit=j;
-						}
-					}
-					else{
-						rects.get(j).setP((int)((rects.get(i).getP()-rects.get(j).getWidth())));
-						//rects.get(j).addP(numberOfIntersects*-5);
-						if(numberOfIntersects==0){
-							firstHit=j;
-						}
-					}
-					numberOfIntersects++;
-					//System.out.println("2. ID " + rects.get(j).getID() + ", antal steg " + 	15*k);
-				}
-			}
-		}
-		if(firstHit!=-1){
-			fixIntersect(firstHit,k);
-			//System.out.println("en rekursiv operation: " + numberOfIntersects);
-		}
-	}
-
-//	public void setData(String name, String dur, String e, String l, String s, String ed, int selectedTask)
-//	{
-//		System.out.println("SetData: " + name);
-//		rects.get(selectedTask).setData(name, dur, e, l, s, ed);
-//		repaint();
-//	}
 	public void setCostumer(int id,String name)
 	{
 		rects.get(id).setName(name);
@@ -474,7 +525,6 @@ public class TimeLineView extends JPanel
         
         try {
         	
-//			System.out.println(a + ", " + b + ", " + model.getValueAt(b, a));  
 			if(a==0){ 
 				setCostumer(b,(String)model.getValueAt(b, a));
 			}
@@ -494,7 +544,6 @@ public class TimeLineView extends JPanel
 				model.setValueAt(getLatestDate(b) ,b,3);
 			}
 			else{
-				//System.out.println("Other change " + a);
 			}
 
 		} catch (Exception e1) {
