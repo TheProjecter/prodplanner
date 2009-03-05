@@ -13,7 +13,7 @@ public class Box extends Rectangle2D{
 	static final int DAY=5;
 	
 	public double p;
-	double q;
+	public double q;
 	public double width;
 	double height;
 	int p1, p2, q1, q2;
@@ -22,14 +22,14 @@ public class Box extends Rectangle2D{
 	public String namn, dur, earliest, latest, start, end;
 	private Color color;
 	private boolean isSelected = false;
-    private int lineX1;
-    private int lineX2;
+    public int lineX1;
+    public int lineX2;
     int line;
 	
     public Box(double p, double q, double width, double height, int id, int malarBrada1, int i, int j) {
     	line=0;
     	this.id=id;
-		this.namn= "";
+		this.namn= ""+id;
     	k1=0;
     	k2=0;
     	this.p=45*id;
@@ -146,9 +146,7 @@ public class Box extends Rectangle2D{
 
 
 	public void centerP() {
-//		System.out.println("Before P: " + p);
 		if(p%DAY==0){
-			System.out.println(p);
 		}
 		else if(p%DAY>DAY/2){
   			 p=p+(DAY-p%DAY);
@@ -156,10 +154,8 @@ public class Box extends Rectangle2D{
   			 p=p-(p%DAY);
   		 }
 
-//		System.out.println("Final P: " + p);	
 	}
 	public void centerWidth() {
-//		System.out.println("Before W: " + width);
 
 		if(width%DAY==0){
 			
@@ -173,10 +169,8 @@ public class Box extends Rectangle2D{
 //		if(width==0){
 //			width=15;
 //		}
-//		System.out.println("Final W: " + width);
 	}
 	public void centerQ() {
-//		System.out.println("Before W: " + width);
 		if(q%30==0){
 			
 		}
@@ -191,7 +185,6 @@ public class Box extends Rectangle2D{
 			q=155;
 			
 		}
-//		System.out.println("Final W: " + width);
 
 	}
 
@@ -200,15 +193,12 @@ public class Box extends Rectangle2D{
 		p2 = x;
 		p = p + p2 - p1;
 		width=width + (p1-p2);
-		//System.out.println(id + " Left");
-//		System.out.println(width);
 		p1 = p2;
 		k1=-1;
 		k2=-1;
 		if(width<9){
 			width=10;
 		}
-       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);	
 	}
 
 
@@ -222,9 +212,7 @@ public class Box extends Rectangle2D{
 		if(width<9){
 			width=10;
 		}
-       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
 
-//		System.out.println(width);
 
 	}
 	
@@ -241,8 +229,6 @@ public class Box extends Rectangle2D{
 		k2=k1;
        	k1= (p2-p1);
        	
-       	//System.out.println("p2-p1: " + k1 + ", k2:" + k2);
-//       	System.out.println("width: " + width);
 		p1 = p2;
 		q = q + q2 - q1;     // bort-kommenterat för att "tasken ska ligga på en linje och inte flyta runt i y-led
        	q1 = q2;
@@ -294,16 +280,12 @@ public class Box extends Rectangle2D{
 
 	public int getAbs() {
 		if(k2!=0 && k2 >=0){
-			//System.out.println("1. k1=" + k1);
 			return 1;
 		}else if(k2!=0 && k2<0){
-			//System.out.println("2. k1=" + k1);
 			return -1;
 		}else if(k1>=0){
-			//System.out.println("3. k2=" + k2);
 			return 1;
 		}
-		//System.out.println("4. k1=" + k1 + "k2=" + k2);
 		return -1;
 	}
 	public int getID() {

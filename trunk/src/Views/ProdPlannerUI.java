@@ -137,6 +137,11 @@ public class ProdPlannerUI {
 			jButton.setText("New");
 			jButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					int asdfasdf=0;
+					do{asdfasdf++;
+						
+						
+					
 					System.out.println(count);
 //					idOnLine.add(count);
 //					taskController.addTask(count);
@@ -150,6 +155,7 @@ public class ProdPlannerUI {
 					//TLDraw.setData("", "" + duration, earliestDate, latestDate, "", "", (int)idOnLine.get(count));
 					
 					count++;
+					}while(asdfasdf<5);
 				}
 			});
 		}
