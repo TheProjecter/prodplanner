@@ -155,7 +155,7 @@ public class ProdPlannerUI {
 					//TLDraw.setData("", "" + duration, earliestDate, latestDate, "", "", (int)idOnLine.get(count));
 					
 					count++;
-					}while(asdfasdf<5);
+					}while(asdfasdf<1);
 				}
 			});
 		}
