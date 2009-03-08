@@ -234,7 +234,7 @@ public class TimeLineView extends JPanel
     		x = event.getX()-malarBrada1;
     		y = event.getY();
 //       	  	Rectangle r = new Rectangle(x - 1, y - 1,2 , 2);
-       	  	if(rects.size()>0){
+       	  	if(rects.size()>0 && k2!=-1){
        	  		
 //   	  			if (rects.get(k2).getRect().intersects(r)) {
    	  				rectangle = rects.get(k2).getRect().getBounds2D();
@@ -301,9 +301,7 @@ public class TimeLineView extends JPanel
 	   	  			}
    	  			
        	  	}
-       	  	s=0;
-       	  	s3=0;
-       	  	s2=0;
+
        	  	for(int k =0; k<rects.size();k++){
        	  		tasks.get(k).setStartDate((int) rects.get(k).p);
        	  		tasks.get(k).setEndDate((int) (rects.get(k).p+rects.get(k).width));
@@ -321,6 +319,10 @@ public class TimeLineView extends JPanel
            	  		model.setValueAt(lineTemp,k,6);
        	  		}
        	  	}
+       	  	s=-1;
+       	  	s3=0;
+       	  	s2=0;
+       	  	k2=0;
        	  	
 // 			System.out.println("s " + s + ", s2 " + s2 + " s3 " + s3);
     	}
@@ -356,7 +358,7 @@ public class TimeLineView extends JPanel
     	class EventMouseMotionListener extends MouseMotionAdapter {
     		public void mouseDragged(MouseEvent event) {
     			x = event.getX()-malarBrada1;
-				if(rects.size()>0){
+				if(rects.size()>0 && k2!=-1){
 //    				if (rects.get(k2).getRect().contains(x, event.getY())) {
 		    			rectangle = null;
 		    			rect2 = rects.get(k2).getRect();
